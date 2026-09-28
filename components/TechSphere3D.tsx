@@ -126,7 +126,17 @@ export default function TechSphere3D({ className = "" }: { className?: string })
 
   // Animation Loop with inertia and auto-spin
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    let frameCount = 0;
+
     const animate = () => {
+      frameCount++;
+      // On mobile, skip every other frame (30fps instead of 60fps)
+      if (isMobile && frameCount % 2 !== 0) {
+        animFrameIdRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       if (!isDraggingRef.current) {
         if (!isHoveringNodeRef.current) {
           rotationRef.current.y += velocityRef.current.y;
@@ -201,8 +211,8 @@ export default function TechSphere3D({ className = "" }: { className?: string })
       {/* Ambient background lighting */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(128,0,32,0.12)_0%,transparent_70%)] pointer-events-none" />
 
-      {/* Responsive orbital rings matching sphere radius */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30 dark:opacity-20">
+      {/* Responsive orbital rings — desktop only (decorative, skip on mobile) */}
+      <div className="absolute inset-0 items-center justify-center pointer-events-none opacity-30 dark:opacity-20 hidden sm:flex">
         <div
           className="rounded-full border border-dashed border-accent/40 animate-[spin_40s_linear_infinite]"
           style={{ width: `${ringSize}px`, height: `${ringSize}px` }}

@@ -6,21 +6,23 @@ import Image from "next/image";
 export default function HeroAvatar() {
   return (
     <div className="relative w-full max-w-[420px] lg:max-w-[480px] mx-auto flex items-center justify-center select-none">
-      {/* Ambient accent glow behind the person */}
+      {/* Ambient accent glow — animated on desktop, static on mobile */}
       <motion.div
         animate={{ scale: [1, 1.08, 1], opacity: [0.35, 0.6, 0.35] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-[80%] aspect-square rounded-full bg-accent/25 blur-[100px] pointer-events-none"
+        className="absolute w-[80%] aspect-square rounded-full bg-accent/25 blur-[80px] pointer-events-none hidden sm:block"
       />
+      {/* Static mobile glow */}
+      <div className="absolute w-[80%] aspect-square rounded-full bg-accent/20 blur-[60px] pointer-events-none sm:hidden" />
 
-      {/* Secondary subtle glow */}
+      {/* Secondary glow — desktop only */}
       <motion.div
         animate={{ scale: [1.05, 1, 1.05], opacity: [0.2, 0.35, 0.2] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-[65%] aspect-square rounded-full bg-emerald-500/15 blur-[80px] -translate-y-10 translate-x-6 pointer-events-none"
+        className="absolute w-[65%] aspect-square rounded-full bg-emerald-500/15 blur-[60px] -translate-y-10 translate-x-6 pointer-events-none hidden sm:block"
       />
 
-      {/* Floating portrait with pure transparent background */}
+      {/* Floating portrait */}
       <motion.div
         animate={{ y: [0, -14, 0] }}
         transition={{
@@ -34,10 +36,12 @@ export default function HeroAvatar() {
         <motion.div
           animate={{ scale: [1, 0.9, 1], opacity: [0.35, 0.18, 0.35] }}
           transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-8 bg-accent/25 blur-2xl rounded-full pointer-events-none"
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-8 bg-accent/25 blur-2xl rounded-full pointer-events-none hidden sm:block"
         />
+        {/* Static mobile shadow */}
+        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-8 bg-accent/20 blur-xl rounded-full pointer-events-none sm:hidden" />
 
-        {/* The portrait — directly loaded from public/images/avatar.jpg */}
+        {/* Portrait image */}
         <div
           className="relative w-full max-w-[380px] lg:max-w-[440px] h-[480px] sm:h-[520px] lg:h-[560px]"
           style={{

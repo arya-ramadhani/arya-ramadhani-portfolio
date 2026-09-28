@@ -34,6 +34,9 @@ export default function ParticleField() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Disable entirely on mobile — O(n²) connection loop is too heavy
+    if (window.innerWidth < 768) return;
+
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
 
