@@ -3,44 +3,24 @@
 import { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import SectionReveal from "./SectionReveal";
-import { specializations, supportingSkills } from "@/data/skills";
 import {
-  Globe,
-  Cpu,
-  Brain,
-  Palette,
-  Code,
-  Layers,
-  Sparkles,
-  CheckCircle2,
-} from "lucide-react";
+  specializations,
+  type Specialization,
+} from "@/data/skills";
+import { TechIcon } from "./TechIcons";
+import TechSphere3D from "./TechSphere3D";
+import { Terminal, Sparkles } from "lucide-react";
 
-// Featured individual core tools highlighted in prompt
-const coreTechList = [
-  { name: "TypeScript", category: "Web & Mobile", proficiency: "Advanced", icon: "TS" },
-  { name: "JavaScript", category: "Web & Mobile", proficiency: "Advanced", icon: "JS" },
-  { name: "React", category: "Web & Mobile", proficiency: "Advanced", icon: "⚛" },
-  { name: "Next.js", category: "Web & Mobile", proficiency: "Advanced", icon: "▲" },
-  { name: "HTML & CSS", category: "Web & Mobile", proficiency: "Advanced", icon: "HTML" },
-  { name: "Laravel", category: "Web & Mobile", proficiency: "Advanced", icon: "LV" },
-  { name: "PHP", category: "Web & Mobile", proficiency: "Advanced", icon: "PHP" },
-  { name: "MySQL", category: "Web & Mobile", proficiency: "Advanced", icon: "SQL" },
-  { name: "Python", category: "AI & Vision", proficiency: "Advanced", icon: "PY" },
-  { name: "OpenCV & OCR", category: "AI & Vision", proficiency: "Intermediate", icon: "CV" },
-  { name: "ESP32", category: "IoT", proficiency: "Advanced", icon: "ESP" },
-  { name: "Arduino", category: "IoT", proficiency: "Advanced", icon: "ARD" },
-  { name: "Figma", category: "UI/UX Design", proficiency: "Advanced", icon: "FIG" },
-  { name: "Git", category: "Dev Tools", proficiency: "Advanced", icon: "GIT" },
-  { name: "GitHub", category: "Dev Tools", proficiency: "Advanced", icon: "GH" },
-];
+// Specialization brand colors & accents
+const specColors: Record<string, { brand: string; glow: string; bg: string }> = {
+  "01": { brand: "#3178C6", glow: "rgba(49, 120, 198, 0.2)", bg: "rgba(49, 120, 198, 0.08)" },
+  "02": { brand: "#00979C", glow: "rgba(0, 151, 156, 0.2)", bg: "rgba(0, 151, 156, 0.08)" },
+  "03": { brand: "#EA4335", glow: "rgba(234, 67, 53, 0.2)", bg: "rgba(234, 67, 53, 0.08)" },
+  "04": { brand: "#A855F7", glow: "rgba(168, 85, 247, 0.2)", bg: "rgba(168, 85, 247, 0.08)" },
+};
 
-function InteractiveTiltCard({
-  spec,
-  index,
-}: {
-  spec: (typeof specializations)[0];
-  index: number;
-}) {
+// Compact, modern 3D tilt card for specializations (no "domain" text, all have official icons)
+function SpecializationCard({ spec, index }: { spec: Specialization; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [hoverCoord, setHoverCoord] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
@@ -48,9 +28,15 @@ function InteractiveTiltCard({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const springConfig = { damping: 20, stiffness: 220 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), springConfig);
+  const springConfig = { damping: 22, stiffness: 240 };
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [5, -5]), springConfig);
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-5, 5]), springConfig);
+
+  const colors = specColors[spec.number] || {
+    brand: "#800020",
+    glow: "rgba(128, 0, 32, 0.2)",
+    bg: "rgba(128, 0, 32, 0.08)",
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -82,151 +68,136 @@ function InteractiveTiltCard({
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="relative p-6 lg:p-8 rounded-2xl border border-border/80 bg-bg-alt/90 backdrop-blur-md transition-shadow duration-300 hover:shadow-2xl hover:shadow-accent/15 group overflow-hidden"
+      className="relative p-5 rounded-2xl border border-border/80 bg-bg-alt/85 dark:bg-bg-alt/70 backdrop-blur-md transition-all duration-300 hover:shadow-xl group overflow-hidden flex flex-col justify-between"
     >
       {/* Dynamic Cursor Light Reflection */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-2xl"
         style={{
-          background: `radial-gradient(circle 280px at ${hoverCoord.x}% ${hoverCoord.y}%, rgba(128, 0, 32, 0.12), transparent 70%)`,
+          background: `radial-gradient(circle 240px at ${hoverCoord.x}% ${hoverCoord.y}%, ${colors.glow}, transparent 70%)`,
           opacity: isHovered ? 1 : 0,
         }}
       />
 
-      <div className="relative z-10 flex items-start gap-4">
-        <span className="font-mono text-sm text-accent/70 font-semibold px-2 py-1 rounded bg-accent/10 border border-accent/20">
-          {spec.number}
-        </span>
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2.5">
-            <div className="w-9 h-9 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
-              <spec.icon className="w-5 h-5" />
+      <div className="relative z-10">
+        {/* Header: Number & Title with Icon */}
+        <div className="flex items-center justify-between gap-3 mb-2.5">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 shadow-xs flex-shrink-0"
+              style={{
+                backgroundColor: isHovered ? colors.brand : colors.bg,
+                color: isHovered ? "#FFFFFF" : colors.brand,
+                border: `1px solid ${colors.brand}40`,
+              }}
+            >
+              <spec.icon className="w-4 h-4" />
             </div>
-            <h3 className="text-xl font-bold text-text group-hover:text-accent transition-colors duration-200">
+            <h3 className="text-base font-bold text-text group-hover:text-text transition-colors duration-200">
               {spec.title}
             </h3>
           </div>
 
-          <p className="text-sm text-text-secondary mb-5 leading-relaxed">
-            {spec.description}
-          </p>
+          <span
+            className="font-mono text-[11px] font-bold px-2 py-0.5 rounded border transition-colors duration-200"
+            style={{
+              color: colors.brand,
+              borderColor: `${colors.brand}35`,
+              backgroundColor: colors.bg,
+            }}
+          >
+            {spec.number}
+          </span>
+        </div>
 
-          <div className="flex flex-wrap gap-2 pt-2 border-t border-border/50">
-            {spec.technologies.map((tech) => (
+        {/* Concise Description */}
+        <p className="text-xs text-text-secondary mb-3.5 line-clamp-2 leading-relaxed">
+          {spec.description}
+        </p>
+
+        {/* Official Technology Badges: EVERY single tech has its authentic SVG icon */}
+        <div className="pt-3 border-t border-border/50">
+          <div className="flex flex-wrap gap-1.5">
+            {spec.technologies.map((techName) => (
               <span
-                key={tech}
-                className="px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-bg border border-border/80 text-text-secondary group-hover:border-accent/30 group-hover:text-text transition-colors duration-200"
+                key={techName}
+                className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-mono font-medium rounded-md bg-bg/90 border border-border/80 text-text-secondary group-hover:border-border/90 group-hover:text-text transition-all duration-200 hover:scale-105 hover:border-accent/40 shadow-xs"
               >
-                {tech}
+                <TechIcon name={techName} size={13} className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>{techName}</span>
               </span>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Bottom glowing accent edge */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-0.5 transition-opacity duration-300 rounded-b-2xl"
+        style={{
+          backgroundColor: colors.brand,
+          opacity: isHovered ? 1 : 0,
+        }}
+      />
     </motion.div>
   );
 }
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
-
-  const categories = ["All", "Web & Mobile", "IoT", "AI & Vision", "UI/UX Design", "Dev Tools"];
-
-  const filteredCoreTech =
-    activeCategory === "All"
-      ? coreTechList
-      : coreTechList.filter((item) => item.category === activeCategory);
-
   return (
-    <section id="skills" className="py-24 lg:py-32 bg-bg-alt/40 relative overflow-hidden">
-      {/* Subtle background ambient mesh */}
-      <div className="absolute top-1/3 -left-32 w-80 h-80 bg-accent/5 rounded-full blur-[140px] pointer-events-none" />
+    <section id="skills" className="py-16 lg:py-20 bg-bg-alt/30 relative overflow-hidden">
+      {/* Background ambient mesh glows */}
+      <div className="absolute top-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* ── Compact Header (Fits on one page) ── */}
         <SectionReveal>
-          <div className="space-y-4 mb-16">
-            <span className="label text-accent">Skills &amp; Expertise</span>
-            <h2 className="heading-lg text-text">Technical Competencies</h2>
-            <p className="body-lg text-text-secondary max-w-xl">
-              Proven technologies, frameworks, and engineering disciplines practiced across
-              full-stack production and research environments.
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 pb-4 border-b border-border/60">
+            <div>
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono font-semibold uppercase tracking-wider mb-2">
+                <Terminal className="w-3.5 h-3.5" />
+                Technical Arsenal &amp; Capabilities
+              </div>
+              <h2 className="heading-md lg:heading-lg text-text">Skills &amp; Technology Stack</h2>
+            </div>
+            <p className="text-xs font-mono text-text-muted max-w-md">
+              Full-stack web architectures, IoT microcontrollers, and computer vision systems.
             </p>
-            <div className="accent-line" />
           </div>
         </SectionReveal>
 
-        {/* 1. Primary Specialization Cards with 3D Tilt */}
-        <div className="grid md:grid-cols-2 gap-6 mb-20">
-          {specializations.map((spec, index) => (
-            <SectionReveal key={spec.number} delay={index * 0.1}>
-              <InteractiveTiltCard spec={spec} index={index} />
-            </SectionReveal>
-          ))}
-        </div>
-
-        {/* 2. Interactive Technology Grid (Section 7 specific requirement) */}
+        {/* ── 70% Left: Core Engineering (Cards) & 30% Right: 3D Floating Logos Cosmos ── */}
         <SectionReveal>
-          <div className="p-8 rounded-3xl border border-border/80 bg-bg/80 backdrop-blur-xl shadow-xl shadow-black/5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-              <div>
-                <h3 className="text-xl font-bold text-text flex items-center gap-2">
-                  <Code className="w-5 h-5 text-accent" />
-                  Core Technology Stack
-                </h3>
-                <p className="text-xs font-mono text-text-muted mt-1">
-                  Hover cards for category and proficiency tooltips
-                </p>
+          <div className="grid grid-cols-1 lg:grid-cols-10 gap-5 items-stretch">
+            {/* 70% Left: Core Engineering (2x2 Compact Cards) */}
+            <div className="lg:col-span-7 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-3 h-6">
+                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-accent" />
+                  Core Engineering &amp; Architecture
+                </span>
+                <span className="text-[11px] font-mono text-text-muted">04 Specializations</span>
               </div>
 
-              {/* Filter Pills */}
-              <div className="flex flex-wrap gap-1.5">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`px-3 py-1 rounded-full text-xs font-mono transition-all duration-200 ${
-                      activeCategory === cat
-                        ? "bg-accent text-white font-semibold shadow-sm"
-                        : "bg-bg-alt text-text-secondary hover:text-text border border-border"
-                    }`}
-                  >
-                    {cat}
-                  </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+                {specializations.map((spec, index) => (
+                  <SpecializationCard key={spec.number} spec={spec} index={index} />
                 ))}
               </div>
             </div>
 
-            {/* Grid of Interactive Tech Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
-              {filteredCoreTech.map((tech, i) => (
-                <motion.div
-                  key={tech.name}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2, delay: i * 0.02 }}
-                  whileHover={{ y: -4, scale: 1.02 }}
-                  className="p-4 rounded-xl border border-border bg-bg-alt/90 hover:border-accent/40 hover:bg-bg-elevated transition-all duration-200 group relative cursor-pointer"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center font-mono text-xs font-bold text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                      {tech.icon}
-                    </span>
-                    <span className="text-[10px] font-mono text-text-muted group-hover:text-accent transition-colors">
-                      {tech.proficiency}
-                    </span>
-                  </div>
-                  <div className="font-semibold text-sm text-text group-hover:text-accent transition-colors">
-                    {tech.name}
-                  </div>
-                  <div className="text-[11px] text-text-muted truncate mt-0.5">
-                    {tech.category}
-                  </div>
-
-                  {/* Subtle hover accent line */}
-                  <div className="absolute inset-x-0 bottom-0 h-0.5 bg-accent opacity-0 group-hover:opacity-100 transition-opacity rounded-b-xl" />
-                </motion.div>
-              ))}
+            {/* 30% Right: Pure 3D Floating Technology Logos Animation */}
+            <div className="lg:col-span-3 flex flex-col h-full">
+              <div className="flex items-center justify-between mb-3 h-6">
+                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-text-muted">
+                  3D Tech Orbit
+                </span>
+                <span className="text-[11px] font-mono text-accent">Interactive 360°</span>
+              </div>
+              <div className="flex-1 w-full relative min-h-[320px] lg:min-h-0">
+                <TechSphere3D className="w-full h-full" />
+              </div>
             </div>
           </div>
         </SectionReveal>

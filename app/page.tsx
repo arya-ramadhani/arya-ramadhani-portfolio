@@ -29,6 +29,7 @@ export default function Home() {
         <DevActivity />
         <SectionDivider />
         <Education />
+        <SectionDivider />
         <Publications />
         <SectionDivider />
         <Contact />

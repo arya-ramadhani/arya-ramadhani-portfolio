@@ -3,32 +3,37 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const [hoverType, setHoverType] = useState<"default" | "pointer" | "view" | "button">("default");
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [hoverType, setHoverType] = useState<"default" | "pointer" | "button" | "view" | "orbit">("default");
+  const [isMouseDown, setIsMouseDown] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const mousePos = useRef({ x: 0, y: 0 });
-  const dotPos = useRef({ x: 0, y: 0 });
-  const ringPos = useRef({ x: 0, y: 0 });
-  const rafId = useRef<number>(0);
 
   useEffect(() => {
-    // Disable completely on mobile / touch screen / fine pointer absence
+    // Disable on touch devices or reduced motion
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (isTouch || prefersReduced) return;
 
+    // Instant 1:1 cursor movement without ANY trailing follower/delay
     const handleMouseMove = (e: MouseEvent) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      }
     };
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target) return;
 
-      const projectCard = target.closest("article, [data-cursor='view']");
-      if (projectCard) {
+      const orbitTarget = target.closest("[data-cursor='orbit']");
+      if (orbitTarget) {
+        setHoverType("orbit");
+        return;
+      }
+
+      const viewTarget = target.closest("article, [data-cursor='view']");
+      if (viewTarget) {
         setHoverType("view");
         return;
       }
@@ -48,80 +53,176 @@ export default function CustomCursor() {
       setHoverType("default");
     };
 
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
+    const handleMouseDown = () => setIsMouseDown(true);
+    const handleMouseUp = () => setIsMouseDown(false);
+    const handleMouseLeave = () => setIsVisible(false);
+    const handleMouseEnter = () => setIsVisible(true);
 
-    const animate = () => {
-      const dotLerp = 0.2;
-      const ringLerp = 0.1;
-
-      dotPos.current.x += (mousePos.current.x - dotPos.current.x) * dotLerp;
-      dotPos.current.y += (mousePos.current.y - dotPos.current.y) * dotLerp;
-      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * ringLerp;
-      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * ringLerp;
-
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${dotPos.current.x - 4}px, ${dotPos.current.y - 4}px, 0)`;
-      }
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringPos.current.x - 18}px, ${ringPos.current.y - 18}px, 0)`;
-      }
-
-      rafId.current = requestAnimationFrame(animate);
-    };
-
-    document.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.addEventListener("mouseover", handleMouseOver, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseover", handleMouseOver, { passive: true });
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mouseleave", handleMouseLeave);
-    rafId.current = requestAnimationFrame(animate);
+    document.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mouseleave", handleMouseLeave);
-      cancelAnimationFrame(rafId.current);
+      document.removeEventListener("mouseenter", handleMouseEnter);
     };
   }, [isVisible]);
 
-  // Don't render on SSR or touch devices
+  // Don't render on SSR / touch
   if (typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches) {
     return null;
   }
 
-  const isExpanded = hoverType !== "default";
+  const isInteractive = hoverType !== "default";
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden hidden md:block">
-      {/* Inner Dot */}
-      <div
-        ref={dotRef}
-        className={`fixed top-0 left-0 w-2 h-2 rounded-full bg-accent transition-opacity duration-200 ${
-          isExpanded ? "scale-0 opacity-0" : "opacity-100"
-        }`}
-        style={{ opacity: isVisible ? 1 : 0 }}
-      />
+    <div
+      ref={cursorRef}
+      className="pointer-events-none fixed top-0 left-0 z-[99999] will-change-transform hidden md:block"
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transition: "opacity 0.15s ease-out",
+      }}
+    >
+      {/* ── 1. Default State: Sleek Futuristic Cyber Pointer ── */}
+      {!isInteractive && (
+        <div
+          className={`-translate-x-1 -translate-y-1 transition-transform duration-75 ${
+            isMouseDown ? "scale-90" : "scale-100"
+          }`}
+          style={{
+            filter: "drop-shadow(0 2px 8px rgba(128, 0, 32, 0.45)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))",
+          }}
+        >
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="overflow-visible"
+          >
+            {/* Outer Cyber Blade Body */}
+            <path
+              d="M3 2L23 11L14 14L11 23L3 2Z"
+              fill="var(--color-accent)"
+              stroke="var(--color-bg)"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+            {/* Inner Futuristic Edge Highlight */}
+            <path
+              d="M5.5 4.5L18 11.5L12.5 13.5L10.5 19L5.5 4.5Z"
+              fill="var(--color-accent-light)"
+              opacity="0.8"
+            />
+            {/* Core Laser Targeting Pip */}
+            <circle cx="8" cy="8" r="1.5" fill="#FFFFFF" />
+            {/* Corner Tech Notch Indicator */}
+            <path
+              d="M17 17L22 22"
+              stroke="var(--color-accent)"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
+      )}
 
-      {/* Outer Ring */}
-      <div
-        ref={ringRef}
-        className={`fixed top-0 left-0 rounded-full border border-accent/70 transition-all duration-200 flex items-center justify-center ${
-          hoverType === "view"
-            ? "w-14 h-14 -top-3.5 -left-3.5 bg-accent/90 border-accent text-white backdrop-blur-sm"
-            : hoverType === "button"
-            ? "w-12 h-12 -top-2.5 -left-2.5 bg-accent/20 border-accent scale-110"
-            : hoverType === "pointer"
-            ? "w-10 h-10 -top-1.5 -left-1.5 bg-accent/15 border-accent scale-105"
-            : "w-9 h-9 bg-transparent"
-        }`}
-        style={{ opacity: isVisible ? 1 : 0 }}
-      >
-        {hoverType === "view" && (
-          <span className="text-[10px] font-mono font-bold tracking-wider uppercase">
-            View
-          </span>
-        )}
-      </div>
+      {/* ── 2. Interactive State: Futuristic HUD Targeting Reticle ── */}
+      {isInteractive && (
+        <div
+          className={`-translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ${
+            isMouseDown ? "scale-90" : "scale-105"
+          }`}
+          style={{
+            filter: "drop-shadow(0 0 10px rgba(128, 0, 32, 0.5))",
+          }}
+        >
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="overflow-visible"
+          >
+            {/* Top-Left Bracket */}
+            <path
+              d="M5 12V5H12"
+              stroke="var(--color-accent)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {/* Top-Right Bracket */}
+            <path
+              d="M24 5H31V12"
+              stroke="var(--color-accent)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {/* Bottom-Left Bracket */}
+            <path
+              d="M5 24V31H12"
+              stroke="var(--color-accent)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {/* Bottom-Right Bracket */}
+            <path
+              d="M31 24V31H24"
+              stroke="var(--color-accent)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {/* Center Precision Crosshair Lines */}
+            <line x1="18" y1="9" x2="18" y2="13" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="18" y1="23" x2="18" y2="27" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="9" y1="18" x2="13" y2="18" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="23" y1="18" x2="27" y2="18" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" />
+
+            {/* Center Glowing Dot */}
+            <circle cx="18" cy="18" r="2.5" fill="var(--color-accent)" />
+            <circle cx="18" cy="18" r="1" fill="#FFFFFF" />
+
+            {/* Rotating micro-hud tick ring */}
+            <circle
+              cx="18"
+              cy="18"
+              r="10"
+              stroke="var(--color-accent)"
+              strokeWidth="0.8"
+              strokeDasharray="3 4"
+              opacity="0.6"
+              className="animate-[spin_8s_linear_infinite]"
+            />
+          </svg>
+
+          {/* Optional hover badge for view/orbit */}
+          {hoverType === "view" && (
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 px-2 py-0.5 rounded bg-accent text-[9px] font-mono font-bold text-white tracking-wider uppercase shadow-md whitespace-nowrap">
+              VIEW
+            </div>
+          )}
+          {hoverType === "orbit" && (
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-2 py-0.5 rounded-full bg-accent/90 border border-accent text-[9px] font-mono font-bold text-white tracking-wider uppercase shadow-md whitespace-nowrap">
+              DRAG 3D
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

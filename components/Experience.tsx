@@ -1,109 +1,194 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import SectionReveal from "./SectionReveal";
 import { experiences } from "@/data/experience";
-import { Briefcase, Calendar, CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
+import {
+  Briefcase,
+  Calendar,
+  CheckCircle2,
+  ChevronDown,
+  Building2,
+  Users,
+} from "lucide-react";
+import { TechIcon } from "./TechIcons";
 
 export default function Experience() {
-  return (
-    <section id="experience" className="py-24 lg:py-32 bg-bg-alt/40 relative overflow-hidden">
-      {/* Background ambient glow */}
-      <div className="absolute top-1/4 -right-32 w-80 h-80 bg-accent/5 rounded-full blur-[140px] pointer-events-none" />
+  const [openId, setOpenId] = useState<string | null>(null);
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+  const toggle = (id: string) => {
+    setOpenId((prev) => (prev === id ? null : id));
+  };
+
+  return (
+    <section id="experience" className="py-20 lg:py-28 bg-bg-alt/30 relative overflow-hidden">
+      {/* Animated border lines */}
+      <div className="absolute inset-x-0 top-0 h-px overflow-hidden pointer-events-none">
+        <motion.div
+          className="h-full bg-gradient-to-r from-transparent via-accent to-transparent"
+          animate={{ x: ["-100%", "100%"] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+          style={{ width: "50%" }}
+        />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 h-px overflow-hidden pointer-events-none">
+        <motion.div
+          className="h-full bg-gradient-to-r from-transparent via-accent to-transparent"
+          animate={{ x: ["100%", "-100%"] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+          style={{ width: "50%" }}
+        />
+      </div>
+
+      {/* Background ambient */}
+      <div className="absolute top-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-5xl mx-auto px-6 relative z-10">
+        {/* Section Header */}
         <SectionReveal>
-          <div className="space-y-4 mb-16">
-            <span className="label text-accent">Career &amp; Research</span>
-            <h2 className="heading-lg text-text">Experience Timeline</h2>
-            <p className="body-lg text-text-secondary max-w-xl">
-              Chronological milestones in software development, technical implementation, and academic research.
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 pb-4 border-b border-border/60">
+            <div>
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono font-semibold uppercase tracking-wider mb-2">
+                <Briefcase className="w-3.5 h-3.5" />
+                Track Record & Milestones
+              </div>
+              <h2 className="heading-lg text-text">Experience Timeline</h2>
+            </div>
+            <p className="body-md text-text-secondary max-w-lg">
+              Rekam jejak profesional dalam pengembangan software, instalasi teknis hardware, serta kepemimpinan organisasi tingkat regional dan universitas.
             </p>
-            <div className="accent-line" />
           </div>
         </SectionReveal>
 
-        <div className="relative">
-          {/* Vertical Glowing Timeline Line */}
-          <div className="absolute left-4 md:left-[10.5rem] top-2 bottom-4 w-0.5 bg-gradient-to-b from-accent via-accent/40 to-transparent" />
-
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <SectionReveal key={exp.id} delay={index * 0.12}>
-                <div className="relative flex flex-col md:flex-row gap-6 md:gap-12 group">
-                  {/* Left Column: Year & Time Badge */}
-                  <div className="pl-12 md:pl-0 md:w-[10.5rem] flex-shrink-0 md:text-right">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold text-accent bg-accent/10 border border-accent/25 shadow-sm">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {exp.year}
-                    </span>
-                  </div>
-
-                  {/* Glowing Node Marker */}
-                  <div className="absolute left-4 md:left-[10.5rem] -translate-x-1/2 top-1.5 z-10">
-                    <div className="relative flex items-center justify-center">
-                      <span className="absolute w-6 h-6 rounded-full bg-accent/25 animate-ping opacity-75" />
-                      <div className="w-4 h-4 rounded-full border-2 border-accent bg-bg shadow-md shadow-accent/40 flex items-center justify-center group-hover:bg-accent transition-colors duration-200" />
+        {/* Accordion list — fully aligned single column */}
+        <div className="space-y-3">
+          {experiences.map((exp, index) => {
+            const isOpen = openId === exp.id;
+            return (
+              <SectionReveal key={exp.id} delay={index * 0.07}>
+                {/* Header button */}
+                <motion.button
+                  onClick={() => toggle(exp.id)}
+                  whileTap={{ scale: 0.995 }}
+                  className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-300 flex items-center justify-between gap-3 ${
+                    isOpen
+                      ? "border-accent/50 bg-accent/5 shadow-lg shadow-accent/5 rounded-b-none"
+                      : "border-border/70 bg-bg-alt/80 hover:border-accent/30 hover:shadow-md hover:shadow-accent/5"
+                  } backdrop-blur-sm`}
+                >
+                  {/* Left: icon + title + org */}
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div
+                      className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
+                        isOpen
+                          ? "bg-accent/20 text-accent"
+                          : "bg-bg border border-border/80 text-text-secondary"
+                      }`}
+                    >
+                      {exp.type === "Work Experience" ? (
+                        <Building2 className="w-4 h-4" />
+                      ) : (
+                        <Users className="w-4 h-4" />
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <h3
+                        className={`text-sm font-bold leading-snug transition-colors ${
+                          isOpen ? "text-accent" : "text-text"
+                        }`}
+                      >
+                        {exp.position}
+                      </h3>
+                      <p className="text-xs text-text-muted font-mono truncate">
+                        {exp.organization}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Right Column: Experience Card */}
-                  <div className="pl-12 md:pl-0 flex-1">
-                    <motion.div
-                      whileHover={{ y: -3, transition: { duration: 0.15 } }}
-                      className="p-6 sm:p-7 rounded-2xl border border-border/80 bg-bg/80 backdrop-blur-md hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300"
+                  {/* Right: badge + year + chevron */}
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span className="hidden sm:inline-flex text-[10px] font-mono font-semibold text-accent/80 px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20 whitespace-nowrap">
+                      {exp.badge}
+                    </span>
+                    <span className="hidden md:inline-flex items-center gap-1 text-[10px] font-mono text-text-muted whitespace-nowrap px-2 py-0.5 rounded-full border border-border/60 bg-bg">
+                      <Calendar className="w-3 h-3" />
+                      {exp.year}
+                    </span>
+                    <motion.span
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="text-text-muted flex-shrink-0"
                     >
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                        <h3 className="text-xl font-bold text-text group-hover:text-accent transition-colors duration-200">
-                          {exp.position}
-                        </h3>
-                        <span className="text-xs font-mono text-text-muted px-2.5 py-0.5 rounded bg-bg-alt border border-border self-start sm:self-auto">
-                          Verified Milestone
-                        </span>
-                      </div>
-
-                      <p className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
-                        <Briefcase className="w-3.5 h-3.5" />
-                        {exp.organization}
-                      </p>
-
-                      <p className="text-sm text-text-secondary mb-4 leading-relaxed">
-                        {exp.description}
-                      </p>
-
-                      {/* Responsibilities list if available */}
-                      {exp.responsibilities && exp.responsibilities.length > 0 && (
-                        <div className="mb-4 space-y-1.5">
-                          {exp.responsibilities.map((resp, ri) => (
-                            <div key={ri} className="flex items-center gap-2 text-xs text-text-secondary">
-                              <ChevronRight className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-                              <span>{resp}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Tech Stack Pills */}
-                      {exp.technologies && (
-                        <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/50">
-                          {exp.technologies.map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-2.5 py-0.5 text-xs font-mono rounded-md bg-bg-alt border border-border/80 text-text-muted"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </motion.div>
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.span>
                   </div>
-                </div>
+                </motion.button>
+
+                {/* Expandable detail panel */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="detail"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 py-4 border border-t-0 border-accent/30 rounded-b-xl bg-bg-alt/60 backdrop-blur-sm space-y-4">
+                        {/* Period */}
+                        <p className="inline-flex items-center gap-1.5 text-xs font-mono text-text-muted">
+                          <Calendar className="w-3 h-3" />
+                          {exp.period}
+                        </p>
+
+                        {/* Description */}
+                        <p className="text-sm text-text-secondary leading-relaxed">
+                          {exp.description}
+                        </p>
+
+                        {/* Responsibilities */}
+                        {exp.responsibilities?.length > 0 && (
+                          <div className="space-y-2 pt-3 border-t border-border/40">
+                            {exp.responsibilities.map((resp, ri) => (
+                              <div
+                                key={ri}
+                                className="flex items-start gap-2.5 text-xs text-text-secondary leading-relaxed"
+                              >
+                                <CheckCircle2 className="w-3.5 h-3.5 text-accent flex-shrink-0 mt-0.5" />
+                                <span>{resp}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Tech pills */}
+                        {exp.technologies?.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/40">
+                            {exp.technologies.map((tech) => (
+                              <span
+                                key={tech}
+                                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-mono rounded-md bg-bg border border-border/80 text-text-muted"
+                              >
+                                <TechIcon name={tech} size={11} className="w-3 h-3 flex-shrink-0" />
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </SectionReveal>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
+

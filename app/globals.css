@@ -6,18 +6,18 @@
   --color-bg-alt: #FFFFFF;
   --color-bg-elevated: #FFFFFF;
   --color-text: #0A0A0A;
-  --color-text-secondary: #71717A;
-  --color-text-muted: #A1A1AA;
-  --color-border: #E4E4E7;
-  --color-border-subtle: #F4F4F5;
+  --color-text-secondary: #52525B;
+  --color-text-muted: #71717A;
+  --color-border: #c2c2cf;
+  --color-border-subtle: #D4D4D8;
   --color-accent: #800020;
   --color-accent-dark: #5C0015;
   --color-accent-light: #9A1030;
-  --color-accent-glow: rgba(128, 0, 32, 0.15);
-  --color-surface: rgba(255, 255, 255, 0.8);
-  --color-surface-hover: rgba(0, 0, 0, 0.02);
-  --color-code-bg: #F4F4F5;
-  --color-glow: rgba(128, 0, 32, 0.3);
+  --color-accent-glow: rgba(128, 0, 32, 0.18);
+  --color-surface: rgba(255, 255, 255, 0.9);
+  --color-surface-hover: rgba(0, 0, 0, 0.04);
+  --color-code-bg: #E4E4E7;
+  --color-glow: rgba(128, 0, 32, 0.35);
 
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
@@ -88,12 +88,17 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none;
+}
+
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
 }
 
 @media (pointer: coarse) {
-  body {
-    cursor: auto;
+  *, *::before, *::after {
+    cursor: auto !important;
   }
 }
 
@@ -335,55 +340,6 @@ body {
   opacity: 1;
 }
 
-/* ── Custom Cursor ── */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: var(--color-accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
-}
-
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid var(--color-accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.5;
-  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-}
-
-.cursor-dot.hovering {
-  width: 48px;
-  height: 48px;
-  background-color: var(--color-accent);
-  mix-blend-mode: normal;
-  opacity: 0.15;
-}
-
-.cursor-ring.hovering {
-  width: 48px;
-  height: 48px;
-  opacity: 0;
-}
-
-@media (pointer: coarse) {
-  .cursor-dot, .cursor-ring {
-    display: none !important;
-  }
-}
-
 /* ── Section Divider ── */
 .section-divider {
   height: 1px;
@@ -446,6 +402,108 @@ body {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+/* ── Modern Developer Floating Tech Card ── */
+@keyframes tech-float-a {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes tech-float-b {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes tech-float-c {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ── 3D Orbit Floating Icons (Specialization Cards) ── */
+@keyframes icon-bob-a {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  25%       { transform: translateY(-8px) translateX(3px) rotate(4deg); }
+  75%       { transform: translateY(5px) translateX(-2px) rotate(-3deg); }
+}
+
+@keyframes icon-bob-b {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  30%       { transform: translateY(-6px) translateX(-4px) rotate(-5deg); }
+  70%       { transform: translateY(6px) translateX(3px) rotate(4deg); }
+}
+
+@keyframes icon-bob-c {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  40%       { transform: translateY(-10px) translateX(2px) rotate(6deg); }
+  80%       { transform: translateY(4px) translateX(-3px) rotate(-4deg); }
+}
+
+@keyframes icon-bob-d {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  35%       { transform: translateY(-7px) translateX(-3px) rotate(-6deg); }
+  65%       { transform: translateY(5px) translateX(4px) rotate(5deg); }
+}
+
+@keyframes icon-bob-e {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  45%       { transform: translateY(-9px) translateX(2px) rotate(3deg); }
+  85%       { transform: translateY(3px) translateX(-4px) rotate(-5deg); }
+}
+
+@keyframes icon-bob-f {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  50%       { transform: translateY(-6px) translateX(4px) rotate(-4deg); }
+}
+
+@keyframes icon-glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+@keyframes skill-orbit-slow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.skill-icon-float-a { animation: icon-bob-a 5.2s ease-in-out infinite; }
+.skill-icon-float-b { animation: icon-bob-b 6.4s ease-in-out infinite; }
+.skill-icon-float-c { animation: icon-bob-c 4.8s ease-in-out infinite; }
+.skill-icon-float-d { animation: icon-bob-d 5.8s ease-in-out infinite; }
+.skill-icon-float-e { animation: icon-bob-e 7.0s ease-in-out infinite; }
+.skill-icon-float-f { animation: icon-bob-f 5.5s ease-in-out infinite; }
+
+/* ── Spec card icon chip hover: pause float + scale ── */
+.spec-icon-chip {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.spec-icon-chip:hover {
+  animation-play-state: paused !important;
+  transform: scale(1.15) rotate(0deg) translateY(-2px) !important;
+}
+
+.floating-tech-card {
+  will-change: transform, box-shadow, border-color;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+}
+
+.floating-tech-card:hover {
+  animation-play-state: paused !important;
+  transform: translateY(-6px) scale(1.025) !important;
+}
+
+.tech-icon-wrapper {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+}
+
+.floating-tech-card:hover .tech-icon-wrapper {
+  transform: scale(1.12) rotate(3deg);
 }
 
 .animate-float {
