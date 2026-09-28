@@ -179,11 +179,11 @@ export default function Hero() {
             <motion.div variants={itemVariants} className="flex items-center gap-3">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-widest text-accent bg-accent/10 border border-accent/25">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
-                HELLO, I&apos;M
+                HALO, SAYA
               </span>
               <span className="flex items-center gap-1.5 text-xs text-text-muted font-mono">
                 <Circle className="w-2 h-2 fill-emerald-500 text-emerald-500 animate-pulse" />
-                Available for Work
+                Tersedia untuk Bekerja
               </span>
             </motion.div>
 
@@ -213,7 +213,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed font-normal"
             >
-              Building scalable digital solutions that turn ideas into meaningful, reliable, and impactful experiences.
+              Membangun solusi digital terukur yang mengubah ide menjadi pengalaman yang andal, efisien, dan berdampak nyata.
             </motion.p>
 
             {/* Highlight Skill Bar */}
@@ -241,7 +241,7 @@ export default function Hero() {
                   onClick={() => scrollToSection("#projects")}
                   className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all duration-200 group active:scale-95"
                 >
-                  View My Work
+                  Lihat Portofolio
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </MagneticButton>
@@ -262,7 +262,7 @@ export default function Hero() {
                   className="inline-flex items-center gap-2 px-5 py-3 text-sm font-medium text-text-secondary hover:text-text rounded-xl border border-transparent hover:border-border transition-all duration-200"
                 >
                   <MessageSquare className="w-4 h-4 text-accent" />
-                  Let&apos;s Connect
+                  Hubungi Saya
                 </button>
               </MagneticButton>
             </motion.div>

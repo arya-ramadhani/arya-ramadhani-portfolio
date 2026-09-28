@@ -10,24 +10,6 @@ export default function Publications() {
 
   return (
     <section id="publications" className="py-20 lg:py-28 bg-bg-alt/30 relative overflow-hidden">
-      {/* Animated border lines */}
-      <div className="absolute inset-x-0 top-0 h-px overflow-hidden pointer-events-none">
-        <motion.div
-          className="h-full bg-gradient-to-r from-transparent via-accent to-transparent"
-          animate={{ x: ["-100%", "100%"] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "linear" }}
-          style={{ width: "50%" }}
-        />
-      </div>
-      <div className="absolute inset-x-0 bottom-0 h-px overflow-hidden pointer-events-none">
-        <motion.div
-          className="h-full bg-gradient-to-r from-transparent via-accent to-transparent"
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "linear" }}
-          style={{ width: "50%" }}
-        />
-      </div>
-
       {/* Ambient */}
       <div className="absolute top-1/3 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />

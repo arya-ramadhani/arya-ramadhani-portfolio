@@ -22,6 +22,15 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     lenisRef.current = lenis;
 
+    // Allow external code to freeze lenis momentarily (e.g. during accordion expand)
+    const handleFreeze = () => {
+      lenis.stop();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => lenis.start());
+      });
+    };
+    window.addEventListener("lenis-freeze", handleFreeze);
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -48,6 +57,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     document.addEventListener("click", handleClick);
 
     return () => {
+      window.removeEventListener("lenis-freeze", handleFreeze);
       document.removeEventListener("click", handleClick);
       lenis.destroy();
     };

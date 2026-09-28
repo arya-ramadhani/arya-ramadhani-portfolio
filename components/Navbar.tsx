@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, MessageSquare, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
@@ -11,7 +11,6 @@ const navLinks = [
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
-  { label: "Research", href: "#publications" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -20,33 +19,76 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  const isScrollLocked = useRef(false);
+  const scrollLockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navContainerRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [pillStyle, setPillStyle] = useState({ left: 0, top: 0, width: 0, height: 0 });
+
+  // Ukur posisi item aktif setiap kali activeSection berubah
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    const idx = navLinks.findIndex((l) => l.href.replace("#", "") === activeSection);
+    const item = itemRefs.current[idx];
+    const container = navContainerRef.current;
+    if (item && container) {
+      const iRect = item.getBoundingClientRect();
+      const cRect = container.getBoundingClientRect();
+      setPillStyle({
+        left: iRect.left - cRect.left,
+        top: iRect.top - cRect.top,
+        width: iRect.width,
+        height: iRect.height,
+      });
+    }
+  }, [activeSection]);
 
-      const sections = navLinks.map((link) => link.href.replace("#", ""));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 120) {
-            setActiveSection(sections[i]);
-            break;
+  // Scroll indicator: deteksi judul section masuk viewport atas
+  useEffect(() => {
+    const handleScrolled = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScrolled, { passive: true });
+
+    // IntersectionObserver: aktif ketika top section masuk zona 64–35% dari atas
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isScrollLocked.current) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
           }
-        }
+        });
+      },
+      {
+        rootMargin: "-64px 0px -60% 0px",
+        threshold: 0,
       }
-    };
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const sections = navLinks.map((l) => l.href.replace("#", ""));
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScrolled);
+      observer.disconnect();
+    };
   }, []);
 
   const handleLinkClick = (href: string) => {
+    const section = href.replace("#", "");
+    setActiveSection(section); // langsung aktif saat diklik
     setIsOpen(false);
+
+    // Kunci observer selama scroll smooth selesai (~1.2 detik)
+    isScrollLocked.current = true;
+    if (scrollLockTimer.current) clearTimeout(scrollLockTimer.current);
+    scrollLockTimer.current = setTimeout(() => {
+      isScrollLocked.current = false;
+    }, 1200);
+
     const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -77,29 +119,36 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop Nav with Animated Active Pill */}
-        <div className="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full bg-bg-alt/60 backdrop-blur-md border border-border/60">
-          {navLinks.map((link) => {
+        {/* Desktop Nav — Single sliding pill via measured position */}
+        <div
+          ref={navContainerRef}
+          className="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full bg-bg-alt/60 backdrop-blur-md border border-border/60 relative"
+        >
+          {/* Pill tunggal yang bergerak ke posisi item aktif */}
+          {pillStyle.width > 0 && (
+            <motion.div
+              className="absolute bg-accent rounded-full shadow-sm shadow-accent/40 pointer-events-none"
+              animate={{ left: pillStyle.left, width: pillStyle.width, top: pillStyle.top, height: pillStyle.height }}
+              transition={{ type: "spring", stiffness: 400, damping: 32 }}
+              style={{ position: "absolute" }}
+            />
+          )}
+
+          {navLinks.map((link, idx) => {
             const isActive = activeSection === link.href.replace("#", "");
             return (
               <a
                 key={link.href}
+                ref={(el) => { itemRefs.current[idx] = el; }}
                 href={link.href}
                 onClick={(e) => {
                   e.preventDefault();
                   handleLinkClick(link.href);
                 }}
-                className={`relative px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-colors duration-200 ${
+                className={`relative z-10 px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-colors duration-200 ${
                   isActive ? "text-white" : "text-text-secondary hover:text-text"
                 }`}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="activeNavIndicator"
-                    className="absolute inset-0 bg-accent rounded-full -z-10 shadow-sm shadow-accent/40"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
                 {link.label}
               </a>
             );

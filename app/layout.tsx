@@ -40,19 +40,38 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Arya Ramadhani" }],
   creator: "Arya Ramadhani",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/images/logo.jpg", type: "image/jpeg" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/images/logo.jpg", sizes: "180x180", type: "image/jpeg" },
+    ],
+  },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    title: "Arya Ramadhani | Full-Stack Developer",
+    locale: "id_ID",
+    title: "Arya Ramadhani | Software Engineer",
     description:
       "Portfolio of Arya Ramadhani — Software Engineer specializing in Web & Mobile Development, IoT, AI & Computer Vision, and UI/UX Design.",
     siteName: "Arya Ramadhani Portfolio",
+    images: [
+      {
+        url: "/images/logo.jpg",
+        width: 1024,
+        height: 1024,
+        alt: "Arya Ramadhani Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arya Ramadhani | Full-Stack Developer",
+    title: "Arya Ramadhani | Software Engineer",
     description:
       "Portfolio of Arya Ramadhani — Software Engineer specializing in Web & Mobile Development, IoT, AI & Computer Vision, and UI/UX Design.",
+    images: ["/images/logo.jpg"],
   },
   robots: {
     index: true,

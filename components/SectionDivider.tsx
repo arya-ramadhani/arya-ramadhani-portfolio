@@ -1,22 +1,20 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export default function SectionDivider() {
   return (
-    <div className="relative py-8 overflow-hidden select-none pointer-events-none">
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-center">
-        {/* Left fade line */}
-        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-accent/30" />
-        
-        {/* Center glowing node */}
-        <div className="mx-4 flex items-center gap-1.5">
-          <span className="w-1 h-1 rounded-full bg-accent/40" />
-          <div className="w-2 h-2 rounded-full bg-accent/60 shadow-sm shadow-accent animate-pulse" />
-          <span className="w-1 h-1 rounded-full bg-accent/40" />
-        </div>
+    <div className="relative w-full h-px overflow-hidden pointer-events-none select-none">
+      {/* Subtle track base line */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
-        {/* Right fade line */}
-        <div className="flex-1 h-px bg-gradient-to-l from-transparent via-border to-accent/30" />
-      </div>
+      {/* Animated glowing beam line identical to Experience top divider */}
+      <motion.div
+        className="h-full bg-gradient-to-r from-transparent via-accent to-transparent"
+        animate={{ x: ["-100%", "100%"] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+        style={{ width: "50%" }}
+      />
     </div>
   );
 }

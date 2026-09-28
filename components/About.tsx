@@ -9,49 +9,49 @@ const stats = [
   {
     icon: FolderGit2,
     value: "4+",
-    label: "Shipped Projects",
-    detail: "Web, IoT & AI Systems",
+    label: "Proyek Selesai",
+    detail: "Web, IoT & Sistem AI",
   },
   {
     icon: Cpu,
     value: "20+",
     label: "Technologies",
-    detail: "Languages & Frameworks",
+    detail: "Bahasa & Framework",
   },
   {
     icon: Layers,
     value: "4",
-    label: "Core Specializations",
+    label: "Spesialisasi Utama",
     detail: "Full-Stack • IoT • AI • UI/UX",
   },
   {
     icon: Award,
     value: "3+",
-    label: "Real Engagements",
-    detail: "Academic & Tech Projects",
+    label: "Keterlibatan Nyata",
+    detail: "Proyek Akademik & Industri",
   },
 ];
 
 const keyInfo = [
   {
     icon: GraduationCap,
-    label: "Degree",
+    label: "Gelar",
     value: "Sarjana Terapan Komputer",
   },
   {
     icon: Code2,
-    label: "Field of Study",
+    label: "Bidang Studi",
     value: "Rekayasa Perangkat Lunak",
   },
   {
     icon: Target,
-    label: "Core Focus",
+    label: "Fokus Utama",
     value: "Full-Stack Software Engineering",
   },
   {
     icon: Sparkles,
-    label: "Specializations",
-    value: "Web • Mobile • IoT • Computer Vision • UI/UX",
+    label: "Spesialisasi",
+    value: "Web • Mobile • IoT • AI • UI/UX",
   },
 ];
 
@@ -102,17 +102,17 @@ export default function About() {
           <SectionReveal delay={0.2} className="lg:col-span-7">
             <div className="space-y-6">
               <p className="text-lg text-text-secondary leading-relaxed">
-                I am a Software Engineer / Full-Stack Developer with an academic background in
-                Informatics and Software Engineering (<span className="text-text font-medium">Rekayasa Perangkat Lunak</span>).
-                My core drive is translating complex, real-world problems into robust, reliable, and user-centric systems.
+                Saya adalah seorang Software Engineer dengan latar belakang akademis di bidang
+                Informatika dan Rekayasa Perangkat Lunak (<span className="text-text font-medium">Software Engineering</span>).
+                Fokus utama saya adalah memecahkan masalah nyata yang kompleks menjadi sistem yang tangguh, efisien, dan berorientasi pada pengguna.
               </p>
               <p className="text-base text-text-secondary leading-relaxed">
-                Rather than treating web development, IoT, and AI as siloed fields, I bridge them together:
-                connecting embedded hardware sensors (<span className="text-text font-medium">ESP32 &amp; Arduino</span>) to real-time cloud dashboards,
-                integrating machine learning &amp; computer vision (<span className="text-text font-medium">OCR &amp; Image Processing</span>) into practical business workflows, and wrapping everything in clean, intuitive user interfaces.
+                Alih-alih memandang web development, IoT, dan AI sebagai bidang yang terpisah, saya mengintegrasikannya:
+                menghubungkan sensor mikrokontroler (<span className="text-text font-medium">ESP32 &amp; Raspberry</span>) ke dashboard cloud real-time,
+                menerapkan computer vision (<span className="text-text font-medium">Image Processing</span>) ke dalam alur kerja sistem, serta mengemas seluruhnya dengan modern dan intuitif.
               </p>
               <p className="text-base text-text-secondary leading-relaxed">
-                Every line of code is structured with maintainability, type safety, and clean architecture in mind, ensuring solutions stay fast, scalable, and easy to extend.
+                Setiap baris kode disusun dengan prinsip maintainability, type safety, dan arsitektur yang bersih, memastikan solusi perangkat lunak tetap andal, skalabel, serta mudah dikembangkan ke depannya.
               </p>
 
               <div className="pt-4 flex items-center gap-4">
@@ -126,7 +126,7 @@ export default function About() {
                   </a>
                 </MagneticButton>
                 <span className="text-xs font-mono text-text-muted">
-                  Updated for 2026 Opportunities
+                  Diperbarui untuk Peluang 2026
                 </span>
               </div>
             </div>

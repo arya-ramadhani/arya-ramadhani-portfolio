@@ -29,7 +29,7 @@ const socials = [
     label: "Direct Email",
     value: "okearya.tube@gmail.com",
     href: "mailto:okearya.tube@gmail.com",
-    subtext: "Fastest response within 24h",
+    subtext: "Respon tercepat dalam 24 jam",
   },
   {
     icon: null,
@@ -37,7 +37,7 @@ const socials = [
     label: "LinkedIn Professional",
     value: "linkedin.com/in/arya-ramadhani-id",
     href: "https://linkedin.com/in/arya-ramadhani-id",
-    subtext: "Career, network & recommendations",
+    subtext: "Karier, jejaring & rekomendasi",
   },
   {
     icon: null,
@@ -45,7 +45,7 @@ const socials = [
     label: "GitHub Profile",
     value: "github.com/arya-ramadhani",
     href: "https://github.com/arya-ramadhani",
-    subtext: "Code repositories & contributions",
+    subtext: "Repositori kode & kontribusi",
   },
 ];
 
@@ -104,8 +104,7 @@ export default function Contact() {
               Let&apos;s build something meaningful.
             </h2>
             <p className="body-lg text-text-secondary max-w-xl">
-              I am open to software engineering opportunities, enterprise collaborations,
-              IoT prototypes, and freelance technical challenges.
+              Saya terbuka untuk peluang rekayasa perangkat lunak (software engineering), kolaborasi enterprise, prototipe IoT, dan proyek teknologi menantang lainnya.
             </p>
             <div className="accent-line" />
           </div>
@@ -122,7 +121,7 @@ export default function Contact() {
                       htmlFor="contact-name"
                       className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-2"
                     >
-                      Your Name
+                      Nama Lengkap
                     </label>
                     <input
                       id="contact-name"
@@ -134,7 +133,7 @@ export default function Contact() {
                         setFormState((s) => ({ ...s, name: e.target.value }))
                       }
                       className="w-full px-4 py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
-                      placeholder="e.g. Alex Pratama"
+                      placeholder="cth. Alex Pratama"
                     />
                   </div>
 
@@ -143,7 +142,7 @@ export default function Contact() {
                       htmlFor="contact-email"
                       className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-2"
                     >
-                      Email Address
+                      Alamat Email
                     </label>
                     <input
                       id="contact-email"
@@ -165,7 +164,7 @@ export default function Contact() {
                     htmlFor="contact-message"
                     className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-2"
                   >
-                    Project Details or Opportunity
+                    Detail Proyek atau Peluang
                   </label>
                   <textarea
                     id="contact-message"
@@ -177,7 +176,7 @@ export default function Contact() {
                       setFormState((s) => ({ ...s, message: e.target.value }))
                     }
                     className="w-full px-4 py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors resize-none"
-                    placeholder="Tell me about your tech stack, timeline, project scope, or open role..."
+                    placeholder="Ceritakan tentang kebutuhan tech stack, ruang lingkup proyek, timeline, atau posisi pekerjaan..."
                   />
                 </div>
 
@@ -197,24 +196,24 @@ export default function Contact() {
                       {isSubmitting ? (
                         <>
                           <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending Message...
+                          Mengirim Pesan...
                         </>
                       ) : submitted ? (
                         <>
                           <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                          Message Sent to Email!
+                          Pesan Terkirim ke Email!
                         </>
                       ) : (
                         <>
                           <Send className="w-4 h-4" />
-                          Send Message
+                          Kirim Pesan
                         </>
                       )}
                     </button>
                   </MagneticButton>
 
                   <span className="text-[11px] font-mono text-text-muted hidden sm:inline">
-                    🔒 Protected &amp; Direct
+                    🔒 Aman &amp; Langsung
                   </span>
                 </div>
               </form>
@@ -225,7 +224,7 @@ export default function Contact() {
           <SectionReveal delay={0.2} className="lg:col-span-5">
             <div className="space-y-4">
               <div className="text-xs font-mono text-text-muted uppercase tracking-wider">
-                Direct Communication Channels
+                Saluran Komunikasi Langsung
               </div>
 
               {socials.map((social) => {
@@ -264,7 +263,7 @@ export default function Contact() {
               {/* Status Note */}
               <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-xs text-text-secondary flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
-                <span>I am currently open to internships, freelance work, collaborative projects, and opportunities for professional growth in the fields of software engineering and technology.</span>
+                <span>Saat ini saya terbuka untuk kesempatan magang, proyek freelance, kolaborasi teknis, dan peluang profesional di bidang rekayasa perangkat lunak dan teknologi.</span>
               </div>
             </div>
           </SectionReveal>

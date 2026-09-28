@@ -43,10 +43,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-border/80 bg-bg-alt/60 backdrop-blur-md py-14 overflow-hidden">
-      {/* Top subtle illuminated line */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
-
+    <footer className="relative bg-bg-alt/60 backdrop-blur-md py-14 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Brand & Role */}

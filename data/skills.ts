@@ -307,7 +307,7 @@ export const specializations: Specialization[] = [
     number: "01",
     title: "Web & Mobile Development",
     description:
-      "Building responsive web applications and mobile solutions with modern frameworks and best practices.",
+      "Membangun aplikasi web dan solusi mobile yang responsif dengan framework modern serta praktik rekayasa perangkat lunak terbaik.",
     icon: Globe,
     technologies: [
       "JavaScript",
@@ -328,7 +328,7 @@ export const specializations: Specialization[] = [
     number: "02",
     title: "IoT & Embedded Systems",
     description:
-      "Developing embedded systems and IoT solutions for real-world automation and monitoring.",
+      "Merancang sistem tertanam (embedded systems) dan solusi IoT untuk otomasi, sensing, dan pemantauan perangkat keras secara real-time.",
     icon: Cpu,
     technologies: [
       "ESP32",
@@ -344,7 +344,7 @@ export const specializations: Specialization[] = [
     number: "03",
     title: "AI & Computer Vision",
     description:
-      "Implementing intelligent systems with image processing, OCR, and recognition capabilities.",
+      "Mengembangkan sistem cerdas dengan kapabilitas pemrosesan citra digital, OCR, dan deteksi pola visual terotomasi.",
     icon: Brain,
     technologies: [
       "Python",
@@ -360,7 +360,7 @@ export const specializations: Specialization[] = [
     number: "04",
     title: "UI/UX Design",
     description:
-      "Crafting user-centered interfaces with focus on usability, aesthetics, and design systems.",
+      "Merancang antarmuka pengguna yang berpusat pada kenyamanan pengguna (user-centric), estetika modern, dan design system yang konsisten.",
     icon: Palette,
     technologies: [
       "Figma",

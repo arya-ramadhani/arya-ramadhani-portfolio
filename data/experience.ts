@@ -57,7 +57,7 @@ export const experiences: Experience[] = [
     period: "Desember 2025 – Sekarang",
     year: "2025 - Sekarang",
     position: "Sekretaris Wilayah 3",
-    organization: "Perhimpunan Mahasiswa Informatika dan Komputer Nasional (Permikomnas)",
+    organization: "Perhimpunan Mahasiswa Informatika dan Komputer Nasional (PERMIKOMNAS)",
     type: "Leadership & Organization",
     badge: "Regional Committee",
     description:
@@ -76,7 +76,7 @@ export const experiences: Experience[] = [
     period: "Juli 2024 – Juli 2025",
     year: "2024 - 2025",
     position: "Ketua Himpunan",
-    organization: "Himpunan Mahasiswa Jurusan Teknik Elektro dan Informatika (HMJ TEI Polman Babel)",
+    organization: "Himpunan Mahasiswa Jurusan Teknik Elektro dan Informatika (HMJ TEKTRONIKA POLMAN BABEL)",
     type: "Leadership & Organization",
     badge: "Department President",
     description:

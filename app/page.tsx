@@ -33,6 +33,7 @@ export default function Home() {
         <Publications />
         <SectionDivider />
         <Contact />
+        <SectionDivider />
       </main>
       <Footer />
     </>
