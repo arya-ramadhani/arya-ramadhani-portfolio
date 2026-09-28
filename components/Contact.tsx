@@ -55,14 +55,46 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formState);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    setFormState({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const formData = new FormData();
+      formData.append(
+        "access_key",
+        process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "4c87639d-e5e7-4e4c-a9c6-cd6550fd8744"
+      );
+      formData.append("name", formState.name);
+      formData.append("email", formState.email);
+      formData.append("message", formState.message);
+      formData.append("from_name", `Portfolio Inquiry from ${formState.name}`);
+      formData.append("subject", `New message from ${formState.name} on Portfolio`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setFormState({ name: "", email: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setErrorMessage(data.message || "Gagal mengirim pesan. Silakan coba lagi.");
+      }
+    } catch {
+      setErrorMessage("Terjadi kesalahan koneksi. Silakan periksa jaringan Anda.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -100,6 +132,7 @@ export default function Contact() {
                     </label>
                     <input
                       id="contact-name"
+                      name="name"
                       type="text"
                       required
                       value={formState.name}
@@ -120,6 +153,7 @@ export default function Contact() {
                     </label>
                     <input
                       id="contact-email"
+                      name="email"
                       type="email"
                       required
                       value={formState.email}
@@ -141,6 +175,7 @@ export default function Contact() {
                   </label>
                   <textarea
                     id="contact-message"
+                    name="message"
                     required
                     rows={5}
                     value={formState.message}
@@ -152,17 +187,28 @@ export default function Contact() {
                   />
                 </div>
 
+                {errorMessage && (
+                  <div className="p-3 text-xs rounded-xl border border-red-500/30 bg-red-500/10 text-red-400">
+                    {errorMessage}
+                  </div>
+                )}
+
                 <div className="pt-2 flex items-center justify-between">
                   <MagneticButton strength={0.2}>
                     <button
                       type="submit"
-                      disabled={submitted}
-                      className="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-all duration-200 disabled:opacity-60"
+                      disabled={isSubmitting || submitted}
+                      className="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-all duration-200 disabled:opacity-60 cursor-pointer"
                     >
-                      {submitted ? (
+                      {isSubmitting ? (
+                        <>
+                          <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Sending Message...
+                        </>
+                      ) : submitted ? (
                         <>
                           <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                          Message Sent Successfully!
+                          Message Sent to Email!
                         </>
                       ) : (
                         <>
