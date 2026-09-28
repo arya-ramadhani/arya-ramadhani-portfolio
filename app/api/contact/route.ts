@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const targetEmail = process.env.CONTACT_EMAIL || "okearya.projects@gmail.com";
+    const targetEmail = process.env.CONTACT_EMAIL || "okearya.tube@gmail.com";
 
     const { data, error } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
