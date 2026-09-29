@@ -262,6 +262,7 @@ export default function Contact() {
                   </motion.a>
                 );
               })}
+              
             </div>
           </SectionReveal>
         </div>
