@@ -50,7 +50,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center bg-grid overflow-hidden pt-20 pb-16 lg:py-0"
+      className="relative min-h-[100dvh] lg:min-h-screen flex items-center justify-center bg-grid overflow-hidden pt-16 pb-12 lg:py-0"
     >
       {/* Background Interactive Particle Field */}
       <ParticleField />
@@ -193,9 +193,9 @@ export default function Hero() {
                 Arya <span className="text-accent underline decoration-accent/30 underline-offset-8">Ramadhani</span>
               </h1>
 
-              {/* Dynamic Typing Role */}
-              <div className="h-10 sm:h-12 flex items-center">
-                <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-text-secondary font-mono">
+            {/* Dynamic Typing Role */}
+              <div className="h-8 sm:h-10 lg:h-12 flex items-center">
+                <span className="text-lg sm:text-2xl lg:text-3xl font-bold text-text-secondary font-mono">
                   &gt;{" "}
                   <TypingAnimation
                     texts={roles}
@@ -211,7 +211,7 @@ export default function Hero() {
             {/* Professional Summary */}
             <motion.p
               variants={itemVariants}
-              className="text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed font-normal"
+              className="text-sm sm:text-base lg:text-lg text-text-secondary max-w-xl leading-relaxed font-normal"
             >
               Membangun solusi digital terukur yang mengubah ide menjadi pengalaman yang andal, efisien, dan berdampak nyata.
             </motion.p>
@@ -234,7 +234,7 @@ export default function Hero() {
             {/* CTAs with Magnetic Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap items-center gap-3.5 pt-2"
+              className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 pt-2"
             >
               <MagneticButton strength={0.25}>
                 <button
@@ -268,12 +268,12 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column — 3D Interactive Personal Avatar (5 cols) */}
+          {/* Right Column — Personal Portrait Avatar (5 cols) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-            className="lg:col-span-5 flex justify-center items-center relative"
+            className="flex lg:col-span-5 justify-center items-center relative mt-6 lg:mt-0"
           >
             <HeroAvatar />
           </motion.div>

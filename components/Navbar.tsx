@@ -95,7 +95,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-bg/80 backdrop-blur-xl border-b border-border/80 shadow-lg shadow-black/5"
+          ? "bg-bg/95 md:bg-bg/80 backdrop-blur-xl border-b border-border/80 shadow-lg shadow-black/5"
           : "bg-transparent border-b border-transparent"
       }`}
       role="navigation"
@@ -176,7 +176,7 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-xl border border-border bg-bg-alt hover:border-accent transition-colors"
+            className="p-2.5 rounded-xl border border-border bg-bg-alt hover:border-accent transition-colors"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
           >
@@ -189,51 +189,61 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Animated Dropdown */}
+      {/* Mobile Animated Dropdown with Backdrop Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden border-t border-border/80 bg-bg/95 backdrop-blur-2xl overflow-hidden shadow-2xl"
-          >
-            <div className="px-6 py-5 flex flex-col gap-2">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.href.replace("#", "");
-                return (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(link.href);
-                    }}
-                    className={`px-4 py-2.5 text-sm font-mono rounded-xl transition-all duration-200 flex items-center justify-between ${
-                      isActive
-                        ? "text-white bg-accent font-semibold shadow-md shadow-accent/20"
-                        : "text-text-secondary hover:text-text hover:bg-surface-hover"
-                    }`}
-                  >
-                    <span>{link.label}</span>
-                    {isActive && <span className="text-xs">●</span>}
-                  </a>
-                );
-              })}
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick("#contact");
-                }}
-                className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl transition-colors shadow-lg shadow-accent/25"
-              >
-                <MessageSquare className="w-4 h-4" />
-                Let&apos;s Talk
-              </a>
-            </div>
-          </motion.div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 top-16 bg-black/50 z-30 lg:hidden"
+            />
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="relative z-40 lg:hidden border-t border-border/80 bg-bg/98 backdrop-blur-2xl overflow-hidden shadow-2xl"
+            >
+              <div className="px-6 py-5 flex flex-col gap-2">
+                {navLinks.map((link) => {
+                  const isActive = activeSection === link.href.replace("#", "");
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLinkClick(link.href);
+                      }}
+                      className={`px-4 py-3 text-sm font-mono rounded-xl transition-all duration-200 flex items-center justify-between active:scale-[0.98] ${
+                        isActive
+                          ? "text-white bg-accent font-semibold shadow-md shadow-accent/20"
+                          : "text-text-secondary hover:text-text hover:bg-surface-hover"
+                      }`}
+                    >
+                      <span>{link.label}</span>
+                      {isActive && <span className="text-xs">●</span>}
+                    </a>
+                  );
+                })}
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick("#contact");
+                  }}
+                  className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl transition-colors shadow-lg shadow-accent/25 active:scale-[0.98]"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  Let&apos;s Talk
+                </a>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>

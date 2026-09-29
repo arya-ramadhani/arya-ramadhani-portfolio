@@ -95,34 +95,34 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="contact" className="py-14 sm:py-20 lg:py-24 relative overflow-hidden">
       {/* Background radial glow */}
       <div className="absolute bottom-10 left-1/4 w-[450px] h-[450px] bg-accent/8 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <SectionReveal>
-          <div className="space-y-4 mb-16">
+          <div className="space-y-3 mb-10 lg:mb-16">
             <span className="label text-accent">Get in Touch</span>
             <h2 className="heading-lg text-text">
               Let&apos;s build something meaningful.
             </h2>
-            <p className="body-lg text-text-secondary max-w-xl">
+            <p className="body-lg text-text-secondary max-w-xl text-sm sm:text-base">
               Saya terbuka untuk peluang rekayasa perangkat lunak (software engineering), kolaborasi enterprise, prototipe IoT, dan proyek teknologi menantang lainnya.
             </p>
             <div className="accent-line" />
           </div>
         </SectionReveal>
 
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           {/* Left Column: Form (7 cols) */}
           <SectionReveal delay={0.1} className="lg:col-span-7">
-            <div className="p-8 rounded-3xl border border-border/80 bg-bg-alt/90 backdrop-blur-xl shadow-xl shadow-black/5">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid sm:grid-cols-2 gap-4">
+            <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border/80 bg-bg-alt/90 backdrop-blur-xl shadow-xl shadow-black/5">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div>
                     <label
                       htmlFor="contact-name"
-                      className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-2"
+                      className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-1.5 sm:mb-2"
                     >
                       Nama Lengkap
                     </label>
@@ -135,7 +135,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setFormState((s) => ({ ...s, name: e.target.value }))
                       }
-                      className="w-full px-4 py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
+                      className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
                       placeholder="cth. Alex Pratama"
                     />
                   </div>
@@ -143,7 +143,7 @@ export default function Contact() {
                   <div>
                     <label
                       htmlFor="contact-email"
-                      className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-2"
+                      className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-1.5 sm:mb-2"
                     >
                       Alamat Email
                     </label>
@@ -156,7 +156,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setFormState((s) => ({ ...s, email: e.target.value }))
                       }
-                      className="w-full px-4 py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
+                      className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
                       placeholder="alex@domain.com"
                     />
                   </div>
@@ -165,7 +165,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="contact-message"
-                    className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-2"
+                    className="block text-xs font-mono font-medium text-text-secondary uppercase tracking-wider mb-1.5 sm:mb-2"
                   >
                     Detail Proyek atau Peluang
                   </label>
@@ -173,12 +173,12 @@ export default function Contact() {
                     id="contact-message"
                     name="message"
                     required
-                    rows={5}
+                    rows={4}
                     value={formState.message}
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, message: e.target.value }))
                     }
-                    className="w-full px-4 py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors resize-none"
                     placeholder="Ceritakan tentang kebutuhan tech stack, ruang lingkup proyek, timeline, atau posisi pekerjaan..."
                   />
                 </div>
@@ -189,12 +189,12 @@ export default function Contact() {
                   </div>
                 )}
 
-                <div className="pt-2 flex items-center justify-between">
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <MagneticButton strength={0.2}>
                     <button
                       type="submit"
                       disabled={isSubmitting || submitted}
-                      className="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-all duration-200 disabled:opacity-60 cursor-pointer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-all duration-200 disabled:opacity-60 cursor-pointer active:scale-95"
                     >
                       {isSubmitting ? (
                         <>
@@ -215,7 +215,7 @@ export default function Contact() {
                     </button>
                   </MagneticButton>
 
-                  <span className="text-[11px] font-mono text-text-muted hidden sm:inline">
+                  <span className="text-[11px] font-mono text-text-muted text-center sm:text-right">
                     🔒 Aman &amp; Langsung
                   </span>
                 </div>
@@ -225,7 +225,7 @@ export default function Contact() {
 
           {/* Right Column: Animated Social Cards (5 cols) */}
           <SectionReveal delay={0.2} className="lg:col-span-5">
-            <div className="space-y-4">
+            <div className="space-y-3.5 sm:space-y-4">
               <div className="text-xs font-mono text-text-muted uppercase tracking-wider">
                 Saluran Komunikasi Langsung
               </div>
@@ -240,21 +240,21 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ x: 6, transition: { duration: 0.15 } }}
-                    className="flex items-center gap-4 p-5 rounded-2xl border border-border/80 bg-bg-alt/90 backdrop-blur-md hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 group"
+                    className="flex items-center gap-3.5 sm:gap-4 p-4 sm:p-5 rounded-2xl border border-border/80 bg-bg-alt/90 backdrop-blur-md hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 rounded-xl border border-accent/20 bg-accent/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300 text-accent flex-shrink-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border border-accent/20 bg-accent/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300 text-accent flex-shrink-0">
                       {IconComponent ? (
-                        <IconComponent className="w-5 h-5" />
+                        <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
                       ) : CustomIcon ? (
-                        <CustomIcon className="w-5 h-5" />
+                        <CustomIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                       ) : null}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-mono text-text-muted">{social.label}</p>
-                      <p className="text-sm font-semibold text-text truncate group-hover:text-accent transition-colors">
+                      <p className="text-[11px] sm:text-xs font-mono text-text-muted">{social.label}</p>
+                      <p className="text-xs sm:text-sm font-semibold text-text truncate group-hover:text-accent transition-colors">
                         {social.value}
                       </p>
-                      <p className="text-[11px] text-text-secondary mt-0.5">
+                      <p className="text-[10px] sm:text-[11px] text-text-secondary mt-0.5 truncate">
                         {social.subtext}
                       </p>
                     </div>

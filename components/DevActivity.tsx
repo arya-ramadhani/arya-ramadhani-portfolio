@@ -155,17 +155,17 @@ export default function DevActivity() {
   };
 
   return (
-    <section id="dev-activity" className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="dev-activity" className="py-14 sm:py-20 lg:py-28 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <SectionReveal>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-            <div className="space-y-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-10">
+            <div className="space-y-3 sm:space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/25 text-accent text-xs font-mono font-semibold uppercase tracking-wider">
                 <GitHubIcon className="w-3.5 h-3.5" />
                 Live GitHub Sync
               </div>
               <h2 className="heading-lg text-text">Code Activity &amp; Live Terminal</h2>
-              <p className="body-lg text-text-secondary max-w-xl">
+              <p className="body-lg text-text-secondary max-w-xl text-sm sm:text-base">
                 Aktivitas commit nyata langsung dari akun GitHub{" "}
                 <a
                   href="https://github.com/arya-ramadhani"
@@ -181,7 +181,7 @@ export default function DevActivity() {
           </div>
 
           {/* Sub-header: sejajar di atas kedua kolom */}
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-2">
+          <div className="grid lg:grid-cols-12 gap-4 lg:gap-12 mb-2">
             <div className="lg:col-span-6">
               <div className="flex items-center justify-between text-xs font-mono text-text-muted px-1">
                 <span className="flex items-center gap-1.5 text-accent">
@@ -196,7 +196,7 @@ export default function DevActivity() {
                 href="https://github.com/arya-ramadhani"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border/80 bg-bg-alt/80 hover:border-accent/40 text-xs font-mono text-text hover:text-accent transition-colors"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-border/80 bg-bg-alt/80 hover:border-accent/40 text-xs font-mono text-text hover:text-accent transition-colors"
               >
                 <GitHubIcon className="w-4 h-4" />
                 <span>github.com/arya-ramadhani</span>
@@ -206,7 +206,7 @@ export default function DevActivity() {
           </div>
         </SectionReveal>
 
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 items-stretch">
           {/* Left Column: Interactive Terminal (6 cols) */}
           <SectionReveal delay={0.1} className="lg:col-span-6 w-full">
             <div className="h-full">
@@ -216,7 +216,7 @@ export default function DevActivity() {
 
           {/* Right Column: GitHub Real Contribution Graph & Year Selector (6 cols) */}
           <SectionReveal delay={0.2} className="lg:col-span-6 w-full">
-            <div className="p-6 rounded-2xl border border-border/80 bg-bg-alt/90 backdrop-blur-md shadow-xl shadow-black/5 space-y-6">
+            <div className="p-4 sm:p-6 rounded-2xl border border-border/80 bg-bg-alt/90 backdrop-blur-md shadow-xl shadow-black/5 space-y-5 sm:space-y-6">
               {/* Header: Title + Year Navigator (< YEAR >) */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -277,9 +277,10 @@ export default function DevActivity() {
                 </div>
               </div>
 
-              {/* Legend */}
-              <div className="flex items-center justify-end text-[11px] font-mono text-text-muted pt-1">
-                <div className="flex items-center gap-1">
+              {/* Legend & Mobile Swipe Hint */}
+              <div className="flex items-center justify-between text-[11px] font-mono text-text-muted pt-1">
+                <span className="text-[10px] text-accent/80 sm:hidden">← geser grafik →</span>
+                <div className="flex items-center gap-1 ml-auto">
                   <span>Sedikit</span>
                   {levelColors.map((col, idx) => (
                     <span key={idx} className={`w-2.5 h-2.5 rounded-sm ${col}`} />
@@ -383,35 +384,35 @@ export default function DevActivity() {
               </div>
 
               {/* Developer Metrics */}
-              <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border/60">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-3 border-t border-border/60">
                 <a
                   href="https://github.com/arya-ramadhani?tab=repositories"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-bg border border-border/70 text-center hover:border-accent/40 transition-colors group"
+                  className="p-2.5 sm:p-3 rounded-xl bg-bg border border-border/70 text-center hover:border-accent/40 transition-colors group"
                 >
-                  <div className="text-lg font-bold font-mono text-text group-hover:text-accent">
+                  <div className="text-base sm:text-lg font-bold font-mono text-text group-hover:text-accent">
                     {repoCount}
                   </div>
-                  <div className="text-[11px] font-mono text-text-muted">Repo Publik</div>
+                  <div className="text-[10px] sm:text-[11px] font-mono text-text-muted">Repo Publik</div>
                 </a>
-                <div className="p-3 rounded-xl bg-bg border border-border/70 text-center">
-                  <div className="text-lg font-bold font-mono text-emerald-400">
+                <div className="p-2.5 sm:p-3 rounded-xl bg-bg border border-border/70 text-center">
+                  <div className="text-base sm:text-lg font-bold font-mono text-emerald-400">
                     {totalLifetimeContributions}+
                   </div>
-                  <div className="text-[11px] font-mono text-text-muted">Total Commits</div>
+                  <div className="text-[10px] sm:text-[11px] font-mono text-text-muted">Total Commits</div>
                 </div>
                 <a
                   href="https://github.com/arya-ramadhani"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-bg border border-border/70 text-center hover:border-accent/40 transition-colors group"
+                  className="p-2.5 sm:p-3 rounded-xl bg-bg border border-border/70 text-center hover:border-accent/40 transition-colors group"
                 >
-                  <div className="text-lg font-bold font-mono text-accent flex items-center justify-center gap-1">
-                    <Flame className="w-4 h-4 text-amber-400" />
+                  <div className="text-base sm:text-lg font-bold font-mono text-accent flex items-center justify-center gap-1">
+                    <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
                     Aktif
                   </div>
-                  <div className="text-[11px] font-mono text-text-muted">@arya-ramadhani</div>
+                  <div className="text-[10px] sm:text-[11px] font-mono text-text-muted">@arya-ramadhani</div>
                 </a>
               </div>
             </div>

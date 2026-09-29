@@ -30,7 +30,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="py-20 lg:py-28 bg-bg-alt/30 relative overflow-hidden">
+    <section id="experience" className="py-14 sm:py-20 lg:py-28 bg-bg-alt/30 relative overflow-hidden">
       {/* Background ambient */}
       <div className="absolute top-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
@@ -38,7 +38,7 @@ export default function Experience() {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <SectionReveal>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 pb-4 border-b border-border/60">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10 sm:mb-12 pb-4 border-b border-border/60">
             <div>
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono font-semibold uppercase tracking-wider mb-2">
                 <Briefcase className="w-3.5 h-3.5" />
@@ -46,7 +46,7 @@ export default function Experience() {
               </div>
               <h2 className="heading-lg text-text">Experience Timeline</h2>
             </div>
-            <p className="body-md text-text-secondary max-w-lg">
+            <p className="text-sm sm:body-md text-text-secondary max-w-lg">
               Rekam jejak profesional dalam pengembangan software, instalasi teknis hardware, serta kepemimpinan organisasi tingkat regional dan universitas.
             </p>
           </div>

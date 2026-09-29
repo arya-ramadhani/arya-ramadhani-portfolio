@@ -6,20 +6,20 @@ import { education } from "@/data/education";
 
 export default function Education() {
   return (
-    <section id="education" className="py-24 lg:py-32">
+    <section id="education" className="py-14 sm:py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-6">
         <SectionReveal>
-          <div className="space-y-4 mb-16">
+          <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-12 lg:mb-16">
             <span className="label text-accent">Education</span>
             <h2 className="heading-lg text-text">Education</h2>
             <div className="accent-line" />
           </div>
         </SectionReveal>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Degree */}
           <SectionReveal delay={0.1}>
-            <div className="p-8 rounded-xl border border-border bg-bg-alt space-y-4">
+            <div className="p-5 sm:p-8 rounded-2xl border border-border bg-bg-alt space-y-4">
               <GraduationCap className="w-6 h-6 text-accent" />
               <h3 className="heading-md text-text">{education.institution}</h3>
               <div className="space-y-1">
@@ -36,7 +36,7 @@ export default function Education() {
 
           {/* Organizations */}
           <SectionReveal delay={0.2}>
-            <div className="space-y-4">
+            <div className="space-y-3.5 sm:space-y-4">
               <div className="flex items-center gap-2 mb-2">
                 <Users className="w-4 h-4 text-accent" />
                 <span className="text-sm font-semibold text-text">
@@ -47,7 +47,7 @@ export default function Education() {
               {education.organizations.map((org) => (
                 <div
                   key={org.name}
-                  className="p-5 rounded-xl border border-border bg-bg-alt hover:border-accent/30 transition-colors duration-300"
+                  className="p-4 sm:p-5 rounded-2xl border border-border bg-bg-alt hover:border-accent/30 transition-colors duration-300"
                 >
                   <p className="text-xs text-accent font-medium uppercase tracking-wider mb-1">
                     {org.role}

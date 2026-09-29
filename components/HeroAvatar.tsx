@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function HeroAvatar() {
   return (
-    <div className="relative w-full max-w-[420px] lg:max-w-[480px] mx-auto flex items-center justify-center select-none">
+    <div className="relative w-full max-w-[280px] sm:max-w-[420px] lg:max-w-[480px] mx-auto flex items-center justify-center select-none">
       {/* Ambient accent glow — animated on desktop, static on mobile */}
       <motion.div
         animate={{ scale: [1, 1.08, 1], opacity: [0.35, 0.6, 0.35] }}
@@ -13,7 +13,7 @@ export default function HeroAvatar() {
         className="absolute w-[80%] aspect-square rounded-full bg-accent/25 blur-[80px] pointer-events-none hidden sm:block"
       />
       {/* Static mobile glow */}
-      <div className="absolute w-[80%] aspect-square rounded-full bg-accent/20 blur-[60px] pointer-events-none sm:hidden" />
+      <div className="absolute w-[80%] aspect-square rounded-full bg-accent/20 blur-[50px] pointer-events-none sm:hidden" />
 
       {/* Secondary glow — desktop only */}
       <motion.div
@@ -24,7 +24,7 @@ export default function HeroAvatar() {
 
       {/* Floating portrait */}
       <motion.div
-        animate={{ y: [0, -14, 0] }}
+        animate={{ y: [0, -10, 0] }}
         transition={{
           duration: 5.5,
           repeat: Infinity,
@@ -36,17 +36,17 @@ export default function HeroAvatar() {
         <motion.div
           animate={{ scale: [1, 0.9, 1], opacity: [0.35, 0.18, 0.35] }}
           transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-8 bg-accent/25 blur-2xl rounded-full pointer-events-none hidden sm:block"
+          className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-6 sm:h-8 bg-accent/25 blur-xl sm:blur-2xl rounded-full pointer-events-none hidden sm:block"
         />
         {/* Static mobile shadow */}
-        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-8 bg-accent/20 blur-xl rounded-full pointer-events-none sm:hidden" />
+        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[60%] h-6 bg-accent/20 blur-lg rounded-full pointer-events-none sm:hidden" />
 
         {/* Portrait image */}
         <div
-          className="relative w-full max-w-[380px] lg:max-w-[440px] h-[480px] sm:h-[520px] lg:h-[560px]"
+          className="relative w-full max-w-[260px] sm:max-w-[380px] lg:max-w-[440px] h-[340px] sm:h-[480px] lg:h-[560px]"
           style={{
-            maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 98%)",
-            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 98%)",
+            maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 72%, rgba(0,0,0,0) 98%)",
+            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 72%, rgba(0,0,0,0) 98%)",
           }}
         >
           <Image
@@ -55,8 +55,8 @@ export default function HeroAvatar() {
             fill
             priority
             unoptimized
-            sizes="(max-width: 768px) 360px, 440px"
-            className="object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+            sizes="(max-width: 640px) 260px, (max-width: 1024px) 380px, 440px"
+            className="object-contain object-bottom drop-shadow-[0_15px_35px_rgba(0,0,0,0.45)]"
           />
         </div>
       </motion.div>

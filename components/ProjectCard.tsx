@@ -98,33 +98,33 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         {/* ── Content Card Details ── */}
-        <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div className="space-y-2">
+        <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between space-y-3.5 sm:space-y-4">
+          <div className="space-y-1.5 sm:space-y-2">
             <div className="flex items-start justify-between gap-3">
-              <h3 className="text-lg sm:text-xl font-bold text-text group-hover:text-accent transition-colors duration-200">
+              <h3 className="text-base sm:text-xl font-bold text-text group-hover:text-accent transition-colors duration-200">
                 {project.title}
               </h3>
-              <ArrowUpRight className="w-5 h-5 text-text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-0.5" />
+              <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-0.5" />
             </div>
 
-            <p className="text-xs font-mono text-accent/80 font-medium">
+            <p className="text-[11px] sm:text-xs font-mono text-accent/80 font-medium">
               Role: {project.role}
             </p>
 
-            <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed">
+            <p className="text-xs sm:text-sm text-text-secondary line-clamp-2 leading-relaxed">
               {project.description}
             </p>
           </div>
 
           {/* ── Technology Badges With Official Icons ── */}
-          <div className="space-y-3 pt-2 border-t border-border/50">
-            <div className="flex flex-wrap gap-1.5">
+          <div className="space-y-2.5 sm:space-y-3 pt-2 border-t border-border/50">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {project.technologies.slice(0, 5).map((tech) => (
                 <span
                   key={tech}
-                  className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-mono rounded-md bg-bg border border-border/80 text-text-secondary group-hover:border-accent/30 group-hover:text-text transition-colors shadow-xs"
+                  className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-[11px] font-mono rounded-md bg-bg border border-border/80 text-text-secondary group-hover:border-accent/30 group-hover:text-text transition-colors shadow-xs"
                 >
-                  <TechIcon name={tech} size={13} className="w-3 h-3 flex-shrink-0" />
+                  <TechIcon name={tech} size={12} className="w-3 h-3 flex-shrink-0" />
                   <span>{tech}</span>
                 </span>
               ))}
@@ -136,11 +136,11 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
 
             {/* Bottom Inspect Button */}
-            <div className="flex items-center justify-between pt-1 text-xs font-mono text-text-muted">
-              <span>{project.categories.join(" • ")}</span>
+            <div className="flex items-center justify-between pt-1 text-[11px] sm:text-xs font-mono text-text-muted">
+              <span className="truncate max-w-[180px] sm:max-w-none">{project.categories.join(" • ")}</span>
               <button
                 onClick={() => setShowDetailModal(true)}
-                className="text-accent font-semibold hover:underline flex items-center gap-1"
+                className="text-accent font-semibold hover:underline flex items-center gap-1 flex-shrink-0"
               >
                 <span>Lihat Detail</span>
                 <span>→</span>
@@ -158,7 +158,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-lg rounded-2xl bg-bg-elevated border border-border p-6 sm:p-7 shadow-2xl space-y-5"
+              className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto rounded-2xl bg-bg-elevated border border-border p-5 sm:p-7 shadow-2xl space-y-4 sm:space-y-5"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>

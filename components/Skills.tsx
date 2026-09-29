@@ -145,7 +145,7 @@ function SpecializationCard({ spec, index }: { spec: Specialization; index: numb
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 lg:py-20 bg-bg-alt/30 relative overflow-hidden">
+    <section id="skills" className="py-12 sm:py-16 lg:py-20 bg-bg-alt/30 relative overflow-hidden">
       {/* Background ambient mesh glows */}
       <div className="absolute top-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
@@ -153,7 +153,7 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* ── Compact Header (Fits on one page) ── */}
         <SectionReveal>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 pb-4 border-b border-border/60">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 lg:mb-8 pb-4 border-b border-border/60">
             <div>
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono font-semibold uppercase tracking-wider mb-2">
                 <Terminal className="w-3.5 h-3.5" />
@@ -187,8 +187,8 @@ export default function Skills() {
               </div>
             </div>
 
-            {/* 30% Right: Pure 3D Floating Technology Logos Animation */}
-            <div className="lg:col-span-3 flex flex-col h-full">
+            {/* 30% Right: Pure 3D Floating Technology Logos — hidden on mobile */}
+            <div className="hidden lg:flex lg:col-span-3 flex-col h-full">
               <div className="flex items-center justify-between mb-3 h-6">
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-text-muted">
                   3D Tech Orbit
