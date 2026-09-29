@@ -262,12 +262,6 @@ export default function Contact() {
                   </motion.a>
                 );
               })}
-
-              {/* Status Note */}
-              <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-xs text-text-secondary flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
-                <span>Saat ini saya terbuka untuk kesempatan magang, proyek freelance, kolaborasi teknis, dan peluang profesional di bidang rekayasa perangkat lunak dan teknologi.</span>
-              </div>
             </div>
           </SectionReveal>
         </div>
