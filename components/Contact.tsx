@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Mail, Send, ArrowUpRight, CheckCircle2, MessageSquare, Sparkles } from "lucide-react";
+import { Mail, Send, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import SectionReveal from "./SectionReveal";
 import MagneticButton from "./MagneticButton";
 import { motion } from "framer-motion";
@@ -65,14 +65,17 @@ export default function Contact() {
     setErrorMessage(null);
 
     try {
-      const response = await fetch("/api/contact", {
+      const formData = new FormData();
+      formData.append("access_key", "4c87639d-e5e7-4e4c-a9c6-cd6550fd8744");
+      formData.append("name", formState.name);
+      formData.append("email", formState.email);
+      formData.append("message", formState.message);
+      formData.append("from_name", `Portfolio Inquiry from ${formState.name}`);
+      formData.append("subject", `New message from ${formState.name} on Portfolio`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formState.name,
-          email: formState.email,
-          message: formState.message,
-        }),
+        body: formData,
       });
 
       const data = await response.json();
@@ -82,7 +85,7 @@ export default function Contact() {
         setFormState({ name: "", email: "", message: "" });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        setErrorMessage(data.error || "Gagal mengirim pesan. Silakan coba lagi.");
+        setErrorMessage(data.message || "Gagal mengirim pesan. Silakan coba lagi.");
       }
     } catch {
       setErrorMessage("Terjadi kesalahan koneksi. Silakan periksa jaringan Anda.");
