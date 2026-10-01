@@ -64,6 +64,40 @@
   --font-mono: var(--font-mono);
 }
 
+/* ── Hardware-Accelerated Circular Reveal (Optimized & Zero Lag) ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  overflow: clip;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Prevent custom cursor from ghosting in snapshot */
+::view-transition-old(custom-cursor),
+::view-transition-new(custom-cursor) {
+  display: none !important;
+}
+
+/* Fallback for browsers without View Transitions */
+html.theme-fallback-transition,
+html.theme-fallback-transition *,
+html.theme-fallback-transition *::before,
+html.theme-fallback-transition *::after {
+  transition: background-color 0.35s ease,
+              border-color 0.35s ease,
+              color 0.35s ease,
+              box-shadow 0.35s ease !important;
+  transition-delay: 0s !important;
+}
+
 /* ── Base ── */
 * {
   scrollbar-width: thin;

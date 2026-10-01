@@ -89,6 +89,7 @@ export default function CustomCursor() {
       style={{
         opacity: isVisible ? 1 : 0,
         transition: "opacity 0.15s ease-out",
+        viewTransitionName: "custom-cursor",
       }}
     >
       {/* ── 1. Default State: Sleek Futuristic Cyber Pointer ── */}
