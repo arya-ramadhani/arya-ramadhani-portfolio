@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [hoverType, setHoverType] = useState<"default" | "pointer" | "button" | "view" | "orbit">("default");
