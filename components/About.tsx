@@ -40,7 +40,7 @@ const keyInfo = [
   {
     icon: GraduationCap,
     label: "Gelar",
-    value: "Sarjana Terapan Komputer",
+    value: "Sarjana Terapan Komputer (S.Tr.Kom)",
     tag: "Degree",
     floatDuration: 4.8,
   },
@@ -54,7 +54,7 @@ const keyInfo = [
   {
     icon: Target,
     label: "Fokus Utama",
-    value: "Full-Stack Software Engineering",
+    value: "Software Engineering",
     tag: "Focus",
     floatDuration: 4.4,
   },
@@ -132,7 +132,7 @@ export default function About() {
         <SectionReveal>
           <div className="space-y-3 mb-10 lg:mb-16">
             <span className="label text-accent">About</span>
-            <h2 className="heading-lg text-text">Engineering with Purpose &amp; Precision</h2>
+            <h2 className="heading-lg text-text">Engineering Reliable Digital Solutions</h2>
             <div className="accent-line" />
           </div>
         </SectionReveal>
@@ -197,17 +197,18 @@ export default function About() {
           <SectionReveal delay={0.2} className="lg:col-span-7">
             <div className="space-y-4 sm:space-y-6">
               <p className="text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed">
-                Saya adalah seorang Software Engineer dengan latar belakang akademis di bidang
-                Informatika dan Rekayasa Perangkat Lunak (<span className="text-text font-medium">Software Engineering</span>).
-                Fokus utama saya adalah memecahkan masalah nyata yang kompleks menjadi sistem yang tangguh, efisien, dan berorientasi pada pengguna.
+                Saya adalah seorang Software Engineer dengan latar belakang akademis di bidang Teknik Informatika dengan Prodi{" "}
+                <span className="text-text font-medium">Rekayasa Perangkat Lunak (Software Engineering)</span>.
+                Saya berfokus pada membangun solusi digital yang andal, efisien, dan mudah dikembangkan, dengan pendekatan yang berorientasi pada kebutuhan pengguna dan permasalahan nyata.
               </p>
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-                Alih-alih memandang web development, IoT, dan AI sebagai bidang yang terpisah, saya mengintegrasikannya:
-                menghubungkan sensor mikrokontroler (<span className="text-text font-medium">ESP32 &amp; Raspberry</span>) ke dashboard cloud real-time,
-                menerapkan computer vision (<span className="text-text font-medium">Image Processing</span>) ke dalam alur kerja sistem, serta mengemas seluruhnya dengan modern dan intuitif.
+                Saya mengembangkan berbagai solusi melalui integrasi <span className="text-text font-medium">web, mobile, IoT, dan AI</span>,
+                mulai dari membangun aplikasi dan sistem berbasis web hingga menghubungkan perangkat dan sensor dengan sistem digital.
+                Saya juga menerapkan <span className="text-text font-medium">computer vision</span> dan <span className="text-text font-medium">image processing</span> untuk mendukung proses yang lebih otomatis dan efektif.
               </p>
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-                Setiap baris kode disusun dengan prinsip maintainability, type safety, dan arsitektur yang bersih, memastikan solusi perangkat lunak tetap andal, skalabel, serta mudah dikembangkan ke depannya.
+                Dalam setiap proyek, saya mengutamakan <span className="text-text font-medium">clean architecture</span>, maintainability, scalability, dan user experience.
+                Bagi saya, software bukan hanya tentang bagaimana sistem dapat berjalan, tetapi bagaimana sebuah solusi dapat tetap reliable, adaptable, dan memberikan nilai nyata dalam jangka panjang.
               </p>
 
               <div className="pt-2 sm:pt-4 flex flex-wrap items-center gap-4">
