@@ -457,6 +457,121 @@ export function DesignSystemIcon({ className = "w-6 h-6", size = 24, ...props }:
   );
 }
 
+export function DartIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <path d="M4.105 4.105S9.158 1.3 11.684 1.3c1.606 0 2.935.68 3.79 1.534l5.53 5.53c.85.853 1.534 2.183 1.534 3.79 0 2.526-2.805 7.579-2.805 7.579s.68-2.394-1.444-4.518L12.7 9.131c-.65-.65-1.21-1.18-2.149-1.377-.786-.166-1.74.05-2.44.748L4.105 4.105z" fill="#01579B" />
+      <path d="M4.105 19.895S1.3 14.842 1.3 12.316c0-1.606.68-2.935 1.534-3.79l2.27-2.27 4.022 4.023c-.698.7-.914 1.654-.748 2.44.197.938.727 1.499 1.377 2.149l5.584 5.584-2.27 2.27c-.854.853-2.183 1.534-3.79 1.534-2.526 0-5.174-1.361-5.174-1.361z" fill="#40C4FF" />
+      <path d="M8.438 15.562A2.9 2.9 0 0112 12a2.9 2.9 0 013.562 3.562A2.9 2.9 0 0112 19a2.9 2.9 0 01-3.562-3.438z" fill="#01579B" fillOpacity="0.3" />
+    </svg>
+  );
+}
+
+export function FlutterIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <path d="M14 0L3.24 10.76l3.53 3.53L21.07 0H14z" fill="#54C5F8" />
+      <path d="M13.86 13.16L10.53 9.83 3.24 17.12l3.53 3.53 7.09-7.49z" fill="#54C5F8" />
+      <path d="M10.53 17.54l3.33-3.33 3.52 3.52-3.33 3.33-3.52-3.52z" fill="#01579B" />
+      <path d="M13.86 17.65l-3.33 3.21 1.77 1.77 5.08-5.08-3.52.1z" fill="#29B6F6" />
+    </svg>
+  );
+}
+
+export function RaspberryPiIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <circle cx="12" cy="12" r="10" fill="#C51A4A" fillOpacity="0.15" stroke="#C51A4A" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="4" fill="#C51A4A" />
+      <circle cx="12" cy="5" r="1.5" fill="#C51A4A" />
+      <circle cx="12" cy="19" r="1.5" fill="#C51A4A" />
+      <circle cx="5" cy="8.5" r="1.5" fill="#C51A4A" />
+      <circle cx="19" cy="8.5" r="1.5" fill="#C51A4A" />
+      <circle cx="5" cy="15.5" r="1.5" fill="#C51A4A" />
+      <circle cx="19" cy="15.5" r="1.5" fill="#C51A4A" />
+    </svg>
+  );
+}
+
+export function ActuatorsIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <rect x="3" y="10" width="8" height="4" rx="1" fill="#F59E0B" />
+      <rect x="13" y="7" width="8" height="10" rx="1.5" stroke="#F59E0B" strokeWidth="1.8" />
+      <line x1="11" y1="12" x2="13" y2="12" stroke="#FBBF24" strokeWidth="2" strokeLinecap="round" />
+      <path d="M17 9v6" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M3 8l2-3M3 16l2 3" stroke="#FBBF24" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function HTTPIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <rect x="2" y="5" width="20" height="14" rx="3" stroke="#10B981" strokeWidth="1.8" />
+      <path d="M6 9v6M6 12h4M10 9v6" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M13 9h1.5a1.5 1.5 0 010 3H13v3" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function WebSocketIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <path d="M4 12a8 8 0 018-8" stroke="#6366F1" strokeWidth="2" strokeLinecap="round" />
+      <path d="M20 12a8 8 0 01-8 8" stroke="#6366F1" strokeWidth="2" strokeLinecap="round" />
+      <path d="M8 12a4 4 0 014-4" stroke="#818CF8" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M16 12a4 4 0 01-4 4" stroke="#818CF8" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="2" fill="#6366F1" />
+      <path d="M12 4V2M12 22v-2" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function GoogleColabIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <circle cx="9" cy="12" r="7" fill="#F9AB00" />
+      <circle cx="15" cy="12" r="7" fill="#FF6D00" fillOpacity="0.75" />
+      <path d="M9 8l4 4-4 4" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function AndroidStudioIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="#3DDC84" fillOpacity="0.15" />
+      <path d="M7 15.5c0-.828.895-1.5 2-1.5s2 .672 2 1.5S10.105 17 9 17s-2-.672-2-1.5zM13 15.5c0-.828.895-1.5 2-1.5s2 .672 2 1.5S16.105 17 15 17s-2-.672-2-1.5z" fill="#3DDC84" />
+      <path d="M7.5 14C7.5 10.686 9.515 8 12 8s4.5 2.686 4.5 6" stroke="#3DDC84" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M6 10l-2-3M18 10l2-3" stroke="#3DDC84" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="9" cy="15.5" r="1" fill="#FFFFFF" />
+      <circle cx="15" cy="15.5" r="1" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+export function ArduinoIDEIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <rect x="2" y="2" width="20" height="20" rx="4" fill="#00979C" fillOpacity="0.15" stroke="#00979C" strokeWidth="1.5" />
+      <path d="M6 12h4M14 12h4" stroke="#00979C" strokeWidth="2.2" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="3" stroke="#00979C" strokeWidth="1.8" />
+      <path d="M10.5 10.5l3 3M13.5 10.5l-3 3" stroke="#00979C" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function PlatformIOIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" fill="#F5822A" fillOpacity="0.15" stroke="#F5822A" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M12 2v20M3 7l9 5 9-5" stroke="#F5822A" strokeWidth="1.2" strokeLinejoin="round" strokeOpacity="0.6" />
+      <circle cx="12" cy="12" r="2.5" fill="#F5822A" />
+    </svg>
+  );
+}
+
 // Icon dictionary lookup helper
 export const TechIconMap: Record<string, React.FC<TechIconProps>> = {
   HTML5: HTML5Icon,
@@ -493,17 +608,29 @@ export const TechIconMap: Record<string, React.FC<TechIconProps>> = {
   Postman: PostmanIcon,
   Docker: DockerIcon,
   Java: JavaIcon,
+  Dart: DartIcon,
+  Flutter: FlutterIcon,
+  "Android Studio": AndroidStudioIcon,
   // Spec 2: IoT & Embedded
+  "Raspberry Pi": RaspberryPiIcon,
+  Raspberry: RaspberryPiIcon,
   Sensors: SensorsIcon,
   Sensor: SensorsIcon,
+  Actuators: ActuatorsIcon,
+  Actuator: ActuatorsIcon,
   Servo: ServoIcon,
   "Embedded Systems": EmbeddedSystemsIcon,
   "IoT Communication": IoTCommunicationIcon,
+  HTTP: HTTPIcon,
+  WebSocket: WebSocketIcon,
+  "Arduino IDE": ArduinoIDEIcon,
+  PlatformIO: PlatformIOIcon,
   // Spec 3: AI & Computer Vision
   OCR: OCRIcon,
   Tesseract: TesseractIcon,
   "Computer Vision": ComputerVisionIcon,
   "Image Processing": ImageProcessingIcon,
+  "Google Colab": GoogleColabIcon,
   // Spec 4: UI/UX Design
   Wireframing: WireframingIcon,
   Prototyping: PrototypingIcon,

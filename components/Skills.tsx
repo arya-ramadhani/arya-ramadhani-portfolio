@@ -162,7 +162,7 @@ export default function Skills() {
               <h2 className="heading-md lg:heading-lg text-text">Skills &amp; Technology Stack</h2>
             </div>
             <p className="text-xs font-mono text-text-muted max-w-md">
-              Arsitektur web full-stack, mikrokontroler IoT terintegrasi, dan artificial intelligence.
+              Membangun solusi digital terintegrasi melalui software, IoT, AI, dan user-centered design.
             </p>
           </div>
         </SectionReveal>
