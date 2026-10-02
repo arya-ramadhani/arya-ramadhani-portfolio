@@ -41,6 +41,7 @@ const keyInfo = [
     icon: GraduationCap,
     label: "Gelar",
     value: "Sarjana Terapan Komputer (S.Tr.Kom)",
+    subtitle: "In Progress",
     tag: "Degree",
     floatDuration: 4.8,
   },
@@ -196,9 +197,9 @@ export default function About() {
           {/* Left — Narrative & Positioning (7 cols) */}
           <SectionReveal delay={0.2} className="lg:col-span-7">
             <div className="space-y-4 sm:space-y-6">
-              <p className="text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed">
+              <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
                 Saya adalah seorang Software Engineer dengan latar belakang akademis di bidang Teknik Informatika dengan Prodi{" "}
-                <span className="text-text font-medium">Rekayasa Perangkat Lunak (Software Engineering)</span>.
+                Rekayasa Perangkat Lunak <span className="text-text font-medium">(Software Engineering)</span>.
                 Saya berfokus pada membangun solusi digital yang andal, efisien, dan mudah dikembangkan, dengan pendekatan yang berorientasi pada kebutuhan pengguna dan permasalahan nyata.
               </p>
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
@@ -207,7 +208,7 @@ export default function About() {
                 Saya juga menerapkan <span className="text-text font-medium">computer vision</span> dan <span className="text-text font-medium">image processing</span> untuk mendukung proses yang lebih otomatis dan efektif.
               </p>
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-                Dalam setiap proyek, saya mengutamakan <span className="text-text font-medium">clean architecture</span>, maintainability, scalability, dan user experience.
+                Dalam setiap proyek, saya mengutamakan <span className="text-text font-medium">clean architecture, maintainability, scalability, dan user experience</span>.
                 Bagi saya, software bukan hanya tentang bagaimana sistem dapat berjalan, tetapi bagaimana sebuah solusi dapat tetap reliable, adaptable, dan memberikan nilai nyata dalam jangka panjang.
               </p>
 
@@ -283,6 +284,11 @@ export default function About() {
                     <p className="text-sm font-semibold text-text truncate">
                       {item.value}
                     </p>
+                    {item.subtitle && (
+                      <p className="text-[11px] font-mono text-accent mt-0.5">
+                        {item.subtitle}
+                      </p>
+                    )}
                   </div>
                 </motion.div>
               ))}
