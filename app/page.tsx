@@ -10,7 +10,7 @@ import Publications from "@/components/Publications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SectionDivider from "@/components/SectionDivider";
-
+// Main Portfolio Page
 export default function Home() {
   return (
     <>

@@ -3,10 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import SectionReveal from "./SectionReveal";
-import {
-  specializations,
-  type Specialization,
-} from "@/data/skills";
+import { specializations, type Specialization } from "@/data/skills";
 import { TechIcon } from "./TechIcons";
 import TechSphere3D from "./TechSphere3D";
 import { Terminal, Sparkles } from "lucide-react";
@@ -19,7 +16,6 @@ const specColors: Record<string, { brand: string; glow: string; bg: string }> = 
   "04": { brand: "#A855F7", glow: "rgba(168, 85, 247, 0.2)", bg: "rgba(168, 85, 247, 0.08)" },
 };
 
-// Compact, modern 3D tilt card for specializations (no "domain" text, all have official icons)
 function SpecializationCard({ spec, index }: { spec: Specialization; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [hoverCoord, setHoverCoord] = useState({ x: 50, y: 50 });
@@ -27,7 +23,6 @@ function SpecializationCard({ spec, index }: { spec: Specialization; index: numb
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
   const springConfig = { damping: 22, stiffness: 240 };
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [5, -5]), springConfig);
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-5, 5]), springConfig);
@@ -41,10 +36,8 @@ function SpecializationCard({ spec, index }: { spec: Specialization; index: numb
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const nx = (e.clientX - rect.left) / rect.width - 0.5;
-    const ny = (e.clientY - rect.top) / rect.height - 0.5;
-    x.set(nx);
-    y.set(ny);
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
     setHoverCoord({
       x: ((e.clientX - rect.left) / rect.width) * 100,
       y: ((e.clientY - rect.top) / rect.height) * 100,
@@ -63,14 +56,9 @@ function SpecializationCard({ spec, index }: { spec: Specialization; index: numb
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       className="relative p-5 rounded-2xl border border-border/80 bg-bg-alt/85 dark:bg-bg-alt/70 backdrop-blur-md transition-all duration-300 hover:shadow-xl group overflow-hidden flex flex-col justify-between"
     >
-      {/* Dynamic Cursor Light Reflection */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-2xl"
         style={{
@@ -78,9 +66,7 @@ function SpecializationCard({ spec, index }: { spec: Specialization; index: numb
           opacity: isHovered ? 1 : 0,
         }}
       />
-
       <div className="relative z-10">
-        {/* Header: Number & Title with Icon */}
         <div className="flex items-center justify-between gap-3 mb-2.5">
           <div className="flex items-center gap-2.5">
             <div
@@ -97,25 +83,14 @@ function SpecializationCard({ spec, index }: { spec: Specialization; index: numb
               {spec.title}
             </h3>
           </div>
-
           <span
             className="font-mono text-[11px] font-bold px-2 py-0.5 rounded border transition-colors duration-200"
-            style={{
-              color: colors.brand,
-              borderColor: `${colors.brand}35`,
-              backgroundColor: colors.bg,
-            }}
+            style={{ color: colors.brand, borderColor: `${colors.brand}35`, backgroundColor: colors.bg }}
           >
             {spec.number}
           </span>
         </div>
-
-        {/* Concise Description */}
-        <p className="text-xs text-text-secondary mb-3.5 line-clamp-2 leading-relaxed">
-          {spec.description}
-        </p>
-
-        {/* Official Technology Badges: EVERY single tech has its authentic SVG icon */}
+        <p className="text-xs text-text-secondary mb-3.5 line-clamp-2 leading-relaxed">{spec.description}</p>
         <div className="pt-3 border-t border-border/50">
           <div className="flex flex-wrap gap-1.5">
             {spec.technologies.map((techName) => (
@@ -130,28 +105,60 @@ function SpecializationCard({ spec, index }: { spec: Specialization; index: numb
           </div>
         </div>
       </div>
-
-      {/* Bottom glowing accent edge */}
       <div
         className="absolute inset-x-0 bottom-0 h-0.5 transition-opacity duration-300 rounded-b-2xl"
-        style={{
-          backgroundColor: colors.brand,
-          opacity: isHovered ? 1 : 0,
-        }}
+        style={{ backgroundColor: colors.brand, opacity: isHovered ? 1 : 0 }}
       />
     </motion.div>
   );
 }
 
+// 8 stars â€” minimal, CSS-animated (no JS)
+const STARS = [
+  { top: "8%",  left: "6%",  s: 2,   d: 3.2, dl: 0   },
+  { top: "14%", left: "68%", s: 2.5, d: 4.5, dl: 0.5  },
+  { top: "54%", left: "4%",  s: 1.5, d: 3.5, dl: 2.4  },
+  { top: "68%", left: "14%", s: 2,   d: 4.2, dl: 0.3  },
+  { top: "88%", left: "78%", s: 2,   d: 3.4, dl: 1.1  },
+  { top: "64%", left: "92%", s: 2.5, d: 4.8, dl: 0.4  },
+  { top: "28%", left: "48%", s: 2,   d: 3.8, dl: 2.1  },
+  { top: "42%", left: "22%", s: 1,   d: 3.1, dl: 2.7  },
+];
+
 export default function Skills() {
   return (
     <section id="skills" className="py-12 sm:py-16 lg:py-20 bg-bg-alt/30 relative overflow-hidden">
-      {/* Background ambient mesh glows */}
-      <div className="absolute top-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
+      {/* Pure CSS keyframe definitions â€” zero JS runtime cost */}
+      <style>{`
+        @keyframes sk-star {
+          0%,100%{opacity:.15;transform:scale(.85)}
+          50%{opacity:.95;transform:scale(1.4)}
+        }
+        @keyframes sk-ccw{to{transform:rotate(-360deg)}}
+        @keyframes sk-cw {to{transform:rotate(360deg)}}
+      `}</style>
+
+      {/* â”€â”€ Cosmic Background â€” CSS-only â”€â”€ */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0" aria-hidden="true">
+
+        {STARS.map((s, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-white/80"
+            style={{
+              top: s.top, left: s.left,
+              width: `${s.s}px`, height: `${s.s}px`,
+              boxShadow: "0 0 6px rgba(255,255,255,0.8)",
+              animation: `sk-star ${s.d}s ease-in-out ${s.dl}s infinite`,
+            }}
+          />
+        ))}
+
+
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* ── Compact Header (Fits on one page) ── */}
+        {/* Header */}
         <SectionReveal>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 lg:mb-8 pb-4 border-b border-border/60">
             <div>
@@ -167,10 +174,11 @@ export default function Skills() {
           </div>
         </SectionReveal>
 
-        {/* ── 70% Left: Core Engineering (Cards) & 30% Right: 3D Floating Logos Cosmos ── */}
+        {/* â”€â”€ Grid: 70% Cards | 30% Orbit Sphere â”€â”€ */}
         <SectionReveal>
           <div className="grid grid-cols-1 lg:grid-cols-10 gap-5 items-stretch">
-            {/* 70% Left: Core Engineering (2x2 Compact Cards) */}
+
+            {/* Left 70%: Core Engineering Cards */}
             <div className="lg:col-span-7 flex flex-col h-full">
               <div className="flex items-center justify-between mb-3 h-6">
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-text-muted flex items-center gap-1.5">
@@ -179,7 +187,6 @@ export default function Skills() {
                 </span>
                 <span className="text-[11px] font-mono text-text-muted">04 Specializations</span>
               </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                 {specializations.map((spec, index) => (
                   <SpecializationCard key={spec.number} spec={spec} index={index} />
@@ -187,18 +194,70 @@ export default function Skills() {
               </div>
             </div>
 
-            {/* 30% Right: Pure 3D Floating Technology Logos — hidden on mobile */}
+            {/* Right 30%: 3D Tech Orbit
+                overflow-hidden clips rings to this column â€” they will NEVER bleed left */}
             <div className="hidden lg:flex lg:col-span-3 flex-col h-full">
               <div className="flex items-center justify-between mb-3 h-6">
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-text-muted">
                   3D Tech Orbit
                 </span>
-                <span className="text-[11px] font-mono text-accent">Interactive 360°</span>
+                <span className="text-[11px] font-mono text-accent">Interactive 360Â°</span>
               </div>
-              <div className="flex-1 w-full relative min-h-[320px] lg:min-h-0">
-                <TechSphere3D className="w-full h-full" />
+
+              <div className="flex-1 w-full relative min-h-[320px] lg:min-h-0 overflow-hidden">
+
+                {/* Orbit rings â€” CSS animated, in DOM before TechSphere3D so they paint behind it */}
+                <div
+                  className="absolute pointer-events-none"
+                  style={{
+                    /* square centred in parent so rings are always perfect circles */
+                    width: "100%", aspectRatio: "1 / 1",
+                    top: "50%", left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  {/* Outer ring â€” CCW 55 s */}
+                  <div
+                    className="absolute rounded-full"
+                    style={{
+                      inset: "-6%",
+                      border: "1px dashed rgba(34,211,238,0.50)",
+                      animation: "sk-ccw 55s linear infinite",
+                    }}
+                  >
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
+                  </div>
+
+                  {/* Middle ring â€” CW 38 s */}
+                  <div
+                    className="absolute rounded-full"
+                    style={{
+                      inset: "7%",
+                      border: "1px dotted rgba(128,0,32,0.60)",
+                      animation: "sk-cw 38s linear infinite",
+                    }}
+                  >
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_12px_rgba(128,0,32,0.9)]" />
+                  </div>
+
+                  {/* Inner ring â€” CW 22 s */}
+                  <div
+                    className="absolute rounded-full"
+                    style={{
+                      inset: "19%",
+                      border: "1px solid rgba(255,255,255,0.25)",
+                      animation: "sk-cw 22s linear infinite",
+                    }}
+                  >
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,1)]" />
+                  </div>
+                </div>
+
+                {/* TechSphere3D â€” transparent, renders after rings so it's always on top */}
+                <TechSphere3D className="absolute inset-0 w-full h-full" />
               </div>
             </div>
+
           </div>
         </SectionReveal>
       </div>

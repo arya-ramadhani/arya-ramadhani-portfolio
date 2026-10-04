@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, ArrowUpRight, Code2, Sparkles, Eye, Layers } from "lucide-react";
+import { ArrowUpRight, Code2, Eye } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { TechIcon } from "./TechIcons";
 
@@ -12,7 +12,6 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [imgError, setImgError] = useState(false);
 
@@ -20,131 +19,104 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     <>
       <motion.article
         layout
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 16 }}
+        exit={{ opacity: 0, y: 12 }}
         transition={{
-          duration: 0.4,
-          delay: index * 0.06,
+          duration: 0.35,
+          delay: index * 0.04,
           ease: [0.22, 1, 0.36, 1],
         }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className="group relative rounded-2xl border border-border/80 bg-bg-alt/90 dark:bg-bg-alt/75 backdrop-blur-md overflow-hidden hover:border-accent/50 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-300 flex flex-col justify-between"
+        onClick={() => setShowDetailModal(true)}
+        className="group relative rounded-xl border border-border/70 bg-bg-alt/85 dark:bg-bg-alt/75 backdrop-blur-md overflow-hidden hover:border-accent/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer"
       >
         {/* Animated Top Border Accent Line */}
         <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
         {/* ── Visual Media Container ── */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-bg-elevated border-b border-border/60">
-          {/* Real Photo Preview with Fallback */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-bg-elevated border-b border-border/50">
           {!imgError ? (
             <img
               src={project.image}
               alt={project.title}
               onError={() => setImgError(true)}
-              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
             />
           ) : (
-            /* High-tech animated visual fallback */
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-bg-alt to-bg flex items-center justify-center p-6 overflow-hidden">
-              {/* Subtle animated background grid */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(128,0,32,0.12)_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 group-hover:opacity-70 transition-opacity" />
-              <div className="relative z-10 text-center space-y-2.5">
-                <div className="w-12 h-12 mx-auto rounded-2xl border border-border/80 bg-bg-alt shadow-sm flex items-center justify-center text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                  <Code2 className="w-6 h-6" />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-bg-alt to-bg flex items-center justify-center p-3 overflow-hidden">
+              <div className="text-center space-y-1">
+                <div className="w-8 h-8 mx-auto rounded-lg border border-border/70 bg-bg flex items-center justify-center text-accent">
+                  <Code2 className="w-4 h-4" />
                 </div>
-                <div>
-                  <p className="font-mono text-xs font-semibold text-accent uppercase tracking-wider">
-                    {project.category}
-                  </p>
-                  <p className="text-[11px] font-mono text-text-muted mt-0.5">{project.role}</p>
-                </div>
+                <p className="font-mono text-[9px] font-semibold text-accent uppercase tracking-wider">
+                  {project.category}
+                </p>
               </div>
             </div>
           )}
 
           {/* Category Chip */}
-          <div className="absolute top-3 left-3 z-10">
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold text-accent bg-bg/95 border border-accent/25 backdrop-blur-md shadow-sm">
+          <div className="absolute top-2 left-2 z-10">
+            <span className="px-1.5 py-0.5 rounded-md text-[9px] font-mono font-medium text-accent bg-bg/95 border border-accent/20 backdrop-blur-md shadow-xs">
               {project.category}
             </span>
           </div>
 
           {/* Metric / Featured Pill */}
           {project.metrics && (
-            <div className="absolute top-3 right-3 z-10">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono font-medium text-text bg-bg/95 border border-border backdrop-blur-md shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <div className="absolute top-2 right-2 z-10">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[9px] font-mono font-medium text-text bg-bg/95 border border-border/70 backdrop-blur-md shadow-xs">
+                <span className="w-1 h-1 rounded-full bg-accent animate-pulse" />
                 {project.metrics}
               </span>
             </div>
           )}
 
-          {/* Smooth Quick-Action Overlay */}
-          <div
-            className={`absolute inset-0 bg-bg/80 backdrop-blur-xs flex items-center justify-center gap-3 transition-opacity duration-200 z-10 ${
-              isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-          >
-            <button
-              onClick={() => setShowDetailModal(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl shadow-lg transition-transform duration-200 transform scale-95 group-hover:scale-100"
-            >
-              <Eye className="w-3.5 h-3.5" />
-              Detail Informasi
-            </button>
+          {/* Quick-Action Overlay */}
+          <div className="absolute inset-0 bg-black/35 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center z-10">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono font-medium text-white bg-accent/90 rounded-md shadow-md">
+              <Eye className="w-3 h-3" />
+              Detail
+            </span>
           </div>
         </div>
 
         {/* ── Content Card Details ── */}
-        <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between space-y-3.5 sm:space-y-4">
-          <div className="space-y-1.5 sm:space-y-2">
-            <div className="flex items-start justify-between gap-3">
-              <h3 className="text-base sm:text-xl font-bold text-text group-hover:text-accent transition-colors duration-200">
+        <div className="p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
+          <div>
+            <div className="flex items-start justify-between gap-1.5">
+              <h3 className="text-xs sm:text-[13px] font-bold text-text group-hover:text-accent transition-colors line-clamp-1">
                 {project.title}
               </h3>
-              <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-0.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-0.5" />
             </div>
 
-            <p className="text-[11px] sm:text-xs font-mono text-accent/80 font-medium">
-              Role: {project.role}
+            <p className="text-[10px] font-mono text-accent/80 font-medium truncate mt-0.5">
+              {project.role}
             </p>
 
-            <p className="text-xs sm:text-sm text-text-secondary line-clamp-2 leading-relaxed">
+            <p className="text-[11px] text-text-secondary line-clamp-2 leading-relaxed mt-1">
               {project.description}
             </p>
           </div>
 
-          {/* ── Technology Badges With Official Icons ── */}
-          <div className="space-y-2.5 sm:space-y-3 pt-2 border-t border-border/50">
-            <div className="flex flex-wrap gap-1 sm:gap-1.5">
-              {project.technologies.slice(0, 5).map((tech) => (
+          {/* ── Technology Badges ── */}
+          <div className="pt-2 mt-2 border-t border-border/40">
+            <div className="flex flex-wrap gap-1 items-center">
+              {project.technologies.slice(0, 3).map((tech) => (
                 <span
                   key={tech}
-                  className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-[11px] font-mono rounded-md bg-bg border border-border/80 text-text-secondary group-hover:border-accent/30 group-hover:text-text transition-colors shadow-xs"
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[9px] font-mono rounded bg-bg border border-border/60 text-text-secondary"
                 >
-                  <TechIcon name={tech} size={12} className="w-3 h-3 flex-shrink-0" />
+                  <TechIcon name={tech} size={10} className="w-2.5 h-2.5 flex-shrink-0" />
                   <span>{tech}</span>
                 </span>
               ))}
-              {project.technologies.length > 5 && (
-                <span className="px-1.5 py-0.5 text-[10px] font-mono text-text-muted bg-bg border border-border/60 rounded-md">
-                  +{project.technologies.length - 5}
+              {project.technologies.length > 3 && (
+                <span className="px-1 py-0.5 text-[9px] font-mono text-text-muted bg-bg border border-border/50 rounded">
+                  +{project.technologies.length - 3}
                 </span>
               )}
-            </div>
-
-            {/* Bottom Inspect Button */}
-            <div className="flex items-center justify-between pt-1 text-[11px] sm:text-xs font-mono text-text-muted">
-              <span className="truncate max-w-[180px] sm:max-w-none">{project.categories.join(" • ")}</span>
-              <button
-                onClick={() => setShowDetailModal(true)}
-                className="text-accent font-semibold hover:underline flex items-center gap-1 flex-shrink-0"
-              >
-                <span>Lihat Detail</span>
-                <span>→</span>
-              </button>
             </div>
           </div>
         </div>

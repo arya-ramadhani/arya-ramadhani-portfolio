@@ -205,11 +205,11 @@ export default function TechSphere3D({ className = "" }: { className?: string })
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      className={`relative w-full h-full rounded-2xl border border-border/80 bg-bg-alt/75 dark:bg-bg/60 backdrop-blur-md shadow-md flex items-center justify-center select-none touch-none overflow-hidden ${className}`}
+      className={`relative w-full h-full rounded-2xl border border-border/40 bg-bg-alt/30 dark:bg-bg/20 backdrop-blur-sm shadow-md flex items-center justify-center select-none touch-none overflow-hidden ${className}`}
       style={{ perspective: "800px" }}
     >
       {/* Ambient background lighting */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(128,0,32,0.12)_0%,transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(128,0,32,0.06)_0%,transparent_70%)] pointer-events-none" />
 
       {/* Responsive orbital rings — desktop only (decorative, skip on mobile) */}
       <div className="absolute inset-0 items-center justify-center pointer-events-none opacity-30 dark:opacity-20 hidden sm:flex">
