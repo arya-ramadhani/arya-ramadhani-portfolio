@@ -59,7 +59,7 @@ export default function Hero() {
 
       {/* Futuristic Ambient Gradient Meshes */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 -left-20 w-[420px] h-[420px] bg-accent/10 rounded-full blur-[140px]" />
+        <div className="absolute top-1/4 -left-20 w-[420px] h-[420px] bg-accent/10 rounded-full blur-[140px] hidden dark:block lg:block" />
         <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-accent/15 rounded-full blur-[160px]" />
         <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-[120px]" />
       </div>

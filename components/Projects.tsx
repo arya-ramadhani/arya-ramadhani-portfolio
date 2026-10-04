@@ -122,11 +122,11 @@ export default function Projects() {
           {!showAll ? (
             <div>
               {/* Horizontal Scroll Container */}
-              <div className="flex overflow-x-auto gap-3.5 pb-4 pt-1 -mx-6 px-6 snap-x snap-mandatory scroll-smooth items-stretch [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="flex overflow-x-auto gap-3.5 pb-4 pt-1 -mx-6 px-6 snap-x snap-mandatory scroll-smooth scroll-pl-6 items-stretch [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {projects.slice(0, 4).map((project, index) => (
                   <div
                     key={project.id}
-                    className="w-[82vw] max-w-[290px] shrink-0 snap-start flex flex-col"
+                    className="w-[82vw] max-w-[290px] shrink-0 snap-start flex flex-col first:ml-1"
                   >
                     <ProjectCard project={project} index={index} />
                   </div>
