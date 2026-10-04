@@ -11,8 +11,95 @@ export default function Projects() {
   const [showAll, setShowAll] = useState(false);
   return (
     <section id="projects" className="py-14 sm:py-20 lg:py-28 relative overflow-hidden">
-      <div className="absolute top-1/3 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
+      {/* ── Continuous Ambient Moving Background (Adaptive Light & Dark Mode) ── */}
+      <style>{`
+        @keyframes prj-orb-1 {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50% { transform: translate3d(60px, -40px, 0) scale(1.2); }
+        }
+        @keyframes prj-orb-2 {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50% { transform: translate3d(-55px, 35px, 0) scale(1.15); }
+        }
+        @keyframes prj-grid-shift {
+          0% { background-position: 0 0; }
+          100% { background-position: 40px 40px; }
+        }
+        @keyframes prj-node-pulse {
+          0%, 100% { opacity: 0.35; transform: scale(0.9); }
+          50% { opacity: 1; transform: scale(1.4); }
+        }
+        @keyframes prj-float-y {
+          0%, 100% { transform: translate3d(0, 0, 0); }
+          50% { transform: translate3d(0, -20px, 0); }
+        }
+        @keyframes prj-spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+
+      {/* Dynamic Animated Grid Pattern (High Visibility in Light & Dark Mode) */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-12 dark:opacity-12"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 1.5px 1.5px, var(--color-accent) 2px, transparent 0),
+            linear-gradient(to right, rgba(128, 0, 32, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(128, 0, 32, 0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: "32px 32px, 32px 32px, 32px 32px",
+          animation: "prj-grid-shift 24s linear infinite",
+        }}
+      />
+
+      {/* Floating Ambient Glowing Light Orbs (Rich contrast in Light Mode) */}
+      <div
+        className="absolute top-1/4 -left-28 w-[460px] h-[460px] bg-gradient-to-tr from-accent/22 via-accent/14 to-transparent dark:from-accent/12 dark:to-transparent rounded-full blur-[90px] sm:blur-[110px] dark:blur-[140px] pointer-events-none"
+        style={{ animation: "prj-orb-1 18s ease-in-out infinite" }}
+      />
+      <div
+        className="absolute bottom-1/5 -right-28 w-[480px] h-[480px] bg-gradient-to-bl from-accent/20 via-accent/12 to-transparent dark:from-accent/10 dark:to-transparent rounded-full blur-[90px] sm:blur-[110px] dark:blur-[140px] pointer-events-none"
+        style={{ animation: "prj-orb-2 22s ease-in-out infinite" }}
+      />
+
+      {/* Decorative Rotating Geometric Tech Crosses */}
+      <div
+        className="absolute top-[12%] right-[15%] w-8 h-8 pointer-events-none text-accent/30 dark:text-accent/20"
+        style={{ animation: "prj-spin-slow 24s linear infinite, prj-float-y 10s ease-in-out infinite" }}
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 4v16m-8-8h16" strokeLinecap="round" />
+        </svg>
+      </div>
+      <div
+        className="absolute bottom-[20%] left-[12%] w-6 h-6 pointer-events-none text-accent/25 dark:text-accent/15"
+        style={{ animation: "prj-spin-slow 30s linear infinite reverse, prj-float-y 12s ease-in-out 1.5s infinite" }}
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 4v16m-8-8h16" strokeLinecap="round" />
+        </svg>
+      </div>
+
+      {/* Floating Micro Tech Nodes (High Visibility in Light & Dark Mode) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute top-[18%] left-[10%] w-2.5 h-2.5 rounded-full bg-accent text-accent ring-4 ring-accent/20 dark:ring-accent/10 shadow-[0_0_12px_rgba(128,0,32,0.5)]"
+          style={{ animation: "prj-node-pulse 4.5s ease-in-out infinite, prj-float-y 8s ease-in-out infinite" }}
+        />
+        <div
+          className="absolute top-[45%] right-[8%] w-2 h-2 rounded-full bg-accent text-accent ring-4 ring-accent/20 dark:ring-accent/10 shadow-[0_0_10px_rgba(128,0,32,0.45)]"
+          style={{ animation: "prj-node-pulse 6s ease-in-out 1.2s infinite, prj-float-y 9.5s ease-in-out 1s infinite" }}
+        />
+        <div
+          className="absolute bottom-[28%] left-[6%] w-2 h-2 rounded-full bg-accent text-accent ring-4 ring-accent/15 dark:ring-accent/10 shadow-[0_0_10px_rgba(128,0,32,0.4)]"
+          style={{ animation: "prj-node-pulse 6.5s ease-in-out 2.5s infinite, prj-float-y 11s ease-in-out 2s infinite" }}
+        />
+        <div
+          className="absolute bottom-[14%] right-[20%] w-2.5 h-2.5 rounded-full bg-accent text-accent ring-4 ring-accent/20 dark:ring-accent/10 shadow-[0_0_12px_rgba(128,0,32,0.5)]"
+          style={{ animation: "prj-node-pulse 5s ease-in-out 1.8s infinite, prj-float-y 8.5s ease-in-out 1.5s infinite" }}
+        />
+      </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <SectionReveal>
@@ -35,24 +122,23 @@ export default function Projects() {
           {!showAll ? (
             <div>
               {/* Horizontal Scroll Container */}
-              <div className="flex overflow-x-auto gap-3.5 pb-4 pt-1 -mx-6 px-6 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="flex overflow-x-auto gap-3.5 pb-4 pt-1 -mx-6 px-6 snap-x snap-mandatory scroll-smooth items-stretch [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {projects.slice(0, 4).map((project, index) => (
                   <div
                     key={project.id}
-                    className="w-[82vw] max-w-[300px] shrink-0 snap-start flex flex-col"
+                    className="w-[82vw] max-w-[290px] shrink-0 snap-start flex flex-col"
                   >
                     <ProjectCard project={project} index={index} />
                   </div>
                 ))}
               </div>
 
-              {/* Swipe guidance indicator */}
-              <div className="flex items-center justify-between text-[11px] font-mono text-text-muted mt-1.5 mb-4 px-1">
+              {/* Swipe guidance indicator (Tanpa keterangan angka) */}
+              <div className="flex items-center text-[11px] font-mono text-text-muted mt-1.5 mb-4 px-1">
                 <span className="flex items-center gap-1.5">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                  Geser ke kanan untuk melihat
+                  Geser ke kanan untuk melihat proyek
                 </span>
-                <span className="text-accent font-semibold">1 - 4 dari {projects.length}</span>
               </div>
             </div>
           ) : (

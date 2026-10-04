@@ -115,7 +115,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           setCurrentImageIndex(0);
           setShowDetailModal(true);
         }}
-        className="group relative rounded-xl border border-border/70 bg-bg-alt/85 dark:bg-bg-alt/75 backdrop-blur-md overflow-hidden hover:border-accent/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+        className="group relative rounded-xl border border-border/70 bg-bg-alt/85 dark:bg-bg-alt/75 backdrop-blur-md overflow-hidden hover:border-accent/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
       >
         {/* Animated Top Border Accent Line */}
         <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
@@ -168,27 +168,27 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         </div>
 
-        {/* ── Content Card Details ── */}
+        {/* ── Content Card Details (Uniform Dimensions) ── */}
         <div className="p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
-          <div>
-            <div className="flex items-start justify-between gap-1.5">
-              <h3 className="text-xs sm:text-[13px] font-bold text-text group-hover:text-accent transition-colors line-clamp-1">
+          <div className="space-y-1">
+            <div className="flex items-start justify-between gap-1.5 min-h-[2.5rem]">
+              <h3 className="text-xs sm:text-[13px] font-bold text-text group-hover:text-accent transition-colors line-clamp-2 leading-tight">
                 {project.title}
               </h3>
               <ArrowUpRight className="w-3.5 h-3.5 text-text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-0.5" />
             </div>
 
-            <p className="text-[10px] font-mono text-accent/80 font-medium truncate mt-0.5">
+            <p className="text-[10px] font-mono text-accent/80 font-medium truncate">
               {project.role}
             </p>
 
-            <p className="text-[11px] text-text-secondary line-clamp-2 leading-relaxed mt-1">
+            <p className="text-[11px] text-text-secondary line-clamp-2 leading-relaxed min-h-[2rem]">
               {project.description}
             </p>
           </div>
 
           {/* ── Technology Badges ── */}
-          <div className="pt-2 mt-2 border-t border-border/40">
+          <div className="pt-2 mt-auto border-t border-border/40">
             <div className="flex flex-wrap gap-1 items-center">
               {project.technologies.slice(0, 3).map((tech) => (
                 <span
@@ -216,7 +216,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             {showDetailModal && (
               <div
                 data-lenis-prevent="true"
-                className="fixed inset-0 z-[99990] flex items-center justify-center p-3 sm:p-5 pt-18 sm:pt-20 pb-4 sm:pb-6 bg-black/80 backdrop-blur-md overflow-hidden select-none"
+                className="fixed inset-0 z-[99990] flex items-center justify-center p-3 sm:p-5 md:p-6 bg-black/80 backdrop-blur-md overflow-hidden select-none"
                 onClick={() => setShowDetailModal(false)}
                 onTouchMove={(e) => {
                   if (e.target === e.currentTarget) e.preventDefault();
@@ -232,7 +232,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                   exit={{ opacity: 0, scale: 0.96, y: 12 }}
                   transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                   onClick={(e) => e.stopPropagation()}
-                  className="relative w-full max-w-5xl max-h-[calc(100vh-5.5rem)] sm:max-h-[calc(100vh-6rem)] bg-bg-elevated/95 dark:bg-bg-elevated/95 border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col backdrop-blur-xl overscroll-contain my-auto select-auto"
+                  className="relative w-full max-w-5xl max-h-[86vh] sm:max-h-[85vh] bg-bg-elevated/95 dark:bg-bg-elevated/95 border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col backdrop-blur-xl overscroll-contain my-auto select-auto"
                 >
                   {/* Header Bar */}
                   <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/70 bg-bg-alt/60">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -201,7 +201,7 @@ export default function Skills() {
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-text-muted">
                   3D Tech Orbit
                 </span>
-                <span className="text-[11px] font-mono text-accent">Interactive 360Â°</span>
+                <span className="text-[11px] font-mono text-accent">Interactive 360°</span>
               </div>
 
               <div className="flex-1 w-full relative min-h-[320px] lg:min-h-0 overflow-hidden">
