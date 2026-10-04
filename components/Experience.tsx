@@ -31,9 +31,108 @@ export default function Experience() {
 
   return (
     <section id="experience" className="py-14 sm:py-20 lg:py-28 bg-bg-alt/30 relative overflow-hidden">
-      {/* Background ambient */}
-      <div className="absolute top-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
+      {/* === EXPERIENCE: Network Constellation Background === */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+
+        {/* Network nodes — pulsing dots at fixed positions */}
+        {[
+          { x: "8%",  y: "15%",  dur: 2.5, delay: 0 },
+          { x: "22%", y: "40%",  dur: 3.0, delay: 0.8 },
+          { x: "7%",  y: "68%",  dur: 2.8, delay: 1.5 },
+          { x: "18%", y: "85%",  dur: 3.2, delay: 0.3 },
+          { x: "85%", y: "12%",  dur: 2.6, delay: 1.1 },
+          { x: "92%", y: "38%",  dur: 3.5, delay: 0.6 },
+          { x: "80%", y: "60%",  dur: 2.9, delay: 1.9 },
+          { x: "88%", y: "80%",  dur: 3.1, delay: 0.4 },
+          { x: "48%", y: "8%",   dur: 2.7, delay: 2.1 },
+          { x: "52%", y: "92%",  dur: 3.3, delay: 1.3 },
+        ].map((node, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              scale: [1, 2, 1],
+              opacity: [0.35, 0.85, 0.35],
+            }}
+            transition={{ duration: node.dur, repeat: Infinity, ease: "easeInOut", delay: node.delay }}
+            className="absolute"
+            style={{ left: node.x, top: node.y }}
+          >
+            {/* Outer ring */}
+            <motion.div
+              animate={{ scale: [1, 1.8, 1], opacity: [0.4, 0, 0.4] }}
+              transition={{ duration: node.dur, repeat: Infinity, ease: "easeOut", delay: node.delay }}
+              className="absolute -inset-2 rounded-full border border-accent/40"
+            />
+            {/* Core dot */}
+            <div className="w-2 h-2 rounded-full bg-accent/70" />
+          </motion.div>
+        ))}
+
+        {/* SVG connecting lines between nodes */}
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(128,0,32,0)" />
+              <stop offset="50%" stopColor="rgba(128,0,32,0.35)" />
+              <stop offset="100%" stopColor="rgba(128,0,32,0)" />
+            </linearGradient>
+          </defs>
+          <motion.line x1="8%" y1="15%" x2="22%" y2="40%"
+            stroke="url(#lineGrad)" strokeWidth="0.8"
+            animate={{ opacity: [0.2, 0.7, 0.2] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.line x1="22%" y1="40%" x2="7%" y2="68%"
+            stroke="url(#lineGrad)" strokeWidth="0.8"
+            animate={{ opacity: [0.2, 0.6, 0.2] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
+          <motion.line x1="7%" y1="68%" x2="18%" y2="85%"
+            stroke="url(#lineGrad)" strokeWidth="0.8"
+            animate={{ opacity: [0.2, 0.65, 0.2] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          <motion.line x1="85%" y1="12%" x2="92%" y2="38%"
+            stroke="url(#lineGrad)" strokeWidth="0.8"
+            animate={{ opacity: [0.2, 0.7, 0.2] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          />
+          <motion.line x1="92%" y1="38%" x2="80%" y2="60%"
+            stroke="url(#lineGrad)" strokeWidth="0.8"
+            animate={{ opacity: [0.2, 0.6, 0.2] }}
+            transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+          />
+          <motion.line x1="80%" y1="60%" x2="88%" y2="80%"
+            stroke="url(#lineGrad)" strokeWidth="0.8"
+            animate={{ opacity: [0.15, 0.6, 0.15] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          />
+          <motion.line x1="48%" y1="8%" x2="85%" y2="12%"
+            stroke="url(#lineGrad)" strokeWidth="0.5"
+            animate={{ opacity: [0.1, 0.4, 0.1] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+          <motion.line x1="22%" y1="40%" x2="52%" y2="92%"
+            stroke="url(#lineGrad)" strokeWidth="0.5"
+            animate={{ opacity: [0.1, 0.35, 0.1] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+          />
+        </svg>
+
+        {/* Corner diagonal accent bars */}
+        <motion.div
+          animate={{ opacity: [0.08, 0.2, 0.08], x: [0, 6, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-0 right-0 w-40 h-px pointer-events-none"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(128,0,32,0.6))" }}
+        />
+        <motion.div
+          animate={{ opacity: [0.08, 0.18, 0.08], x: [0, -6, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-0 left-0 w-40 h-px pointer-events-none"
+          style={{ background: "linear-gradient(90deg, rgba(128,0,32,0.6), transparent)" }}
+        />
+      </div>
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Section Header */}

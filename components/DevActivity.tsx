@@ -107,6 +107,11 @@ export default function DevActivity() {
               }
             }
 
+            // Potong hari-hari yang melewati hari ini (tanggal aktual)
+            const today = new Date();
+            today.setHours(23, 59, 59, 999);
+            rawDays = rawDays.filter((day) => new Date(day.date) <= today);
+
             const weeks: ContributionDay[][] = [];
             for (let i = 0; i < rawDays.length; i += 7) {
               weeks.push(rawDays.slice(i, i + 7));

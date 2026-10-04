@@ -96,8 +96,80 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-14 sm:py-20 lg:py-24 relative overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute bottom-10 left-1/4 w-[450px] h-[450px] bg-accent/8 rounded-full blur-[150px] pointer-events-none" />
+      {/* Animated floating ring decorations */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Rings top-right corner */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-20 -right-20 w-72 h-72 rounded-full border border-accent/20"
+          style={{ borderStyle: "dashed" }}
+        />
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-10 -right-10 w-52 h-52 rounded-full border border-accent/15"
+        />
+
+        {/* Ring bottom-left */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full border border-accent/15"
+          style={{ borderStyle: "dashed" }}
+        />
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-8 -left-8 w-44 h-44 rounded-full border border-accent/10"
+        />
+
+        {/* Floating dots */}
+        {[
+          { top: "10%", left: "8%", dur: 5, delay: 0 },
+          { top: "30%", right: "6%", dur: 7, delay: 1.5 },
+          { top: "55%", left: "5%", dur: 5.5, delay: 2.8 },
+          { top: "75%", right: "12%", dur: 6, delay: 0.6 },
+          { top: "18%", left: "38%", dur: 4.5, delay: 3.5 },
+          { top: "65%", left: "55%", dur: 6.5, delay: 1.2 },
+        ].map((dot, i) => (
+          <motion.div
+            key={i}
+            animate={{ y: [0, -20, 0], opacity: [0.15, 0.65, 0.15] }}
+            transition={{ duration: dot.dur, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
+            className="absolute w-1.5 h-1.5 rounded-full bg-accent/60"
+            style={{ top: dot.top, left: (dot as any).left, right: (dot as any).right }}
+          />
+        ))}
+
+        {/* Larger glowing dot accent */}
+        <motion.div
+          animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.7, 0.3] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute w-2.5 h-2.5 rounded-full bg-accent/60"
+          style={{ top: "45%", right: "22%" }}
+        />
+        <motion.div
+          animate={{ scale: [1, 1.4, 1], opacity: [0.25, 0.6, 0.25] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+          className="absolute w-2 h-2 rounded-full bg-accent/50"
+          style={{ top: "25%", left: "28%" }}
+        />
+
+        {/* Ambient radial glows with higher opacity */}
+        <motion.div
+          animate={{ scale: [1, 1.25, 1], opacity: [0.15, 0.3, 0.15] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-0 left-1/4 w-[500px] h-[300px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(ellipse, rgba(128,0,32,0.35) 0%, transparent 70%)" }}
+        />
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.22, 0.1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          className="absolute top-0 right-0 w-80 h-80 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(128,0,32,0.3) 0%, transparent 70%)" }}
+        />
+      </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <SectionReveal>
@@ -136,7 +208,7 @@ export default function Contact() {
                         setFormState((s) => ({ ...s, name: e.target.value }))
                       }
                       className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
-                      placeholder="cth. Alex Pratama"
+                      placeholder="cth. Ada Lovelace"
                     />
                   </div>
 
@@ -157,7 +229,7 @@ export default function Contact() {
                         setFormState((s) => ({ ...s, email: e.target.value }))
                       }
                       className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 text-sm bg-bg border border-border/90 rounded-xl text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
-                      placeholder="alex@domain.com"
+                      placeholder="adalovelace@domain.com"
                     />
                   </div>
                 </div>
