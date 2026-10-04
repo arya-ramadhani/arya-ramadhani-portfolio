@@ -37,6 +37,7 @@ const slidePerspectives = [
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [cardImgError, setCardImgError] = useState(false);
+  const [cardImgLoaded, setCardImgLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [modalImgErrors, setModalImgErrors] = useState<{ [key: number]: boolean }>({});
   const [mounted, setMounted] = useState(false);
@@ -166,13 +167,15 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
           </div>
 
-          {/* ── Image: absolute on top, removed from DOM when error ── */}
+          {/* ── Image: invisible until loaded, removed on error ── */}
           {!cardImgError && (
             <img
               src={project.image}
               alt={project.title}
+              onLoad={() => setCardImgLoaded(true)}
               onError={() => setCardImgError(true)}
-              className="absolute inset-0 w-full h-full object-cover object-center z-[5] transition-transform duration-500 ease-out group-hover:scale-105"
+              className="absolute inset-0 w-full h-full object-cover object-center z-[5] transition-all duration-500 ease-out group-hover:scale-105"
+              style={{ opacity: cardImgLoaded ? 1 : 0 }}
             />
           )}
 
