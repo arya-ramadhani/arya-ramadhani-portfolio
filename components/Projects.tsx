@@ -158,7 +158,7 @@ export default function Projects() {
               className="w-full py-3 px-4 rounded-xl border border-border/80 bg-bg-alt/90 active:bg-bg-alt text-text hover:text-accent hover:border-accent/40 font-medium text-xs font-mono flex items-center justify-center gap-2 transition-all shadow-xs"
             >
               <LayoutGrid className="w-3.5 h-3.5 text-accent" />
-              <span>{showAll ? "Tampilkan Lebih Sedikit" : `Tampilkan Semua (${projects.length} Proyek)`}</span>
+              <span>{showAll ? "Tampilkan Lebih Sedikit" : `Tampilkan Semua`}</span>
               {showAll ? (
                 <ChevronUp className="w-3.5 h-3.5 text-text-muted" />
               ) : (

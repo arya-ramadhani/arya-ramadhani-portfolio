@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
-  Code2,
   Eye,
   X,
   ChevronLeft,
@@ -14,9 +13,15 @@ import {
   Layers,
   Sparkles,
   CheckCircle2,
+  Code2,
+  ImageOff,
 } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { TechIcon, GitHubIcon } from "./TechIcons";
+
+/** Dot-grid SVG pattern URI for fallback backgrounds */
+const DOT_GRID =
+  `url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23888' fill-opacity='0.25'/%3E%3C/svg%3E")`;
 
 interface ProjectCardProps {
   project: Project;
@@ -99,6 +104,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   const currentPerspective =
     slidePerspectives[currentImageIndex % slidePerspectives.length] || slidePerspectives[0];
 
+
   return (
     <>
       <motion.article
@@ -122,25 +128,55 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
         {/* ── Visual Media Container ── */}
         <div className="relative aspect-[16/10] overflow-hidden bg-bg-elevated border-b border-border/50">
-          {!cardImgError ? (
+
+          {/* ── Fallback: always rendered as base layer ── */}
+          <div
+            className="absolute inset-0 flex items-center justify-center overflow-hidden select-none"
+            style={{
+              background:
+                "linear-gradient(135deg, hsl(var(--bg-elevated)) 0%, hsl(var(--bg-alt)) 60%, hsl(var(--bg-elevated)) 100%)",
+            }}
+          >
+            {/* Dot grid pattern */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ backgroundImage: DOT_GRID }}
+            />
+            {/* Diagonal stripe depth */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-[0.05]"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(45deg, currentColor 0, currentColor 1px, transparent 0, transparent 50%)",
+                backgroundSize: "12px 12px",
+              }}
+            />
+            {/* Corner accents */}
+            <span className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/40 rounded-tl" />
+            <span className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t-2 border-r-2 border-accent/40 rounded-tr" />
+            <span className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b-2 border-l-2 border-accent/40 rounded-bl" />
+            <span className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/40 rounded-br" />
+
+            {/* Single consistent icon — no text */}
+            <div className="relative z-10">
+              <div className="absolute -inset-3 rounded-3xl bg-accent/10 blur-lg" />
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border-2 border-accent/30 bg-bg/80 dark:bg-bg/60 flex items-center justify-center text-text-muted shadow-xl group-hover:border-accent/50 group-hover:text-accent transition-all duration-300">
+                <ImageOff className="w-6 h-6 sm:w-7 sm:h-7" />
+              </div>
+            </div>
+          </div>
+
+          {/* ── Image: absolute on top, removed from DOM when error ── */}
+          {!cardImgError && (
             <img
               src={project.image}
               alt={project.title}
               onError={() => setCardImgError(true)}
-              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+              className="absolute inset-0 w-full h-full object-cover object-center z-[5] transition-transform duration-500 ease-out group-hover:scale-105"
             />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-bg-alt to-bg flex items-center justify-center p-3 overflow-hidden">
-              <div className="text-center space-y-1">
-                <div className="w-8 h-8 mx-auto rounded-lg border border-border/70 bg-bg flex items-center justify-center text-accent">
-                  <Code2 className="w-4 h-4" />
-                </div>
-                <p className="font-mono text-[9px] font-semibold text-accent uppercase tracking-wider">
-                  {project.category}
-                </p>
-              </div>
-            </div>
           )}
+
+
 
           {/* Category Chip */}
           <div className="absolute top-2 left-2 z-10">
