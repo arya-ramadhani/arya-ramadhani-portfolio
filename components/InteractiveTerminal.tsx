@@ -22,7 +22,7 @@ const terminalSequence: TerminalLine[] = [
   { type: "blank", text: "" },
   { type: "command", text: "cat skills.txt" },
   { type: "output", text: "Web & Mobile (Next.js, Laravel, Flutter)" },
-  { type: "output", text: "IoT Hardware & ESP32" },
+  { type: "output", text: "Internet of Things" },
   { type: "output", text: "AI & Computer Vision" },
   { type: "blank", text: "" },
   { type: "command", text: "echo $STATUS" },
@@ -41,14 +41,16 @@ export default function InteractiveTerminal() {
     if (!isInView) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let timeout: ReturnType<typeof setTimeout>;
     if (prefersReduced) {
-      setVisibleLines(terminalSequence.length);
-      return;
+      timeout = setTimeout(() => {
+        setVisibleLines(terminalSequence.length);
+      }, 0);
+      return () => clearTimeout(timeout);
     }
 
     let lineIndex = 0;
     let charIndex = 0;
-    let timeout: ReturnType<typeof setTimeout>;
 
     const processLine = () => {
       if (lineIndex >= terminalSequence.length) return;
@@ -82,21 +84,22 @@ export default function InteractiveTerminal() {
     return () => clearTimeout(timeout);
   }, [isInView]);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [visibleLines, typingText]);
+  const isComplete = !isTyping && visibleLines >= terminalSequence.length;
 
   return (
-    <div ref={ref} className="terminal-window shadow-2xl shadow-black/20 max-w-2xl mx-auto">
-      <div className="terminal-titlebar">
+    <div
+      ref={ref}
+      className={`terminal-window shadow-2xl shadow-black/20 w-full rounded-2xl overflow-hidden transition-all duration-300 ${
+        isComplete ? "h-full flex flex-col justify-start" : "h-auto"
+      }`}
+    >
+      <div className="terminal-titlebar shrink-0">
         <div className="terminal-dot bg-[#FF5F57]" />
         <div className="terminal-dot bg-[#FEBC2E]" />
         <div className="terminal-dot bg-[#28C840]" />
-        <span className="ml-3 text-xs text-zinc-500">arya@portfolio ~ </span>
+        <span className="ml-3 text-xs text-zinc-500 font-mono">arya@portfolio ~ </span>
       </div>
-      <div ref={containerRef} className="p-5 text-sm leading-relaxed max-h-[380px] overflow-y-auto">
+      <div ref={containerRef} className="p-4 sm:p-5 text-xs sm:text-[13px] leading-relaxed flex-1 flex flex-col justify-start overflow-hidden">
         {terminalSequence.slice(0, visibleLines).map((line, i) => (
           <motion.div
             key={i}
@@ -112,7 +115,7 @@ export default function InteractiveTerminal() {
             ) : line.type === "output" ? (
               <div className="text-zinc-400 pl-4">{line.text}</div>
             ) : (
-              <div className="h-3" />
+              <div className="h-2" />
             )}
           </motion.div>
         ))}

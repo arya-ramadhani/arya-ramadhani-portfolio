@@ -35,8 +35,6 @@ const levelColors = [
   "bg-emerald-400",
 ];
 
-const availableYears = ["2026", "2025"];
-
 export default function DevActivity() {
   const [selectedYear, setSelectedYear] = useState<string>("2026");
   const [yearContributions, setYearContributions] = useState<number>(15);
@@ -153,12 +151,6 @@ export default function DevActivity() {
     scrollContainerRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
-  const scrollByAmount = (amount: number) => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: amount, behavior: "smooth" });
-    }
-  };
-
   return (
     <section id="dev-activity" className="py-14 sm:py-20 lg:py-28 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -213,15 +205,14 @@ export default function DevActivity() {
 
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 items-stretch">
           {/* Left Column: Interactive Terminal (6 cols) */}
-          <SectionReveal delay={0.1} className="lg:col-span-6 w-full">
-            <div className="h-full">
-              <InteractiveTerminal />
-            </div>
+          <SectionReveal delay={0.1} className="lg:col-span-6 w-full h-full flex flex-col">
+            <InteractiveTerminal />
           </SectionReveal>
 
           {/* Right Column: GitHub Real Contribution Graph & Year Selector (6 cols) */}
-          <SectionReveal delay={0.2} className="lg:col-span-6 w-full">
-            <div className="p-4 sm:p-6 rounded-2xl border border-border/80 bg-bg-alt/90 backdrop-blur-md shadow-xl shadow-black/5 space-y-5 sm:space-y-6">
+          <SectionReveal delay={0.2} className="lg:col-span-6 w-full h-full flex flex-col">
+            <div className="p-4 sm:p-6 rounded-2xl border border-border/80 bg-bg-alt/90 backdrop-blur-md shadow-xl shadow-black/5 h-full flex flex-col justify-between">
+              <div className="space-y-5 sm:space-y-6">
               {/* Header: Title + Year Navigator (< YEAR >) */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -387,9 +378,10 @@ export default function DevActivity() {
                   );
                 })()}
               </div>
+            </div>
 
-              {/* Developer Metrics */}
-              <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-3 border-t border-border/60">
+            {/* Developer Metrics */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-4 border-t border-border/60 mt-4 sm:mt-6">
                 <a
                   href="https://github.com/arya-ramadhani?tab=repositories"
                   target="_blank"

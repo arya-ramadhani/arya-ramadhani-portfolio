@@ -101,7 +101,7 @@ export default function About() {
               left: item.left,
               right: item.right,
             }}
-            className="absolute font-mono text-[10px] sm:text-xs text-accent/35 dark:text-accent/40 tracking-wider whitespace-nowrap bg-bg-alt/30 dark:bg-black/20 px-2.5 py-1 rounded-md border border-accent/15 backdrop-blur-[1px] hidden sm:block"
+            className="absolute font-mono text-[10px] sm:text-xs text-accent/45 dark:text-accent/40 tracking-wider whitespace-nowrap hidden sm:block"
           >
             <span className="text-accent/60 mr-1.5 font-bold">&gt;</span>
             {item.code}
