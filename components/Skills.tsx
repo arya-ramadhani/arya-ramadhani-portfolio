@@ -157,18 +157,18 @@ export default function Skills() {
 
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <SectionReveal>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 lg:mb-8 pb-4 border-b border-border/60">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 pb-4 border-b border-border/60">
             <div>
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono font-semibold uppercase tracking-wider mb-2">
                 <Terminal className="w-3.5 h-3.5" />
                 Technical Arsenal &amp; Capabilities
               </div>
-              <h2 className="heading-md lg:heading-lg text-text">Skills &amp; Technology Stack</h2>
+              <h2 className="heading-lg text-text">Skills &amp; Technology Stack</h2>
             </div>
-            <p className="text-xs font-mono text-text-muted max-w-md">
+            <p className="body-md text-text-secondary max-w-lg text-sm sm:text-base">
               Membangun solusi digital terintegrasi melalui software, IoT, AI, dan user-centered design.
             </p>
           </div>

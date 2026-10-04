@@ -21,6 +21,13 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     });
 
     lenisRef.current = lenis;
+    (window as any).__lenis = lenis;
+
+    // Support external code pausing/resuming lenis (e.g. modals)
+    const handleStop = () => lenis.stop();
+    const handleStart = () => lenis.start();
+    window.addEventListener("lenis-stop", handleStop);
+    window.addEventListener("lenis-start", handleStart);
 
     // Allow external code to freeze lenis momentarily (e.g. during accordion expand)
     const handleFreeze = () => {
@@ -57,8 +64,11 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     document.addEventListener("click", handleClick);
 
     return () => {
+      window.removeEventListener("lenis-stop", handleStop);
+      window.removeEventListener("lenis-start", handleStart);
       window.removeEventListener("lenis-freeze", handleFreeze);
       document.removeEventListener("click", handleClick);
+      delete (window as any).__lenis;
       lenis.destroy();
     };
   }, []);

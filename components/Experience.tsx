@@ -134,10 +134,10 @@ export default function Experience() {
         />
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <SectionReveal>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10 sm:mb-12 pb-4 border-b border-border/60">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 pb-4 border-b border-border/60">
             <div>
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono font-semibold uppercase tracking-wider mb-2">
                 <Briefcase className="w-3.5 h-3.5" />
@@ -145,8 +145,8 @@ export default function Experience() {
               </div>
               <h2 className="heading-lg text-text">Experience Timeline</h2>
             </div>
-            <p className="text-sm sm:body-md text-text-secondary max-w-lg">
-              Rekam jejak profesional dalam pengembangan software, instalasi teknis hardware, serta kepemimpinan organisasi tingkat regional dan universitas.
+            <p className="body-md text-text-secondary max-w-lg text-sm sm:text-base">
+              Rekam jejak dalam pengembangan dan penerapan solusi teknologi untuk mendukung berbagai kebutuhan dan tantangan.
             </p>
           </div>
         </SectionReveal>

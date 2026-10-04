@@ -86,7 +86,7 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed top-0 left-0 z-[99999] will-change-transform hidden md:block"
+      className="pointer-events-none fixed top-0 left-0 z-[99999999] will-change-transform hidden md:block"
       style={{
         opacity: isVisible ? 1 : 0,
         transition: "opacity 0.15s ease-out",

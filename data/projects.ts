@@ -8,6 +8,7 @@ export interface Project {
   role: string;
   technologies: string[];
   image: string;
+  images?: string[];
   github?: string;
   liveDemo?: string;
   featured: boolean;
@@ -27,6 +28,11 @@ export const projects: Project[] = [
       "Dikembangkan dari awal meliputi analisis kebutuhan proses bisnis, perancangan UI/UX di Figma, arsitektur database MySQL, serta implementasi framework Laravel. Dilengkapi modul mutasi aset, verifikasi penanggung jawab, pelaporan eksekutif, dan konfigurasi jaringan LAN untuk akses multi-komputer terpadu.",
     technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap", "Figma"],
     image: "/images/projects/asset-management.jpg",
+    images: [
+      "/images/projects/asset-management.jpg",
+      "/images/projects/asset-management-2.jpg",
+      "/images/projects/asset-management-3.jpg",
+    ],
     featured: true,
     metrics: "Production Enterprise",
   },
@@ -42,6 +48,11 @@ export const projects: Project[] = [
       "Melakukan instalasi perangkat keras display interaktif layar sentuh resolusi tinggi, perakitan bracket mounting dinding, instalasi kabel daya & display, setup jaringan, uji fungsi komprehensif, serta pelatihan teknis penggunaan untuk guru dan staf sekolah.",
     technologies: ["Interactive Flat Panel", "Hardware Mounting", "Network Setup", "Troubleshooting"],
     image: "/images/projects/hisense-ifp.jpg",
+    images: [
+      "/images/projects/hisense-ifp.jpg",
+      "/images/projects/hisense-ifp-2.jpg",
+      "/images/projects/hisense-ifp-3.jpg",
+    ],
     featured: true,
     metrics: "76 Units Deployed",
   },
@@ -57,6 +68,11 @@ export const projects: Project[] = [
       "Mengotomatiskan entri data presensi absensi harian yang sebelumnya dilakukan manual. Menggunakan algoritma pengolahan citra (image preprocessing, adaptive binarization, contour deskewing) OpenCV untuk membersihkan noise dokumen sebelum diekstrak oleh engine Tesseract OCR ke database Laravel.",
     technologies: ["Python", "OpenCV", "Tesseract OCR", "Laravel", "MySQL"],
     image: "/images/projects/attendance-ocr.jpg",
+    images: [
+      "/images/projects/attendance-ocr.jpg",
+      "/images/projects/attendance-ocr-2.jpg",
+      "/images/projects/attendance-ocr-3.jpg",
+    ],
     featured: true,
     metrics: "Automated OCR Pipeline",
   },
@@ -72,6 +88,11 @@ export const projects: Project[] = [
       "Memanfaatkan mikrokontroler ESP32/Arduino yang terhubung dengan sensor air hujan dan sensor LDR (cahaya). Ketika terdeteksi hujan atau malam hari, motor servo otomatis menarik jemuran ke tempat teduh. Dilengkapi dashboard telemetri cloud Blynk untuk kontrol manual dan notifikasi status instan.",
     technologies: ["ESP32", "Arduino", "Blynk", "Sensors", "Servo", "C/C++"],
     image: "/images/projects/iot-clothesline.jpg",
+    images: [
+      "/images/projects/iot-clothesline.jpg",
+      "/images/projects/iot-clothesline-2.jpg",
+      "/images/projects/iot-clothesline-3.jpg",
+    ],
     featured: true,
     metrics: "Autonomous Weather Sensing",
   },
@@ -87,6 +108,11 @@ export const projects: Project[] = [
       "Proyek penelitian akademik yang merancang media pembelajaran gamifikasi interaktif. Mengangkat narasi tradisi dan kearifan Suku Lom, Bangka Belitung, yang dikombinasikan dengan tantangan teka-teki logika fisika gerak dan perhitungan matematika dasar.",
     technologies: ["Blender", "2D Asset Design", "Game Physics", "Research"],
     image: "/images/projects/loms-journey.jpg",
+    images: [
+      "/images/projects/loms-journey.jpg",
+      "/images/projects/loms-journey-2.jpg",
+      "/images/projects/loms-journey-3.jpg",
+    ],
     featured: true,
     metrics: "Cultural Heritage Research",
   },
@@ -102,6 +128,11 @@ export const projects: Project[] = [
       "Mencakup keseluruhan proses Design Thinking: user research, problem statement, pembuatan user persona, user journey map, wireframe low-fidelity, hingga high-fidelity interactive prototype di Figma yang menerapkan design token sistematis dan micro-interactions.",
     technologies: ["Figma", "UI Design", "UX Research", "Prototyping", "Design System"],
     image: "/images/projects/uiux-gontor.jpg",
+    images: [
+      "/images/projects/uiux-gontor.jpg",
+      "/images/projects/uiux-gontor-2.jpg",
+      "/images/projects/uiux-gontor-3.jpg",
+    ],
     featured: true,
     metrics: "National Competition Entry",
   },

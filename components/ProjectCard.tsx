@@ -1,19 +1,103 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Code2, Eye } from "lucide-react";
+import {
+  ArrowUpRight,
+  Code2,
+  Eye,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  Layers,
+  Sparkles,
+  CheckCircle2,
+} from "lucide-react";
 import type { Project } from "@/data/projects";
-import { TechIcon } from "./TechIcons";
+import { TechIcon, GitHubIcon } from "./TechIcons";
 
 interface ProjectCardProps {
   project: Project;
   index: number;
 }
 
+const slidePerspectives = [
+  { label: "Tampilan Utama", desc: "Overview antarmuka & tata letak visual sistem" },
+  { label: "Arsitektur & Alur", desc: "Alur pemrosesan data & integrasi teknologi" },
+  { label: "Fitur & Validasi", desc: "Fungsionalitas teruji & modul operasional" },
+];
+
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   const [showDetailModal, setShowDetailModal] = useState(false);
-  const [imgError, setImgError] = useState(false);
+  const [cardImgError, setCardImgError] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [modalImgErrors, setModalImgErrors] = useState<{ [key: number]: boolean }>({});
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const galleryImages =
+    project.images && project.images.length > 0 ? project.images : [project.image];
+
+  const handleNextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+  };
+
+  const handlePrevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  };
+
+  // Lock background scroll (including Lenis) when modal is open and handle keyboard navigation
+  useEffect(() => {
+    if (showDetailModal) {
+      // Pause smooth scrolling (Lenis)
+      window.dispatchEvent(new CustomEvent("lenis-stop"));
+      (window as any).__lenis?.stop();
+
+      const originalBodyOverflow = document.body.style.overflow;
+      const originalHtmlOverflow = document.documentElement.style.overflow;
+      const originalPaddingRight = document.body.style.paddingRight;
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setShowDetailModal(false);
+        } else if (e.key === "ArrowRight") {
+          setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+        } else if (e.key === "ArrowLeft") {
+          setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        // Resume smooth scrolling (Lenis)
+        window.dispatchEvent(new CustomEvent("lenis-start"));
+        (window as any).__lenis?.start();
+
+        document.documentElement.style.overflow = originalHtmlOverflow;
+        document.body.style.overflow = originalBodyOverflow;
+        document.body.style.paddingRight = originalPaddingRight;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [showDetailModal, galleryImages.length]);
+
+  const currentPerspective =
+    slidePerspectives[currentImageIndex % slidePerspectives.length] || slidePerspectives[0];
 
   return (
     <>
@@ -27,7 +111,10 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           delay: index * 0.04,
           ease: [0.22, 1, 0.36, 1],
         }}
-        onClick={() => setShowDetailModal(true)}
+        onClick={() => {
+          setCurrentImageIndex(0);
+          setShowDetailModal(true);
+        }}
         className="group relative rounded-xl border border-border/70 bg-bg-alt/85 dark:bg-bg-alt/75 backdrop-blur-md overflow-hidden hover:border-accent/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer"
       >
         {/* Animated Top Border Accent Line */}
@@ -35,11 +122,11 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
         {/* ── Visual Media Container ── */}
         <div className="relative aspect-[16/10] overflow-hidden bg-bg-elevated border-b border-border/50">
-          {!imgError ? (
+          {!cardImgError ? (
             <img
               src={project.image}
               alt={project.title}
-              onError={() => setImgError(true)}
+              onError={() => setCardImgError(true)}
               className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
             />
           ) : (
@@ -122,64 +209,259 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
       </motion.article>
 
-      {/* ── Detail Modal ── */}
-      <AnimatePresence>
-        {showDetailModal && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto rounded-2xl bg-bg-elevated border border-border p-5 sm:p-7 shadow-2xl space-y-4 sm:space-y-5"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <span className="text-xs font-mono text-accent font-semibold uppercase tracking-wider">
-                    {project.category} • {project.role}
-                  </span>
-                  <h3 className="text-xl font-bold text-text mt-1">{project.title}</h3>
-                </div>
-                <button
-                  onClick={() => setShowDetailModal(false)}
-                  className="p-1.5 rounded-lg border border-border text-text-secondary hover:text-text hover:bg-bg-alt transition-colors"
+      {/* ── Detail Modal (Mounted via React Portal to Body for True Viewport Center) ── */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {showDetailModal && (
+              <div
+                data-lenis-prevent="true"
+                className="fixed inset-0 z-[99990] flex items-center justify-center p-3 sm:p-5 pt-18 sm:pt-20 pb-4 sm:pb-6 bg-black/80 backdrop-blur-md overflow-hidden select-none"
+                onClick={() => setShowDetailModal(false)}
+                onTouchMove={(e) => {
+                  if (e.target === e.currentTarget) e.preventDefault();
+                }}
+                onWheel={(e) => {
+                  if (e.target === e.currentTarget) e.preventDefault();
+                }}
+              >
+                <motion.div
+                  data-lenis-prevent="true"
+                  initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: 12 }}
+                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full max-w-5xl max-h-[calc(100vh-5.5rem)] sm:max-h-[calc(100vh-6rem)] bg-bg-elevated/95 dark:bg-bg-elevated/95 border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col backdrop-blur-xl overscroll-contain my-auto select-auto"
                 >
-                  ✕
-                </button>
-              </div>
+                  {/* Header Bar */}
+                  <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/70 bg-bg-alt/60">
+                    <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pr-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-semibold text-accent bg-accent/10 border border-accent/25 uppercase tracking-wider shrink-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                        {project.category}
+                      </span>
+                      <span className="text-text-muted font-mono text-xs hidden sm:inline">•</span>
+                      <span className="text-xs font-mono text-text-secondary truncate hidden sm:inline">
+                        {project.role}
+                      </span>
+                    </div>
 
-              <div className="p-4 rounded-xl bg-bg-alt border border-border/80 text-sm text-text-secondary leading-relaxed">
-                {project.longDescription || project.description}
-              </div>
-
-              <div>
-                <h4 className="text-xs font-mono uppercase text-text-muted mb-2 tracking-wider">
-                  Teknologi &amp; Alat yang Digunakan
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((t) => (
-                    <span
-                      key={t}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded-lg bg-bg border border-border text-text"
+                    <button
+                      type="button"
+                      onClick={() => setShowDetailModal(false)}
+                      aria-label="Tutup Jendela Detail"
+                      className="p-1.5 sm:p-2 rounded-xl border border-border/70 bg-bg/60 text-text-secondary hover:text-text hover:bg-bg-alt hover:border-accent/40 transition-colors shrink-0"
                     >
-                      <TechIcon name={t} size={14} className="w-3.5 h-3.5" />
-                      <span>{t}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
+                      <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                    </button>
+                  </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
-                <button
-                  onClick={() => setShowDetailModal(false)}
-                  className="px-5 py-2 text-xs font-semibold text-white bg-accent rounded-xl hover:bg-accent-dark transition-colors"
-                >
-                  Tutup
-                </button>
+                  {/* Modal Body: 30:70 Ratio (Left 30% info, Right 70% gallery) */}
+                  <div
+                    data-lenis-prevent="true"
+                    className="overflow-y-auto flex-1 p-4 sm:p-5 md:p-6 overscroll-contain"
+                  >
+                    <div className="flex flex-col lg:flex-row gap-5 lg:gap-6 items-stretch">
+                      {/* Kolom Kiri: 30% (Informasi, Deskripsi, Tech Stack, & Links) */}
+                      <div className="w-full lg:w-[30%] shrink-0 flex flex-col justify-between space-y-3.5 pr-0 lg:pr-4 border-b lg:border-b-0 lg:border-r border-border/60 pb-4 lg:pb-0">
+                        <div className="space-y-3">
+                          <div>
+                            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-text leading-snug">
+                              {project.title}
+                            </h3>
+                            <p className="text-xs font-mono text-accent font-medium mt-1">
+                              {project.role}
+                            </p>
+                          </div>
+
+                          {project.metrics && (
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-bg-alt border border-border/80 text-[11px] font-mono text-text w-full">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                              <span className="font-semibold text-text">Metrik:</span>
+                              <span className="text-accent truncate">{project.metrics}</span>
+                            </div>
+                          )}
+
+                          <div className="space-y-1.5">
+                            <h4 className="text-[11px] font-mono uppercase tracking-wider text-text-muted font-semibold">
+                              Ringkasan Proyek
+                            </h4>
+                            <div className="p-3 rounded-xl bg-bg-alt/70 border border-border/70 text-xs text-text-secondary leading-relaxed max-h-40 overflow-y-auto">
+                              <p>{project.longDescription || project.description}</p>
+                            </div>
+                          </div>
+
+                          {/* Technologies & Tools */}
+                          <div>
+                            <h4 className="text-[11px] font-mono uppercase tracking-wider text-text-muted mb-2 font-semibold flex items-center gap-1.5">
+                              <Layers className="w-3 h-3 text-accent" />
+                              <span>Teknologi Digunakan</span>
+                            </h4>
+                            <div className="flex flex-wrap gap-1.5">
+                              {project.technologies.map((t) => (
+                                <span
+                                  key={t}
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono rounded-md bg-bg border border-border text-text shadow-2xs hover:border-accent/30 transition-colors"
+                                >
+                                  <TechIcon name={t} size={12} className="w-3 h-3 shrink-0" />
+                                  <span>{t}</span>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Action Links */}
+                        <div className="flex flex-col gap-2 pt-3 border-t border-border/60">
+                          {project.github && (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-bg-alt border border-border hover:border-accent/40 text-text hover:text-accent text-xs font-mono transition-colors"
+                            >
+                              <GitHubIcon className="w-3.5 h-3.5" />
+                              <span>Repositori Kode</span>
+                              <ExternalLink className="w-3 h-3 text-text-muted" />
+                            </a>
+                          )}
+                          {project.liveDemo && (
+                            <a
+                              href={project.liveDemo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-accent text-white hover:bg-accent-dark text-xs font-mono font-medium shadow-sm transition-colors"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              <span>Lihat Demo Langsung</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Kolom Kanan: 70% (Galeri Proyek) */}
+                      <div className="w-full lg:w-[70%] flex flex-col justify-between space-y-3">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted font-semibold flex items-center gap-1.5">
+                            <Sparkles className="w-3.5 h-3.5 text-accent" />
+                            <span>Galeri Proyek</span>
+                          </h4>
+                        </div>
+
+                        {/* Showcase Container: Compact Cinema Proportions */}
+                        <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full min-h-[220px] sm:min-h-[290px] lg:min-h-[330px] rounded-xl overflow-hidden border border-border/80 bg-bg-alt shadow-xl select-none group/img">
+                          {/* Active Image or Schematic Blueprint Fallback */}
+                          {!modalImgErrors[currentImageIndex] ? (
+                            <img
+                              src={galleryImages[currentImageIndex]}
+                              alt={`${project.title} - Slide ${currentImageIndex + 1}`}
+                              onError={() =>
+                                setModalImgErrors((prev) => ({ ...prev, [currentImageIndex]: true }))
+                              }
+                              className="w-full h-full object-cover object-center transition-all duration-300"
+                            />
+                          ) : (
+                            /* Professional Tech Blueprint Mockup Fallback */
+                            <div className="absolute inset-0 bg-gradient-to-br from-bg-alt via-bg-elevated to-bg p-4 sm:p-6 flex flex-col justify-between overflow-hidden border border-border/40">
+                              {/* Top Mockup Header */}
+                              <div className="flex items-center justify-between border-b border-border/60 pb-2.5">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/70 inline-block" />
+                                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70 inline-block" />
+                                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block" />
+                                  <span className="ml-2 text-xs font-mono text-text-muted">
+                                    {project.id}_view_{currentImageIndex + 1}.preview
+                                  </span>
+                                </div>
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/10 border border-accent/20 text-accent font-semibold">
+                                  {project.category}
+                                </span>
+                              </div>
+
+                              {/* Center Illustration Graphic */}
+                              <div className="my-auto py-3 text-center space-y-2">
+                                <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl border border-accent/30 bg-accent/10 flex items-center justify-center text-accent shadow-md">
+                                  {currentImageIndex === 0 && <Eye className="w-7 h-7 sm:w-8 sm:h-8" />}
+                                  {currentImageIndex === 1 && <Layers className="w-7 h-7 sm:w-8 sm:h-8" />}
+                                  {currentImageIndex === 2 && <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8" />}
+                                  {currentImageIndex > 2 && <Code2 className="w-7 h-7 sm:w-8 sm:h-8" />}
+                                </div>
+                                <div>
+                                  <p className="text-sm font-bold text-text font-mono">
+                                    {currentPerspective.label}
+                                  </p>
+                                  <p className="text-xs text-text-muted max-w-sm mx-auto leading-relaxed mt-0.5">
+                                    {currentPerspective.desc}
+                                  </p>
+                                </div>
+                              </div>
+
+                            </div>
+                          )}
+
+                          {/* Tombol Back / Prev */}
+                          <button
+                            type="button"
+                            onClick={handlePrevImage}
+                            aria-label="Foto Sebelumnya"
+                            className="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center backdrop-blur-md border border-white/25 shadow-xl transition-all"
+                          >
+                            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                          </button>
+
+                          {/* Tombol Next */}
+                          <button
+                            type="button"
+                            onClick={handleNextImage}
+                            aria-label="Foto Selanjutnya"
+                            className="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center backdrop-blur-md border border-white/25 shadow-xl transition-all"
+                          >
+                            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                          </button>
+
+                          {/* Bottom Overlay Label */}
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-3 pt-7 text-white text-xs font-mono flex items-center pointer-events-none">
+                            <span className="truncate font-medium">{currentPerspective.label}</span>
+                          </div>
+                        </div>
+
+                        {/* Pagination Dots */}
+                        <div className="flex items-center justify-center gap-2 pt-1">
+                          {galleryImages.map((_, i) => (
+                            <button
+                              key={i}
+                              type="button"
+                              onClick={() => setCurrentImageIndex(i)}
+                              aria-label={`Lihat gambar ke-${i + 1}`}
+                              className={`h-2 rounded-full transition-all duration-300 ${
+                                currentImageIndex === i
+                                  ? "w-8 bg-accent shadow-xs"
+                                  : "w-2 bg-border/80 hover:bg-text-muted/60"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Modal Footer */}
+                  <div className="px-4 sm:px-6 py-2.5 border-t border-border/70 bg-bg-alt/40 flex items-center justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setShowDetailModal(false)}
+                      className="w-full sm:w-auto px-5 py-2 text-xs font-mono font-semibold text-white bg-accent rounded-xl hover:bg-accent-dark transition-colors shadow-xs ml-auto"
+                    >
+                      Tutup
+                    </button>
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
-          </div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </>
   );
 }
