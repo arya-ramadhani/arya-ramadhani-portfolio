@@ -11,6 +11,7 @@ export interface Project {
   images?: string[];
   github?: string;
   liveDemo?: string;
+  prototype?: string;
   featured: boolean;
   metrics?: string;
 }
@@ -27,12 +28,17 @@ export const projects: Project[] = [
     longDescription:
       "Dikembangkan dari awal meliputi analisis kebutuhan proses bisnis, perancangan UI/UX di Figma, arsitektur database MySQL, serta implementasi framework Laravel. Dilengkapi modul mutasi aset, verifikasi penanggung jawab, pelaporan eksekutif, dan konfigurasi jaringan LAN untuk akses multi-komputer terpadu.",
     technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap", "Figma"],
-    image: "/images/projects/asset-management.jpg",
+    image: "/images/projects/asset-management.png",
     images: [
-      "/images/projects/asset-management.jpg",
-      "/images/projects/asset-management-2.jpg",
-      "/images/projects/asset-management-3.jpg",
+      "/images/projects/asset-management-1.png",
+      "/images/projects/asset-management-2.png",
+      "/images/projects/asset-management-3.png",
+      "/images/projects/asset-management-4.png",
+      "/images/projects/asset-management-5.png",
+      "/images/projects/asset-management-6.png",
     ],
+    github: "https://github.com/NessLM/sistem-informasi-stok-barang",
+    prototype: "https://www.figma.com/file/Gp66mrNXKzckp9EL8arT1q/Prototype-Stok-Kita",
     featured: true,
     metrics: "Production Enterprise",
   },

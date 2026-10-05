@@ -109,7 +109,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <>
       <motion.article
-        layout
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 12 }}
@@ -122,7 +121,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           setCurrentImageIndex(0);
           setShowDetailModal(true);
         }}
-        className="group relative rounded-xl border border-border/70 bg-bg-alt/85 dark:bg-bg-alt/75 backdrop-blur-md overflow-hidden hover:border-accent/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
+        className="group relative rounded-xl border border-border/70 bg-bg-alt/85 dark:bg-bg-alt/75 overflow-hidden hover:border-accent/40 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
       >
         {/* Animated Top Border Accent Line */}
         <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
@@ -255,7 +254,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             {showDetailModal && (
               <div
                 data-lenis-prevent="true"
-                className="fixed inset-0 z-[99990] flex items-center justify-center p-3 sm:p-5 md:p-6 bg-black/80 backdrop-blur-md overflow-hidden select-none"
+                className="fixed inset-0 z-[99990] flex items-center justify-center p-3 sm:p-5 md:p-6 bg-black/85 overflow-hidden select-none"
                 onClick={() => setShowDetailModal(false)}
                 onTouchMove={(e) => {
                   if (e.target === e.currentTarget) e.preventDefault();
@@ -271,7 +270,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                   exit={{ opacity: 0, scale: 0.96, y: 12 }}
                   transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                   onClick={(e) => e.stopPropagation()}
-                  className="relative w-full max-w-5xl max-h-[86vh] sm:max-h-[85vh] bg-bg-elevated/95 dark:bg-bg-elevated/95 border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col backdrop-blur-xl overscroll-contain my-auto select-auto"
+                  className="relative w-full max-w-5xl max-h-[86vh] sm:max-h-[85vh] bg-bg-elevated border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col overscroll-contain my-auto select-auto"
                 >
                   {/* Header Bar */}
                   <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/70 bg-bg-alt/60">
@@ -365,6 +364,24 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                               <ExternalLink className="w-3 h-3 text-text-muted" />
                             </a>
                           )}
+                          {project.prototype && (
+                            <a
+                              href={project.prototype}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-bg-alt border border-border hover:border-[#a259ff]/60 text-text hover:text-[#a259ff] text-xs font-mono transition-colors"
+                            >
+                              <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1abcfe"/>
+                                <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0acf83"/>
+                                <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#ff7262"/>
+                                <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#f24e1e"/>
+                                <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#a259ff"/>
+                              </svg>
+                              <span>Lihat Prototype UI/UX</span>
+                              <ExternalLink className="w-3 h-3 text-text-muted" />
+                            </a>
+                          )}
                           {project.liveDemo && (
                             <a
                               href={project.liveDemo}
@@ -444,7 +461,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                             type="button"
                             onClick={handlePrevImage}
                             aria-label="Foto Sebelumnya"
-                            className="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center backdrop-blur-md border border-white/25 shadow-xl transition-all"
+                            className="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center border border-white/25 shadow-xl transition-all"
                           >
                             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                           </button>
@@ -454,7 +471,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                             type="button"
                             onClick={handleNextImage}
                             aria-label="Foto Selanjutnya"
-                            className="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center backdrop-blur-md border border-white/25 shadow-xl transition-all"
+                            className="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center border border-white/25 shadow-xl transition-all"
                           >
                             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                           </button>
