@@ -10,6 +10,7 @@ export interface Experience {
   technologies: string[];
   responsibilities: string[];
   image?: string;
+  images?: string[];
 }
 
 export const experiences: Experience[] = [
@@ -32,6 +33,11 @@ export const experiences: Experience[] = [
     ],
     technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap", "Figma", "LAN Network"],
     image: "/images/experience/bupati-bangka.jpg",
+    images: [
+      "/images/experience/bupati-bangka-1.svg",
+      "/images/experience/bupati-bangka-2.svg",
+      "/images/experience/bupati-bangka-3.svg",
+    ],
   },
   {
     id: "exp-hisense",
@@ -51,43 +57,59 @@ export const experiences: Experience[] = [
     ],
     technologies: ["Interactive Flat Panel", "Hardware Mounting", "Network Setup", "Troubleshooting", "User Education"],
     image: "/images/experience/hisense-install.jpg",
+    images: [
+      "/images/experience/hisense-install-1.svg",
+      "/images/experience/hisense-install-2.svg",
+      "/images/experience/hisense-install-3.svg",
+    ],
   },
   {
-    id: "exp-permikomnas",
-    period: "Desember 2025 – Sekarang",
-    year: "2025 - Sekarang",
-    position: "Sekretaris Wilayah 3",
-    organization: "Perhimpunan Mahasiswa Informatika dan Komputer Nasional (PERMIKOMNAS)",
+    id: "exp-edugame-research",
+    period: "Maret 2024 – Agustus 2024",
+    year: "2024",
+    position: "Research Team Member / 2D Artist – Educational Game Development",
+    organization: "Politeknik Manufaktur Negeri Bangka Belitung",
     type: "Leadership & Organization",
-    badge: "Regional Committee",
+    badge: "Part-time · 6 bulan",
     description:
-      "Mengelola tata kelola kesekretariatan, administrasi persuratan, serta koordinasi program kerja nasional dan perguruan tinggi se-Wilayah 3.",
+      "Berkontribusi sebagai anggota tim dalam penelitian dosen mengenai pengembangan edu-game \"Lom's Ethnic Journey\", yang mengintegrasikan budaya lokal Suku Lom dengan materi Matematika dan Fisika.",
     responsibilities: [
-      "Mengelola administrasi kesekretariatan meliputi surat-menyurat resmi, database arsip, dan dokumentasi kegiatan organisasi.",
-      "Menyusun dan mengoordinasikan agenda rapat serta forum diskusi strategis pengurus Wilayah 3.",
-      "Mendampingi Koordinator Wilayah (KORWIL) dalam perencanaan dan eksekusi program kerja tahunan.",
-      "Memfasilitasi komunikasi administratif dan sinergi antar pengurus ormawa informatika di tingkat perguruan tinggi.",
+      "Merancang dan mengembangkan aset visual menggunakan Blender, meliputi karakter, NPC, environment, dan objek pendukung game.",
+      "Berkolaborasi dengan tim dalam proses pengembangan, evaluasi, dan penyempurnaan elemen visual serta aplikasi.",
+      "Melakukan pengujian aplikasi untuk mengevaluasi fungsi dan tampilan serta memastikan aplikasi berjalan sesuai kebutuhan.",
+      "Memberikan edukasi dan pendampingan penggunaan aplikasi kepada pengguna.",
     ],
-    technologies: ["Secretarial Governance", "Communication", "Event Management", "Leadership"],
-    image: "/images/experience/permikomnas.jpg",
+    technologies: ["Blender", "2D Modeling", "Game Development", "Visual Design", "User Interface Design", "User Experience Design (UED)", "Problem Solving", "Teamwork"],
+    image: "/images/experience/edugame-research.jpg",
+    images: [
+      "/images/experience/edugame-research-1.svg",
+      "/images/experience/edugame-research-2.svg",
+      "/images/experience/edugame-research-3.svg",
+    ],
   },
   {
-    id: "exp-hmj-tei",
-    period: "Juli 2024 – Juli 2025",
-    year: "2024 - 2025",
-    position: "Ketua Himpunan",
-    organization: "Himpunan Mahasiswa Jurusan Teknik Elektro dan Informatika (HMJ TEKTRONIKA POLMAN BABEL)",
+    id: "exp-community-engagement",
+    period: "Juli 2024",
+    year: "2024",
+    position: "Research Team Member / Community Engagement Program",
+    organization: "Politeknik Manufaktur Negeri Bangka Belitung",
     type: "Leadership & Organization",
-    badge: "Department President",
+    badge: "Part-time · 1 bulan",
     description:
-      "Memimpin organisasi himpunan mahasiswa jurusan Teknik Elektro & Informatika dalam arah strategis, pembinaan SDM, serta representasi forum nasional.",
+      "Berkontribusi dalam kegiatan Pengabdian kepada Masyarakat yang dilaksanakan melalui penelitian dosen di Desa Tuik, dengan fokus pada inovasi produk gula aren dan penguatan peran kelembagaan untuk mendukung pengembangan ekonomi masyarakat desa.",
     responsibilities: [
-      "Bertanggung jawab penuh atas perumusan visi, tata kelola, dan koordinasi pelaksanaan seluruh program kerja himpunan.",
-      "Memimpin rapat evaluasi mingguan, mengarahkan divisi kerja, serta memfasilitasi komunikasi pengurus.",
-      "Bertindak sebagai mediator dan pengambil keputusan strategis dalam penyelesaian kendala organisasi.",
-      "Mewakili institusi dalam Rapat Kerja Wilayah 5 Forum Komunikasi Himpunan Mahasiswa Elektro Indonesia (FKHMEI) di ITERA, Lampung.",
+      "Berperan sebagai bagian dari panitia kegiatan, khususnya dalam mendukung kebutuhan desain dan dokumentasi kegiatan.",
+      "Merancang materi visual kegiatan, termasuk desain label produk gula aren dan sertifikat sebagai bagian dari kebutuhan komunikasi dan identitas kegiatan.",
+      "Mendukung pelaksanaan kegiatan pelatihan, diskusi, dan pendampingan masyarakat serta berkoordinasi dengan tim selama kegiatan berlangsung.",
+      "Melakukan dokumentasi kegiatan dan membantu memastikan kebutuhan teknis serta visual kegiatan dapat terlaksana dengan baik.",
+      "Memperoleh pengalaman dalam penerapan desain grafis, kerja sama tim, koordinasi kegiatan, dan pemanfaatan kreativitas teknologi untuk mendukung pengembangan produk lokal masyarakat.",
     ],
-    technologies: ["Executive Leadership", "Strategic Planning", "Public Speaking", "Team Governance"],
-    image: "/images/experience/hmj-tei.jpg",
+    technologies: ["Event Management", "Graphic Design", "Documentation", "Teamwork", "Project Coordination", "Community Engagement", "Communication"],
+    image: "/images/experience/community-engagement.jpg",
+    images: [
+      "/images/experience/community-engagement-1.svg",
+      "/images/experience/community-engagement-2.svg",
+      "/images/experience/community-engagement-3.svg",
+    ],
   },
 ];

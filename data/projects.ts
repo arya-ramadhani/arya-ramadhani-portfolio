@@ -37,26 +37,6 @@ export const projects: Project[] = [
     metrics: "Production Enterprise",
   },
   {
-    id: "hisense-digital-learning",
-    title: "Program Digitalisasi Pembelajaran (76 Unit IFP)",
-    category: "Hardware",
-    categories: ["Hardware", "Digital Learning"],
-    role: "Technical Installation Lead",
-    description:
-      "Implementasi dan deployment 76 unit Interactive Flat Panel (IFP) di berbagai sekolah Kabupaten Bangka bersama PT Hisense International Indonesia.",
-    longDescription:
-      "Melakukan instalasi perangkat keras display interaktif layar sentuh resolusi tinggi, perakitan bracket mounting dinding, instalasi kabel daya & display, setup jaringan, uji fungsi komprehensif, serta pelatihan teknis penggunaan untuk guru dan staf sekolah.",
-    technologies: ["Interactive Flat Panel", "Hardware Mounting", "Network Setup", "Troubleshooting"],
-    image: "/images/projects/hisense-ifp.jpg",
-    images: [
-      "/images/projects/hisense-ifp.jpg",
-      "/images/projects/hisense-ifp-2.jpg",
-      "/images/projects/hisense-ifp-3.jpg",
-    ],
-    featured: true,
-    metrics: "76 Units Deployed",
-  },
-  {
     id: "attendance-ocr-system",
     title: "Sistem Rekapitulasi Presensi Berbasis OCR",
     category: "AI & Computer Vision",
@@ -141,7 +121,6 @@ export const projects: Project[] = [
 export const projectCategories = [
   "All",
   "Web",
-  "Hardware",
   "IoT",
   "AI & Computer Vision",
   "UI/UX Design",

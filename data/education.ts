@@ -15,6 +15,7 @@ export interface Organization {
   period?: string;
   description?: string;
   image?: string;
+  images?: string[];
 }
 
 export interface Publication {

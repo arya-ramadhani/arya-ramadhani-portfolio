@@ -384,7 +384,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                         <div className="flex items-center justify-between">
                           <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted font-semibold flex items-center gap-1.5">
                             <Sparkles className="w-3.5 h-3.5 text-accent" />
-                            <span>Galeri Proyek</span>
+                            <span>Dokumentasi Proyek</span>
                           </h4>
                         </div>
 

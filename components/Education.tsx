@@ -13,6 +13,10 @@ import {
   ArrowUpRight,
   Building2,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
+  Layers,
+  CheckCircle2,
 } from "lucide-react";
 import SectionReveal from "./SectionReveal";
 import { education } from "@/data/education";
@@ -21,6 +25,21 @@ import type { Organization } from "@/data/education";
 /** Dot-grid SVG pattern for modal blueprint and fallback */
 const DOT_GRID = `url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23888' fill-opacity='0.22'/%3E%3C/svg%3E")`;
 
+const orgSlidePerspectives = [
+  {
+    label: "Tampilan Utama",
+    desc: "Overview dokumentasi kegiatan & program kerja organisasi",
+  },
+  {
+    label: "Koordinasi & Rapat Kerja",
+    desc: "Alur konsolidasi internal, koordinasi divisi, & administrasi",
+  },
+  {
+    label: "Pelaksanaan & Luaran",
+    desc: "Realisasi agenda kerja, keterlibatan tim, & evaluasi berkala",
+  },
+];
+
 function OrgDetailModal({
   org,
   onClose,
@@ -28,15 +47,33 @@ function OrgDetailModal({
   org: Organization;
   onClose: () => void;
 }) {
-  const [imgError, setImgError] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [modalImgErrors, setModalImgErrors] = useState<{ [key: number]: boolean }>({});
+  const [modalImgLoaded, setModalImgLoaded] = useState<{ [key: number]: boolean }>({});
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Lock scroll on open
+  const galleryImages =
+    org.images && org.images.length > 0
+      ? org.images
+      : org.image
+      ? [org.image, "", ""]
+      : ["", "", ""];
+
+  const handleNextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+  };
+
+  const handlePrevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  };
+
+  // Lock scroll on open & listen to keyboard navigation
   useEffect(() => {
     window.dispatchEvent(new CustomEvent("lenis-stop"));
     (window as any).__lenis?.stop();
@@ -50,7 +87,13 @@ function OrgDetailModal({
     }
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+      } else if (e.key === "ArrowRight") {
+        setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+      } else if (e.key === "ArrowLeft") {
+        setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+      }
     };
     window.addEventListener("keydown", onKey);
 
@@ -62,9 +105,19 @@ function OrgDetailModal({
       document.body.style.paddingRight = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [onClose]);
+  }, [galleryImages.length, onClose]);
 
   if (!mounted) return null;
+
+  const currentPerspective =
+    orgSlidePerspectives[currentImageIndex % orgSlidePerspectives.length];
+
+  const orgSlug =
+    org.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "")
+      .slice(0, 20) || "organization";
 
   return createPortal(
     <AnimatePresence>
@@ -95,10 +148,6 @@ function OrgDetailModal({
                 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                 Organizational Role
               </span>
-              <span className="text-text-muted font-mono text-xs hidden sm:inline">•</span>
-              <span className="text-xs font-mono text-text-secondary truncate hidden sm:inline">
-                {org.role}
-              </span>
             </div>
 
             <button
@@ -111,14 +160,14 @@ function OrgDetailModal({
             </button>
           </div>
 
-          {/* Modal Body: Split ratio (Left 42% info, Right 58% showcase) */}
+          {/* Modal Body: Split ratio (Left 5 cols info, Right 7 cols showcase) */}
           <div
             data-lenis-prevent="true"
             className="overflow-y-auto flex-1 p-4 sm:p-5 md:p-6 overscroll-contain"
           >
-            <div className="flex flex-col lg:flex-row gap-5 lg:gap-6 items-stretch min-h-full">
-              {/* Kolom Kiri: 42% (Informasi, Role, Deskripsi Tanggung Jawab) */}
-              <div className="w-full lg:w-[42%] shrink-0 flex flex-col justify-between space-y-3.5 pr-0 lg:pr-5 border-b lg:border-b-0 lg:border-r border-border/60 pb-5 lg:pb-0">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch min-h-full">
+              {/* Kolom Kiri: 5 cols (Informasi, Role, Deskripsi Tanggung Jawab) */}
+              <div className="lg:col-span-5 min-w-0 flex flex-col justify-between space-y-3.5 pr-0 lg:pr-5 border-b lg:border-b-0 lg:border-r border-border/60 pb-5 lg:pb-0">
                 <div className="space-y-3">
                   <div>
                     <span className="inline-block text-xs font-mono font-bold text-accent uppercase tracking-wider">
@@ -146,89 +195,128 @@ function OrgDetailModal({
                 </div>
               </div>
 
-              {/* Kolom Kanan: 58% (Galeri / Mockup Showcase Dokumentasi) */}
-              <div className="w-full lg:w-[58%] flex flex-col justify-center my-auto py-1">
+              {/* Kolom Kanan: 7 cols (Galeri Showcase Dokumentasi Organisasi) */}
+              <div className="lg:col-span-7 min-w-0 flex flex-col justify-center my-auto py-1">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-xs font-mono uppercase tracking-wider text-text-muted font-semibold flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-accent" />
                     <span>Dokumentasi Organisasi</span>
                   </h4>
-                  <span className="text-[10px] font-mono text-text-muted px-2.5 py-0.5 rounded bg-bg-alt border border-border/60">
-                    {org.image ? "Foto Terpasang" : "Preview Dokumentasi"}
-                  </span>
                 </div>
 
-                {/* Showcase Container: Centered Cinema Proportions */}
-                <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full min-h-[220px] sm:min-h-[270px] rounded-2xl overflow-hidden border border-border/80 bg-bg-alt shadow-xl select-none group/img">
-                  {/* Fallback Blueprint Mockup */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-bg-alt via-bg-elevated to-bg flex flex-col justify-between overflow-hidden border border-border/40">
-                    {/* Dot Grid */}
-                    <div
-                      className="absolute inset-0 pointer-events-none"
-                      style={{ backgroundImage: DOT_GRID }}
+                {/* Showcase Container: Cinema Proportions with Slide Navigation */}
+                <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full min-h-0 rounded-2xl overflow-hidden border border-border/80 bg-bg-alt shadow-xl select-none group/img">
+                  {/* Active Image or Schematic Blueprint Fallback */}
+                  {galleryImages[currentImageIndex] && !modalImgErrors[currentImageIndex] ? (
+                    <img
+                      src={galleryImages[currentImageIndex]}
+                      alt={`${org.name} - Dokumentasi ${currentImageIndex + 1}`}
+                      onLoad={() =>
+                        setModalImgLoaded((prev) => ({ ...prev, [currentImageIndex]: true }))
+                      }
+                      onError={() =>
+                        setModalImgErrors((prev) => ({ ...prev, [currentImageIndex]: true }))
+                      }
+                      className="w-full h-full object-cover object-center transition-all duration-300"
+                      style={{ opacity: modalImgLoaded[currentImageIndex] ? 1 : 0 }}
                     />
+                  ) : (
+                    /* Fallback Blueprint Mockup */
+                    <div className="absolute inset-0 bg-gradient-to-br from-bg-alt via-bg-elevated to-bg flex flex-col justify-between overflow-hidden border border-border/40">
+                      {/* Dot Grid */}
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{ backgroundImage: DOT_GRID }}
+                      />
 
-                    {/* Corner Accents */}
-                    <span className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/40 rounded-tl" />
-                    <span className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t-2 border-r-2 border-accent/40 rounded-tr" />
-                    <span className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b-2 border-l-2 border-accent/40 rounded-bl" />
-                    <span className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/40 rounded-br" />
+                      {/* Corner Accents */}
+                      <span className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/40 rounded-tl" />
+                      <span className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t-2 border-r-2 border-accent/40 rounded-tr" />
+                      <span className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b-2 border-l-2 border-accent/40 rounded-bl" />
+                      <span className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/40 rounded-br" />
 
-                    {/* Top Mockup Header Bar */}
-                    <div className="relative z-10 flex items-center justify-between border-b border-border/60 px-4 py-2.5 bg-bg/50 backdrop-blur-xs">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-red-500/70 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block" />
-                        <span className="ml-2 text-xs font-mono text-text-muted truncate max-w-[160px] sm:max-w-none">
-                          organization_record.preview
+                      {/* Top Mockup Header Bar */}
+                      <div className="relative z-10 flex items-center justify-between border-b border-border/60 px-4 py-2.5 bg-bg/50 backdrop-blur-xs">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-red-500/70 inline-block" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70 inline-block" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block" />
+                          <span className="ml-2 text-xs font-mono text-text-muted truncate max-w-[170px] sm:max-w-none">
+                            {`${orgSlug}_view_${currentImageIndex + 1}.preview`}
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/10 border border-accent/20 text-accent font-semibold truncate max-w-[140px]">
+                          {org.role}
                         </span>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/10 border border-accent/20 text-accent font-semibold truncate max-w-[140px]">
-                        {org.role}
-                      </span>
-                    </div>
 
-                    {/* Center Icon Illustration - Perfectly Centered */}
-                    <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-4 sm:p-6 text-center space-y-2.5">
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border border-accent/30 bg-accent/10 flex items-center justify-center text-accent shadow-md">
-                        <Building2 className="w-7 h-7 sm:w-8 sm:h-8" />
+                      {/* Center Illustration Graphic */}
+                      <div className="relative z-10 my-auto py-3 text-center space-y-2">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl border border-accent/30 bg-accent/10 flex items-center justify-center text-accent shadow-md">
+                          {currentImageIndex === 0 && <Building2 className="w-7 h-7 sm:w-8 sm:h-8" />}
+                          {currentImageIndex === 1 && <Layers className="w-7 h-7 sm:w-8 sm:h-8" />}
+                          {currentImageIndex >= 2 && <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8" />}
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-text font-mono">
+                            {currentPerspective.label}
+                          </p>
+                          <p className="text-xs text-text-muted max-w-sm mx-auto leading-relaxed mt-0.5">
+                            {currentPerspective.desc}
+                          </p>
+                        </div>
                       </div>
-                      <div className="max-w-md mx-auto space-y-1">
-                        <p className="text-sm font-bold text-text font-mono leading-snug">
-                          {org.name}
-                        </p>
-                        <p className="text-xs text-text-muted leading-relaxed">
-                          Dokumentasi kegiatan dan program kerja kepengurusan {org.role}
-                        </p>
-                      </div>
                     </div>
-
-                    {/* Bottom Status Bar */}
-                    <div className="relative z-10 border-t border-border/60 px-4 py-2 bg-bg/50 backdrop-blur-xs flex items-center justify-between text-[11px] font-mono text-text-muted">
-                      <span>Status: Terverifikasi</span>
-                      <span>{org.period || "Aktif"}</span>
-                    </div>
-                  </div>
-
-                  {/* Actual Photo on Top (Smooth Fade-in on load) */}
-                  {org.image && !imgError && (
-                    <img
-                      src={org.image}
-                      alt={org.name}
-                      onLoad={() => setImgLoaded(true)}
-                      onError={() => setImgError(true)}
-                      className="absolute inset-0 w-full h-full object-cover object-center z-10 transition-opacity duration-500"
-                      style={{ opacity: imgLoaded ? 1 : 0 }}
-                    />
                   )}
+
+                  {/* Tombol Back / Prev */}
+                  <button
+                    type="button"
+                    onClick={handlePrevImage}
+                    aria-label="Dokumentasi Sebelumnya"
+                    className="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center backdrop-blur-md border border-white/25 shadow-xl transition-all cursor-pointer"
+                  >
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </button>
+
+                  {/* Tombol Next */}
+                  <button
+                    type="button"
+                    onClick={handleNextImage}
+                    aria-label="Dokumentasi Selanjutnya"
+                    className="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/65 hover:bg-black/90 active:scale-95 text-white flex items-center justify-center backdrop-blur-md border border-white/25 shadow-xl transition-all cursor-pointer"
+                  >
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </button>
+
+                  {/* Bottom Overlay Label */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-3 pt-7 text-white text-xs font-mono flex items-center pointer-events-none z-10">
+                    <span className="truncate font-medium">{currentPerspective.label}</span>
+                  </div>
+                </div>
+
+                {/* Pagination Dots */}
+                <div className="flex items-center justify-center gap-2 pt-2">
+                  {galleryImages.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setCurrentImageIndex(i)}
+                      aria-label={`Lihat dokumentasi ke-${i + 1}`}
+                      className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                        currentImageIndex === i
+                          ? "w-7 sm:w-8 bg-accent shadow-xs"
+                          : "w-1.5 sm:w-2 bg-border/80 hover:bg-text-muted/60"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Modal Footer: Tutup Detail placed on the far bottom-right */}
-          <div className="px-5 sm:px-6 py-3 border-t border-border/70 bg-bg-alt/70 flex items-center justify-between">
+          <div className="px-4 sm:px-6 py-3 border-t border-border/70 bg-bg-alt/70 flex items-center justify-between">
             <span className="text-xs font-mono text-text-muted hidden sm:inline">
               Rekam Jejak Kepemimpinan &amp; Organisasi
             </span>
@@ -237,7 +325,7 @@ function OrgDetailModal({
               onClick={onClose}
               className="ml-auto px-5 py-2 text-xs font-mono font-semibold text-white bg-accent rounded-xl hover:bg-accent-dark transition-colors shadow-sm"
             >
-              Tutup Detail
+              Tutup
             </button>
           </div>
         </motion.div>

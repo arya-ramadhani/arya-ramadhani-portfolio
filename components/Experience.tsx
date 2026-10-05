@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SectionReveal from "./SectionReveal";
 import { experiences } from "@/data/experience";
 import {
@@ -9,13 +10,24 @@ import {
   Calendar,
   CheckCircle2,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Building2,
   Users,
+  ImageIcon,
 } from "lucide-react";
 import { TechIcon } from "./TechIcons";
 
 export default function Experience() {
   const [openId, setOpenId] = useState<string | null>(null);
+  const [slideIndices, setSlideIndices] = useState<Record<string, number>>({});
+
+  const goSlide = (expId: string, total: number, dir: number) => {
+    setSlideIndices((prev) => {
+      const cur = prev[expId] ?? 0;
+      return { ...prev, [expId]: (cur + dir + total) % total };
+    });
+  };
 
   const toggle = (id: string) => {
     // Capture scroll position before layout shifts
@@ -254,36 +266,110 @@ export default function Experience() {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <div className="px-5 py-4 border border-t-0 border-accent/30 rounded-b-xl bg-bg-alt/60 backdrop-blur-sm space-y-4">
-                          {/* Period */}
-                          <p className="inline-flex items-center gap-1.5 text-xs font-mono text-text-muted">
-                            <Calendar className="w-3 h-3" />
-                            {exp.period}
-                          </p>
+                        <div className="px-5 py-4 border border-t-0 border-accent/30 rounded-b-xl bg-bg-alt/60 backdrop-blur-sm">
+                          <div className={`grid gap-5 ${
+                            exp.images && exp.images.length > 0
+                              ? "grid-cols-1 lg:grid-cols-[7fr_3fr]"
+                              : "grid-cols-1"
+                          }`}>
+                            {/* Left column – text content */}
+                            <div className="space-y-4">
+                              {/* Period */}
+                              <p className="inline-flex items-center gap-1.5 text-xs font-mono text-text-muted">
+                                <Calendar className="w-3 h-3" />
+                                {exp.period}
+                              </p>
 
-                          {/* Description */}
-                          <p className="text-sm text-text-secondary leading-relaxed">
-                            {exp.description}
-                          </p>
+                              {/* Description */}
+                              <p className="text-sm text-text-secondary leading-relaxed">
+                                {exp.description}
+                              </p>
 
-                          {/* Responsibilities */}
-                          {exp.responsibilities?.length > 0 && (
-                            <div className="space-y-2 pt-3 border-t border-border/40">
-                              {exp.responsibilities.map((resp, ri) => (
-                                <div
-                                  key={ri}
-                                  className="flex items-start gap-2.5 text-xs text-text-secondary leading-relaxed"
-                                >
-                                  <CheckCircle2 className="w-3.5 h-3.5 text-accent flex-shrink-0 mt-0.5" />
-                                  <span>{resp}</span>
+                              {/* Responsibilities */}
+                              {exp.responsibilities?.length > 0 && (
+                                <div className="space-y-2 pt-3 border-t border-border/40">
+                                  {exp.responsibilities.map((resp, ri) => (
+                                    <div
+                                      key={ri}
+                                      className="flex items-start gap-2.5 text-xs text-text-secondary leading-relaxed"
+                                    >
+                                      <CheckCircle2 className="w-3.5 h-3.5 text-accent flex-shrink-0 mt-0.5" />
+                                      <span>{resp}</span>
+                                    </div>
+                                  ))}
                                 </div>
-                              ))}
+                              )}
                             </div>
-                          )}
 
-                          {/* Tech pills */}
+                            {/* Right column – Documentation gallery slider */}
+                            {exp.images && exp.images.length > 0 && (() => {
+                              const currentSlide = slideIndices[exp.id] ?? 0;
+                              const total = exp.images.length;
+                              return (
+                                <div className="flex flex-col gap-2">
+                                  <p className="inline-flex items-center gap-1.5 text-xs font-mono text-text-muted">
+                                    <ImageIcon className="w-3 h-3" />
+                                    Dokumentasi Kegiatan
+                                  </p>
+                                  <div className="relative rounded-lg overflow-hidden border border-border/40 bg-bg aspect-[4/3]">
+                                    <Image
+                                      src={exp.images[currentSlide]}
+                                      alt={`Dokumentasi ${exp.position} ${currentSlide + 1}`}
+                                      fill
+                                      className="object-cover"
+                                      sizes="(max-width: 1024px) 100vw, 30vw"
+                                    />
+
+                                    {total > 1 && (
+                                      <>
+                                        <button
+                                          onClick={() => goSlide(exp.id, total, -1)}
+                                          className="absolute left-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-bg/80 backdrop-blur-sm border border-border/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/40 transition-colors"
+                                          aria-label="Previous image"
+                                        >
+                                          <ChevronLeft className="w-4 h-4" />
+                                        </button>
+                                        <button
+                                          onClick={() => goSlide(exp.id, total, 1)}
+                                          className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-bg/80 backdrop-blur-sm border border-border/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/40 transition-colors"
+                                          aria-label="Next image"
+                                        >
+                                          <ChevronRight className="w-4 h-4" />
+                                        </button>
+                                      </>
+                                    )}
+
+                                    {/* Slide counter */}
+                                    <span className="absolute bottom-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded-md bg-bg/80 backdrop-blur-sm border border-border/40 text-text-muted">
+                                      {currentSlide + 1} / {total}
+                                    </span>
+                                  </div>
+
+                                  {/* Dots */}
+                                  {total > 1 && (
+                                    <div className="flex justify-center gap-1.5 pt-1">
+                                      {exp.images.map((_, di) => (
+                                        <button
+                                          key={di}
+                                          onClick={() => setSlideIndices((p) => ({ ...p, [exp.id]: di }))}
+                                          className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                                            di === currentSlide
+                                              ? "bg-accent w-4"
+                                              : "bg-border/60 hover:bg-text-muted"
+                                          }`}
+                                          aria-label={`Go to image ${di + 1}`}
+                                        />
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })()}
+                          </div>
+
+                          {/* Tech pills – full width below the grid */}
                           {exp.technologies?.length > 0 && (
-                            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/40">
+                            <div className="flex flex-wrap gap-1.5 pt-4 mt-4 border-t border-border/40">
                               {exp.technologies.map((tech) => (
                                 <span
                                   key={tech}
