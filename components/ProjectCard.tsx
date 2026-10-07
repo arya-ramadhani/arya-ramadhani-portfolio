@@ -218,15 +218,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </span>
           </div>
 
-          {/* Metric / Featured Pill */}
-          {project.metrics && (
-            <div className="absolute top-2 right-2 z-10">
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[9px] font-mono font-medium text-text bg-bg/95 border border-border/70 backdrop-blur-md shadow-xs">
-                <span className="w-1 h-1 rounded-full bg-accent animate-pulse" />
-                {project.metrics}
-              </span>
-            </div>
-          )}
+
 
           {/* Quick-Action Overlay */}
           <div className="absolute inset-0 bg-black/35 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center z-10">
@@ -343,15 +335,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                               {project.role}
                             </p>
                           </div>
-
-                          {project.metrics && (
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-bg-alt border border-border/80 text-[11px] font-mono text-text w-full">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                              <span className="font-semibold text-text">Metrik:</span>
-                              <span className="text-accent truncate">{project.metrics}</span>
-                            </div>
-                          )}
-
                           <div className="space-y-1.5">
                             <h4 className="text-[11px] font-mono uppercase tracking-wider text-text-muted font-semibold">
                               Ringkasan Proyek
