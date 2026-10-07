@@ -102,7 +102,7 @@ export default function Hero() {
               </span>
               <span className="flex items-center gap-1.5 text-xs text-text-muted font-mono">
                 <Circle className="w-2 h-2 fill-emerald-500 text-emerald-500 animate-pulse" />
-                Tersedia untuk Bekerja
+                Terbuka untuk Magang & Freelance
               </span>
             </motion.div>
 
@@ -160,7 +160,7 @@ export default function Hero() {
                   onClick={() => scrollToSection("#projects")}
                   className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-xl shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all duration-200 group active:scale-95"
                 >
-                  Lihat Portofolio
+                  Lihat Projects
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </MagneticButton>

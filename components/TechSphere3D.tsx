@@ -205,7 +205,7 @@ export default function TechSphere3D({ className = "" }: { className?: string })
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      className={`relative w-full h-full rounded-2xl border border-border/40 bg-bg-alt/30 dark:bg-bg/20 backdrop-blur-sm shadow-md flex items-center justify-center select-none touch-none overflow-hidden ${className}`}
+      className={`relative w-full h-full rounded-2xl border border-border/40 bg-bg-alt/30 dark:bg-bg/20 backdrop-blur-none shadow-md flex items-center justify-center select-none touch-none overflow-hidden ${className}`}
       style={{ perspective: "800px" }}
     >
       {/* Ambient background lighting */}
