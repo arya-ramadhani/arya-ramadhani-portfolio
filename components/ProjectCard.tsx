@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -29,9 +29,12 @@ interface ProjectCardProps {
 }
 
 const slidePerspectives = [
-  { label: "Tampilan Utama", desc: "Overview antarmuka & tata letak visual sistem" },
-  { label: "Arsitektur & Alur", desc: "Alur pemrosesan data & integrasi teknologi" },
-  { label: "Fitur & Validasi", desc: "Fungsionalitas teruji & modul operasional" },
+  { label: "Halaman Login" },
+  { label: "Dashboard" },
+  { label: "Manajemen Aset" },
+  { label: "Inventaris" },
+  { label: "Laporan" },
+  { label: "Pengaturan" },
 ];
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
@@ -41,9 +44,18 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [modalImgErrors, setModalImgErrors] = useState<{ [key: number]: boolean }>({});
   const [mounted, setMounted] = useState(false);
+  const cardImgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Handle cached images: onLoad doesn't fire if browser already cached it
+  useEffect(() => {
+    const img = cardImgRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      setCardImgLoaded(true);
+    }
   }, []);
 
   const galleryImages =
@@ -129,46 +141,66 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         {/* ── Visual Media Container ── */}
         <div className="relative aspect-[16/10] overflow-hidden bg-bg-elevated border-b border-border/50">
 
-          {/* ── Fallback: always rendered as base layer ── */}
-          <div
-            className="absolute inset-0 flex items-center justify-center overflow-hidden select-none"
-            style={{
-              background:
-                "linear-gradient(135deg, hsl(var(--bg-elevated)) 0%, hsl(var(--bg-alt)) 60%, hsl(var(--bg-elevated)) 100%)",
-            }}
-          >
-            {/* Dot grid pattern */}
+          {/* ── Loading placeholder: subtle bg shown while image is loading (no icon) ── */}
+          {!cardImgError && !cardImgLoaded && (
             <div
-              className="absolute inset-0 pointer-events-none"
-              style={{ backgroundImage: DOT_GRID }}
-            />
-            {/* Diagonal stripe depth */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-[0.05]"
+              className="absolute inset-0 overflow-hidden select-none"
               style={{
-                backgroundImage:
-                  "repeating-linear-gradient(45deg, currentColor 0, currentColor 1px, transparent 0, transparent 50%)",
-                backgroundSize: "12px 12px",
+                background:
+                  "linear-gradient(135deg, hsl(var(--bg-elevated)) 0%, hsl(var(--bg-alt)) 60%, hsl(var(--bg-elevated)) 100%)",
               }}
-            />
-            {/* Corner accents */}
-            <span className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/40 rounded-tl" />
-            <span className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t-2 border-r-2 border-accent/40 rounded-tr" />
-            <span className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b-2 border-l-2 border-accent/40 rounded-bl" />
-            <span className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/40 rounded-br" />
+            >
+              {/* Dot grid pattern */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ backgroundImage: DOT_GRID }}
+              />
+              {/* Corner accents */}
+              <span className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/30 rounded-tl" />
+              <span className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t-2 border-r-2 border-accent/30 rounded-tr" />
+              <span className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b-2 border-l-2 border-accent/30 rounded-bl" />
+              <span className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/30 rounded-br" />
+            </div>
+          )}
 
-            {/* Single consistent icon — no text */}
-            <div className="relative z-10">
-              <div className="absolute -inset-3 rounded-3xl bg-accent/10 blur-lg" />
-              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border-2 border-accent/30 bg-bg/80 dark:bg-bg/60 flex items-center justify-center text-text-muted shadow-xl group-hover:border-accent/50 group-hover:text-accent transition-all duration-300">
-                <ImageOff className="w-6 h-6 sm:w-7 sm:h-7" />
+          {/* ── Error fallback: only when image truly failed to load ── */}
+          {cardImgError && (
+            <div
+              className="absolute inset-0 flex items-center justify-center overflow-hidden select-none"
+              style={{
+                background:
+                  "linear-gradient(135deg, hsl(var(--bg-elevated)) 0%, hsl(var(--bg-alt)) 60%, hsl(var(--bg-elevated)) 100%)",
+              }}
+            >
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ backgroundImage: DOT_GRID }}
+              />
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.05]"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(45deg, currentColor 0, currentColor 1px, transparent 0, transparent 50%)",
+                  backgroundSize: "12px 12px",
+                }}
+              />
+              <span className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-accent/40 rounded-tl" />
+              <span className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t-2 border-r-2 border-accent/40 rounded-tr" />
+              <span className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b-2 border-l-2 border-accent/40 rounded-bl" />
+              <span className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-accent/40 rounded-br" />
+              <div className="relative z-10">
+                <div className="absolute -inset-3 rounded-3xl bg-accent/10 blur-lg" />
+                <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border-2 border-accent/30 bg-bg/80 dark:bg-bg/60 flex items-center justify-center text-text-muted shadow-xl group-hover:border-accent/50 group-hover:text-accent transition-all duration-300">
+                  <ImageOff className="w-6 h-6 sm:w-7 sm:h-7" />
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* ── Image: invisible until loaded, removed on error ── */}
           {!cardImgError && (
             <img
+              ref={cardImgRef}
               src={project.image}
               alt={project.title}
               onLoad={() => setCardImgLoaded(true)}
@@ -177,7 +209,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               style={{ opacity: cardImgLoaded ? 1 : 0 }}
             />
           )}
-
 
 
           {/* Category Chip */}
@@ -446,9 +477,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                 <div>
                                   <p className="text-sm font-bold text-text font-mono">
                                     {currentPerspective.label}
-                                  </p>
-                                  <p className="text-xs text-text-muted max-w-sm mx-auto leading-relaxed mt-0.5">
-                                    {currentPerspective.desc}
                                   </p>
                                 </div>
                               </div>

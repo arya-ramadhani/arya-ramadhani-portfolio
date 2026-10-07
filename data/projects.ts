@@ -13,7 +13,6 @@ export interface Project {
   liveDemo?: string;
   prototype?: string;
   featured: boolean;
-  metrics?: string;
 }
 
 export const projects: Project[] = [
@@ -40,7 +39,6 @@ export const projects: Project[] = [
     github: "https://github.com/NessLM/sistem-informasi-stok-barang",
     prototype: "https://www.figma.com/file/Gp66mrNXKzckp9EL8arT1q/Prototype-Stok-Kita",
     featured: true,
-    metrics: "Production Enterprise",
   },
   {
     id: "attendance-ocr-system",
@@ -60,7 +58,6 @@ export const projects: Project[] = [
       "/images/projects/attendance-ocr-3.jpg",
     ],
     featured: true,
-    metrics: "Automated OCR Pipeline",
   },
   {
     id: "iot-clothesline",
@@ -80,7 +77,6 @@ export const projects: Project[] = [
       "/images/projects/iot-clothesline-3.jpg",
     ],
     featured: true,
-    metrics: "Autonomous Weather Sensing",
   },
   {
     id: "loms-ethnic-journey",
@@ -100,7 +96,6 @@ export const projects: Project[] = [
       "/images/projects/loms-journey-3.jpg",
     ],
     featured: true,
-    metrics: "Cultural Heritage Research",
   },
   {
     id: "uiux-competition-gontor",
@@ -120,7 +115,6 @@ export const projects: Project[] = [
       "/images/projects/uiux-gontor-3.jpg",
     ],
     featured: true,
-    metrics: "National Competition Entry",
   },
 ];
 
