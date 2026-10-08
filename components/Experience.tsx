@@ -311,13 +311,14 @@ export default function Experience() {
                                     <ImageIcon className="w-3 h-3" />
                                     Dokumentasi Kegiatan
                                   </p>
-                                  <div className="relative rounded-lg overflow-hidden border border-border/40 bg-bg aspect-[4/3]">
+                                  <div className="relative rounded-lg overflow-hidden border border-border/40 bg-bg">
                                     <Image
                                       src={exp.images[currentSlide]}
                                       alt={`Dokumentasi ${exp.position} ${currentSlide + 1}`}
-                                      fill
-                                      className="object-cover"
+                                      width={0}
+                                      height={0}
                                       sizes="(max-width: 1024px) 100vw, 30vw"
+                                      className="w-full h-auto block"
                                     />
 
                                     {total > 1 && (

@@ -30,11 +30,11 @@ interface ProjectCardProps {
 
 const slidePerspectives = [
   { label: "Halaman Login" },
-  { label: "Dashboard" },
-  { label: "Manajemen Aset" },
-  { label: "Inventaris" },
-  { label: "Laporan" },
-  { label: "Pengaturan" },
+  { label: "Halaman Dashboard" },
+  { label: "Halaman Manajemen Aset" },
+  { label: "Halaman Data Gudang" },
+  { label: "Halaman Riwayat" },
+  { label: "Halaman Laporan" },
 ];
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
