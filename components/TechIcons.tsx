@@ -572,6 +572,74 @@ export function PlatformIOIcon({ className = "w-6 h-6", size = 24, ...props }: T
   );
 }
 
+export function BlenderIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <circle cx="12" cy="13" r="6" fill="#F5792A" fillOpacity="0.15" stroke="#F5792A" strokeWidth="1.5" />
+      <circle cx="12" cy="13" r="2.5" fill="#F5792A" />
+      <path d="M6.5 10H3l3.5-4h7L12 8" stroke="#F5792A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8 5.5l4.5-.5" stroke="#F5792A" strokeWidth="1.3" strokeLinecap="round" opacity="0.6" />
+    </svg>
+  );
+}
+
+export function CppIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <rect width="24" height="24" rx="4" fill="#004482" />
+      <path d="M7.5 12a4.5 4.5 0 104.5-4.5" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M14 10.5v3M12.5 12h3" stroke="#00ADEF" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M18 10.5v3M16.5 12h3" stroke="#00ADEF" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function UXResearchIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <circle cx="10" cy="10" r="6" stroke="#06B6D4" strokeWidth="1.8" />
+      <path d="M14.5 14.5L20 20" stroke="#06B6D4" strokeWidth="2" strokeLinecap="round" />
+      <path d="M7.5 10h5M10 7.5v5" stroke="#22D3EE" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function GameDevelopmentIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <rect x="2" y="7" width="20" height="12" rx="3" stroke="#8B5CF6" strokeWidth="1.8" />
+      <path d="M8 11v4M6 13h4" stroke="#8B5CF6" strokeWidth="1.7" strokeLinecap="round" />
+      <circle cx="15" cy="12" r="1" fill="#A78BFA" />
+      <circle cx="18" cy="14" r="1" fill="#A78BFA" />
+      <path d="M8 4l2-2 4 0 2 2" stroke="#8B5CF6" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function VisualDesignIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="3" stroke="#EC4899" strokeWidth="1.8" />
+      <circle cx="8" cy="8" r="2" fill="#F472B6" />
+      <circle cx="15" cy="9" r="1.5" fill="#EC4899" />
+      <circle cx="10" cy="15" r="2.5" fill="#EC4899" fillOpacity="0.4" stroke="#EC4899" strokeWidth="1.2" />
+      <path d="M5 19l5-6 4 3 3-4" stroke="#F472B6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function AssetDesignIcon({ className = "w-6 h-6", size = 24, ...props }: TechIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" className={className} aria-hidden="true" {...props}>
+      <rect x="3" y="3" width="8" height="8" rx="1.5" fill="#F59E0B" fillOpacity="0.25" stroke="#F59E0B" strokeWidth="1.5" />
+      <rect x="13" y="3" width="8" height="8" rx="1.5" stroke="#F59E0B" strokeWidth="1.5" />
+      <rect x="3" y="13" width="8" height="8" rx="1.5" stroke="#F59E0B" strokeWidth="1.5" />
+      <path d="M17 16v-3M15.5 14.5h3" stroke="#FBBF24" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M13 21l4-4 4 4" stroke="#F59E0B" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
+    </svg>
+  );
+}
+
 // Icon dictionary lookup helper
 export const TechIconMap: Record<string, React.FC<TechIconProps>> = {
   HTML5: HTML5Icon,
@@ -628,6 +696,7 @@ export const TechIconMap: Record<string, React.FC<TechIconProps>> = {
   // Spec 3: AI & Computer Vision
   OCR: OCRIcon,
   Tesseract: TesseractIcon,
+  "Tesseract OCR": TesseractIcon,
   "Computer Vision": ComputerVisionIcon,
   "Image Processing": ImageProcessingIcon,
   "Google Colab": GoogleColabIcon,
@@ -637,7 +706,19 @@ export const TechIconMap: Record<string, React.FC<TechIconProps>> = {
   "User Flow": UserFlowIcon,
   "UI Design": UIDesignIcon,
   "UX Design": UXDesignIcon,
+  "UX Research": UXResearchIcon,
   "Design System": DesignSystemIcon,
+  // Spec 5: General / Creative
+  Blender: BlenderIcon,
+  "C/C++": CppIcon,
+  "C++": CppIcon,
+  "C": CppIcon,
+  "Game Development": GameDevelopmentIcon,
+  "Game Physics": GameDevelopmentIcon,
+  "Research": UXResearchIcon,
+  "Visual Design": VisualDesignIcon,
+  "2D Asset Design": AssetDesignIcon,
+  "2D Art": AssetDesignIcon,
 };
 
 export function TechIcon({

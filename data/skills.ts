@@ -390,6 +390,15 @@ export const techSkillsCatalog: TechSkill[] = [
     description: "Interactive wireframing, high-fidelity prototypes, design token systems, and user flows.",
   },
   {
+    name: "Blender",
+    category: "Tools & Development",
+    role: "3D Modeling & Asset Creation",
+    proficiency: "Advanced",
+    brandColor: "#F5792A",
+    glowColor: "rgba(245, 121, 42, 0.35)",
+    description: "3D asset modeling, sculpting, rendering, and visual asset creation for games and media.",
+  },
+  {
     name: "Wireframing",
     category: "Tools & Development",
     role: "Low-Fidelity Layout Design",
@@ -517,6 +526,7 @@ export const specializations: Specialization[] = [
     icon: Palette,
     technologies: [
       "Figma",
+      "Blender",
       "Wireframing",
       "Prototyping",
       "User Flow",

@@ -28,14 +28,6 @@ interface ProjectCardProps {
   index: number;
 }
 
-const slidePerspectives = [
-  { label: "Halaman Login" },
-  { label: "Halaman Dashboard" },
-  { label: "Halaman Manajemen Aset" },
-  { label: "Halaman Data Gudang" },
-  { label: "Halaman Riwayat" },
-  { label: "Halaman Laporan" },
-];
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   const [showDetailModal, setShowDetailModal] = useState(false);
@@ -43,6 +35,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   const [cardImgLoaded, setCardImgLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [modalImgErrors, setModalImgErrors] = useState<{ [key: number]: boolean }>({});
+  const [modalImgPortrait, setModalImgPortrait] = useState<{ [key: number]: boolean }>({});
   const [mounted, setMounted] = useState(false);
   const cardImgRef = useRef<HTMLImageElement>(null);
 
@@ -60,6 +53,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   const galleryImages =
     project.images && project.images.length > 0 ? project.images : [project.image];
+
+  const isVideo = (src: string) => /\.(mp4|webm|ogg)$/i.test(src);
 
   const handleNextImage = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -114,8 +109,9 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     }
   }, [showDetailModal, galleryImages.length]);
 
-  const currentPerspective =
-    slidePerspectives[currentImageIndex % slidePerspectives.length] || slidePerspectives[0];
+  const currentSlideLabel =
+    project.slides?.[currentImageIndex] ??
+    `Foto ke-${currentImageIndex + 1}`;
 
 
   return (
@@ -243,9 +239,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               {project.role}
             </p>
 
-            <p className="text-[11px] text-text-secondary line-clamp-2 leading-relaxed min-h-[2rem]">
-              {project.description}
-            </p>
+
           </div>
 
           {/* ── Technology Badges ── */}
@@ -340,7 +334,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                               Ringkasan Proyek
                             </h4>
                             <div className="p-3 rounded-xl bg-bg-alt/70 border border-border/70 text-xs text-text-secondary leading-relaxed max-h-40 overflow-y-auto">
-                              <p>{project.longDescription || project.description}</p>
+                              <p>{project.longDescription}</p>
                             </div>
                           </div>
 
@@ -420,17 +414,54 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                         </div>
 
                         {/* Showcase Container: Compact Cinema Proportions */}
-                        <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full min-h-[220px] sm:min-h-[290px] lg:min-h-[330px] rounded-xl overflow-hidden border border-border/80 bg-bg-alt shadow-xl select-none group/img">
-                          {/* Active Image or Schematic Blueprint Fallback */}
+                        <div
+                          className="relative aspect-[16/10] sm:aspect-[16/9] w-full min-h-[220px] sm:min-h-[290px] lg:min-h-[330px] rounded-xl overflow-hidden border border-border/80 shadow-xl select-none group/img"
+                          style={{
+                            background: modalImgPortrait[currentImageIndex]
+                              ? "var(--letterbox-bg, #000)"
+                              : undefined,
+                          }}
+                        >
+                          {/* Letterbox background respects color mode */}
+                          <style>{`
+                            :root { --letterbox-bg: #ffffff; }
+                            .dark { --letterbox-bg: #000000; }
+                          `}</style>
+                          {/* Active Media: Video or Image */}
                           {!modalImgErrors[currentImageIndex] ? (
-                            <img
-                              src={galleryImages[currentImageIndex]}
-                              alt={`${project.title} - Slide ${currentImageIndex + 1}`}
-                              onError={() =>
-                                setModalImgErrors((prev) => ({ ...prev, [currentImageIndex]: true }))
-                              }
-                              className="w-full h-full object-cover object-center transition-all duration-300"
-                            />
+                            isVideo(galleryImages[currentImageIndex]) ? (
+                              <video
+                                key={galleryImages[currentImageIndex]}
+                                src={galleryImages[currentImageIndex]}
+                                className="w-full h-full object-contain object-center transition-all duration-300"
+                                controls
+                                autoPlay
+                                muted
+                                playsInline
+                                loop
+                                onError={() =>
+                                  setModalImgErrors((prev) => ({ ...prev, [currentImageIndex]: true }))
+                                }
+                              />
+                            ) : (
+                              <img
+                                src={galleryImages[currentImageIndex]}
+                                alt={`${project.title} - Slide ${currentImageIndex + 1}`}
+                                onLoad={(e) => {
+                                  const img = e.currentTarget;
+                                  const isPortrait = img.naturalHeight > img.naturalWidth;
+                                  setModalImgPortrait((prev) => ({ ...prev, [currentImageIndex]: isPortrait }));
+                                }}
+                                onError={() =>
+                                  setModalImgErrors((prev) => ({ ...prev, [currentImageIndex]: true }))
+                                }
+                                className={`w-full h-full transition-all duration-300 ${
+                                  modalImgPortrait[currentImageIndex]
+                                    ? "object-contain object-center"
+                                    : "object-cover object-center"
+                                }`}
+                              />
+                            )
                           ) : (
                             /* Professional Tech Blueprint Mockup Fallback */
                             <div className="absolute inset-0 bg-gradient-to-br from-bg-alt via-bg-elevated to-bg p-4 sm:p-6 flex flex-col justify-between overflow-hidden border border-border/40">
@@ -459,7 +490,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                 </div>
                                 <div>
                                   <p className="text-sm font-bold text-text font-mono">
-                                    {currentPerspective.label}
+                                    {currentSlideLabel}
                                   </p>
                                 </div>
                               </div>
@@ -489,7 +520,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
                           {/* Bottom Overlay Label */}
                           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-3 pt-7 text-white text-xs font-mono flex items-center pointer-events-none">
-                            <span className="truncate font-medium">{currentPerspective.label}</span>
+                            <span className="truncate font-medium">{currentSlideLabel}</span>
                           </div>
                         </div>
 

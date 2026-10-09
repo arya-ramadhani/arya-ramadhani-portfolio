@@ -3,12 +3,12 @@ export interface Project {
   title: string;
   category: string;
   categories: string[];
-  description: string;
   longDescription?: string;
   role: string;
   technologies: string[];
   image: string;
   images?: string[];
+  slides?: string[];
   github?: string;
   liveDemo?: string;
   prototype?: string;
@@ -18,15 +18,13 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "asset-inventory-management",
-    title: "Sistem Manajemen Aset & Inventaris",
+    title: "Stokita – Sistem Manajemen Aset & Inventaris",
     category: "Web",
     categories: ["Web", "Enterprise"],
     role: "Full-Stack Developer & UI/UX",
-    description:
-      "Aplikasi web terintegrasi untuk mendigitalkan dan mengotomatiskan pengelolaan aset dan inventaris di lingkungan Kantor Bupati Bangka.",
     longDescription:
-      "Dikembangkan dari awal meliputi analisis kebutuhan proses bisnis, perancangan UI/UX di Figma, arsitektur database MySQL, serta implementasi framework Laravel. Dilengkapi modul mutasi aset, verifikasi penanggung jawab, pelaporan eksekutif, dan konfigurasi jaringan LAN untuk akses multi-komputer terpadu.",
-    technologies: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap", "Figma"],
+      "Membangun Sistem Manajemen Aset dan Inventaris berbasis web selama program magang di Kantor Bupati Kabupaten Bangka. Sistem dirancang untuk membantu pengelolaan aset dan pemantauan inventaris secara lebih terstruktur dan efisien.",
+    technologies: ["Figma", "Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap"],
     image: "/images/projects/asset-management.png",
     images: [
       "/images/projects/asset-management-1.png",
@@ -35,6 +33,14 @@ export const projects: Project[] = [
       "/images/projects/asset-management-4.png",
       "/images/projects/asset-management-5.png",
       "/images/projects/asset-management-6.png",
+    ],
+    slides: [
+      "Halaman Login",
+      "Halaman Dashboard",
+      "Halaman Manajemen Aset",
+      "Halaman Data Gudang",
+      "Halaman Riwayat",
+      "Halaman Laporan",
     ],
     github: "https://github.com/NessLM/sistem-informasi-stok-barang",
     prototype: "https://www.figma.com/file/Gp66mrNXKzckp9EL8arT1q/Prototype-Stok-Kita",
@@ -46,8 +52,6 @@ export const projects: Project[] = [
     category: "AI & Computer Vision",
     categories: ["AI & Computer Vision", "Web"],
     role: "AI & Computer Vision Engineer",
-    description:
-      "Sistem pemindaian cerdas otomatis yang mengekstrak data presensi fisik/kertas menjadi rekaman digital menggunakan Computer Vision & Tesseract OCR.",
     longDescription:
       "Mengotomatiskan entri data presensi absensi harian yang sebelumnya dilakukan manual. Menggunakan algoritma pengolahan citra (image preprocessing, adaptive binarization, contour deskewing) OpenCV untuk membersihkan noise dokumen sebelum diekstrak oleh engine Tesseract OCR ke database Laravel.",
     technologies: ["Python", "OpenCV", "Tesseract OCR", "Laravel", "MySQL"],
@@ -57,24 +61,32 @@ export const projects: Project[] = [
       "/images/projects/attendance-ocr-2.jpg",
       "/images/projects/attendance-ocr-3.jpg",
     ],
+    slides: [
+      "Demo Sistem OCR",
+      "Hasil Ekstraksi Data",
+      "Output Rekap Digital",
+    ],
     featured: true,
   },
   {
     id: "iot-clothesline",
-    title: "Jemuran Otomatis Berbasis IoT & Blynk Cloud",
+    title: "Smart Clothesline Berbasis IoT & Blynk Cloud",
     category: "IoT",
     categories: ["IoT", "Embedded Systems"],
     role: "IoT Firmware & Hardware Engineer",
-    description:
-      "Sistem jemuran pintar otomatis yang merespons cuaca secara real-time dengan kendali motor servo dan pemantauan jarak jauh via smartphone.",
     longDescription:
-      "Memanfaatkan mikrokontroler ESP32/Arduino yang terhubung dengan sensor air hujan dan sensor LDR (cahaya). Ketika terdeteksi hujan atau malam hari, motor servo otomatis menarik jemuran ke tempat teduh. Dilengkapi dashboard telemetri cloud Blynk untuk kontrol manual dan notifikasi status instan.",
-    technologies: ["ESP32", "Arduino", "Blynk", "Sensors", "Servo", "C/C++"],
-    image: "/images/projects/iot-clothesline.jpg",
+      "Mengembangkan sistem Smart Clothesline berbasis IoT menggunakan ESP32, servo motor, sensor hujan, buzzer, dan aplikasi Blynk. Sistem dirancang untuk membuka dan menutup jemuran secara otomatis berdasarkan jadwal yang ditentukan serta kondisi hujan secara real-time.",
+    technologies: ["Blynk", "ESP32", "Sensors", "Servo", "C/C++"],
+    image: "/images/projects/jemuran-otomatis.png",
     images: [
-      "/images/projects/iot-clothesline.jpg",
-      "/images/projects/iot-clothesline-2.jpg",
-      "/images/projects/iot-clothesline-3.jpg",
+      "/images/projects/jemuran-otomatis-1.mp4",
+      "/images/projects/jemuran-otomatis-2.png",
+      "/images/projects/jemuran-otomatis-3.png",
+    ],
+    slides: [
+      "Video Demo Sistem",
+      "Presentasi dengan Dosen",
+      "Foto Tim & Prototype",
     ],
     featured: true,
   },
@@ -84,47 +96,47 @@ export const projects: Project[] = [
     category: "Game",
     categories: ["Game", "Research"],
     role: "Game Research & 2D Asset Artist",
-    description:
-      "Game edukasi interaktif yang memadukan kearifan budaya lokal Suku Lom dengan materi Fisika dan Matematika.",
     longDescription:
-      "Proyek penelitian akademik yang merancang media pembelajaran gamifikasi interaktif. Mengangkat narasi tradisi dan kearifan Suku Lom, Bangka Belitung, yang dikombinasikan dengan tantangan teka-teki logika fisika gerak dan perhitungan matematika dasar.",
-    technologies: ["Blender", "2D Asset Design", "Game Physics", "Research"],
-    image: "/images/projects/loms-journey.jpg",
+      "Lom’s Ethnic Journey merupakan edu-game yang dikembangkan dalam penelitian dosen di Politeknik Manufaktur Negeri Bangka Belitung sebagai media pembelajaran interaktif yang mengintegrasikan budaya lokal Suku Lom dengan materi Matematika dan Fisika.",
+    technologies: ["Blender", "2D Asset Design", "Game Development", "Visual Design"],
+    image: "/images/projects/loms-journey.png",
     images: [
-      "/images/projects/loms-journey.jpg",
-      "/images/projects/loms-journey-2.jpg",
-      "/images/projects/loms-journey-3.jpg",
+      "/images/projects/loms-journey-1.png",
+      "/images/projects/loms-journey-2.png",
+      "/images/projects/loms-journey-3.png",
+      "/images/projects/loms-journey-4.png",
+      "/images/projects/loms-journey-5.png",
+    ],
+    slides: [
+      "Tampilan Awal",
+      "Tampilan Tim Pengembang",
+      "Desain Aset Gameplay & Mekanisme",
+      "Desain Karakter NPC",
+      "Desain Karakter Utama",
     ],
     featured: true,
   },
   {
     id: "uiux-competition-gontor",
-    title: "UI/UX Mobile App Design - Gontor Competition",
+    title: "EcoClean – UI/UX Mobile App Design",
     category: "UI/UX Design",
     categories: ["UI/UX Design"],
-    role: "Lead UI/UX Designer",
-    description:
-      "Desain produk antarmuka dan pengalaman pengguna (UI/UX) aplikasi mobile modern pada kompetisi nasional Universitas Darussalam Gontor.",
+    role: "UI/UX Designer",
     longDescription:
-      "Mencakup keseluruhan proses Design Thinking: user research, problem statement, pembuatan user persona, user journey map, wireframe low-fidelity, hingga high-fidelity interactive prototype di Figma yang menerapkan design token sistematis dan micro-interactions.",
+      "Merancang konsep dan prototipe UI/UX EcoClean, aplikasi digital yang mendukung pengelolaan sampah melalui fitur jual beli barang, komunitas, investasi, dan layanan pendukung. Berfokus pada perancangan pengalaman pengguna yang intuitif, terstruktur, dan mudah digunakan.",
     technologies: ["Figma", "UI Design", "UX Research", "Prototyping", "Design System"],
-    image: "/images/projects/uiux-gontor.jpg",
+    image: "/images/projects/uiux-ecoclean.png",
     images: [
-      "/images/projects/uiux-gontor.jpg",
-      "/images/projects/uiux-gontor-2.jpg",
-      "/images/projects/uiux-gontor-3.jpg",
+      "/images/projects/uiux-ecoclean-1.png",
+      "/images/projects/uiux-ecoclean-2.png",
+      "/images/projects/uiux-ecoclean-3.png",
     ],
+    slides: [
+      "Video Demo Prototipe",
+      "Design System",
+      "User Flow & Wireframe",
+    ],
+    prototype:"https://www.figma.com/design/oBGlMWBGUvTNdKef9HTvoi/UI-UX?node-id=1669-162202&p=f&t=GhYL9q4HvnlnTzzo-0",
     featured: true,
   },
 ];
-
-export const projectCategories = [
-  "All",
-  "Web",
-  "IoT",
-  "AI & Computer Vision",
-  "UI/UX Design",
-  "Game",
-] as const;
-
-export type ProjectCategory = (typeof projectCategories)[number];
