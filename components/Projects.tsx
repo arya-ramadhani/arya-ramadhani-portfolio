@@ -137,7 +137,7 @@ export default function Projects() {
               <div className="flex items-center text-[11px] font-mono text-text-muted mt-1.5 mb-4 px-1">
                 <span className="flex items-center gap-1.5">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                  Geser ke kanan untuk melihat proyek
+                  Geser ke kanan untuk melihat 4 proyek utama
                 </span>
               </div>
             </div>
