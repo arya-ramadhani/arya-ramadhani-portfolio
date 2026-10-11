@@ -46,6 +46,7 @@ export const projects: Project[] = [
     prototype: "https://www.figma.com/file/Gp66mrNXKzckp9EL8arT1q/Prototype-Stok-Kita",
     featured: true,
   },
+  
   {
     id: "attendance-ocr-system",
     title: "Sistem Rekapitulasi Presensi Berbasis OCR",
