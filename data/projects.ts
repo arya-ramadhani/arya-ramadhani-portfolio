@@ -46,7 +46,34 @@ export const projects: Project[] = [
     prototype: "https://www.figma.com/file/Gp66mrNXKzckp9EL8arT1q/Prototype-Stok-Kita",
     featured: true,
   },
-  
+  {
+    id: "iot-ai-sistem-pemilah-sampah",
+    title: "Sistem Pemilah Sampah Otomatis Berbasis IoT & AI",
+    category: "IoT & AI",
+    categories: ["IoT", "AI"],
+    role: "IoT & AI Engineer",
+    longDescription:
+      "Mengembangkan prototipe sistem pemilah sampah otomatis berbasis Internet of Things (IoT) yang terintegrasi dengan model klasifikasi berbasis AI untuk mengidentifikasi sampah organik, anorganik, dan B3 secara real-time.",
+    technologies: ["Computer Vision", "Image Processing", "Raspberry Pi", "ESP32", "Sensors", "Servo", "C/C++"],
+    image: "/images/projects/pemilah-sampah.png",
+    images: [
+      "/images/projects/pemilah-sampah-1.png",
+      "/images/projects/pemilah-sampah-2.png",
+      "/images/projects/pemilah-sampah-3.png",
+      "/images/projects/pemilah-sampah-4.png",
+      "/images/projects/pemilah-sampah-5.png",
+      "/images/projects/pemilah-sampah-6.png",
+    ],
+    slides: [
+      "Presentasi dan Foto Tim",
+      "Prototype Sistem",
+      "Website Halaman Klasifikasi",
+      "Website Halaman Monitoring",
+      "Box Panel",
+      "Wiring Box Panel",
+    ],
+    featured: true,
+  },
   {
     id: "attendance-ocr-system",
     title: "Sistem Rekapitulasi Presensi Berbasis OCR",
@@ -74,7 +101,7 @@ export const projects: Project[] = [
     title: "Smart Clothesline Berbasis IoT & Blynk Cloud",
     category: "IoT",
     categories: ["IoT", "Embedded Systems"],
-    role: "IoT Firmware & Hardware Engineer",
+    role: "IoT & Hardware Engineer",
     longDescription:
       "Mengembangkan sistem Smart Clothesline berbasis IoT menggunakan ESP32, servo motor, sensor hujan, buzzer, dan aplikasi Blynk. Sistem dirancang untuk membuka dan menutup jemuran secara otomatis berdasarkan jadwal yang ditentukan serta kondisi hujan secara real-time.",
     technologies: ["Blynk", "ESP32", "Sensors", "Servo", "C/C++"],
