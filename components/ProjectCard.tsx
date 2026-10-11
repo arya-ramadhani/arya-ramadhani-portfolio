@@ -209,7 +209,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
           {/* Category Chip */}
           <div className="absolute top-2 left-2 z-10">
-            <span className="px-1.5 py-0.5 rounded-md text-[9px] font-mono font-medium text-accent bg-bg/95 border border-accent/20 backdrop-blur-md shadow-xs">
+            <span className="px-1.5 py-0.5 rounded-md text-[9px] font-mono font-medium text-accent bg-bg/95 border border-accent/20 backdrop-blur-md shadow-xs dark:bg-white/90 dark:border-white/20">
               {project.category}
             </span>
           </div>

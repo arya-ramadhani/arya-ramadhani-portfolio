@@ -64,7 +64,7 @@ export const publications: Publication[] = [
   {
     title: "Buku Klasifikasi Sampah Menggunakan YOLO dan IoT",
     type: "Book",
-    year: "Jul 27, 2026",
+    year: "27 Juli 2026",
     metadata: "ISBN · Idebuku.id",
     url: "https://idebuku.id/store/product/klasifikasi-sampah-menggunakan-yolo-dan-iot/",
   },
@@ -72,8 +72,16 @@ export const publications: Publication[] = [
     title:
       "Development of the Edu-Game Media Lom's Ethnic Journey to Enhance Interest in Learning Mathematics and Physics Among Students",
     type: "Journal Article",
-    year: "Jan 15, 2025",
+    year: "15 Januari 2025",
     metadata: "SINTA 2 · JINOTEP",
     url: "https://journal-fip.um.ac.id/index.php/jinotep/article/view/1325",
+  },
+  {
+    title:
+      "YOLOv12n and IoT-Based Smart Waste Bin on Raspberry Pi",
+    type: "Journal Article",
+    year: "03 September 2026",
+    metadata: "SINTA 4 · J-INTECH",
+    url: "/",
   },
 ];

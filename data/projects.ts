@@ -54,7 +54,7 @@ export const projects: Project[] = [
     role: "IoT & AI Engineer",
     longDescription:
       "Mengembangkan prototipe sistem pemilah sampah otomatis berbasis Internet of Things (IoT) yang terintegrasi dengan model klasifikasi berbasis AI untuk mengidentifikasi sampah organik, anorganik, dan B3 secara real-time.",
-    technologies: ["Computer Vision", "Image Processing", "Raspberry Pi", "ESP32", "Sensors", "Servo", "C/C++"],
+    technologies: ["Next.js","AI","Roboflow","Computer Vision", "Image Processing", "Raspberry Pi", "ESP32", "Sensors", "Servo", "C/C++"],
     image: "/images/projects/pemilah-sampah.png",
     images: [
       "/images/projects/pemilah-sampah-1.png",
@@ -71,28 +71,6 @@ export const projects: Project[] = [
       "Website Halaman Monitoring",
       "Box Panel",
       "Wiring Box Panel",
-    ],
-    featured: true,
-  },
-  {
-    id: "attendance-ocr-system",
-    title: "Sistem Rekapitulasi Presensi Berbasis OCR",
-    category: "AI & Computer Vision",
-    categories: ["AI & Computer Vision", "Web"],
-    role: "AI & Computer Vision Engineer",
-    longDescription:
-      "Mengotomatiskan entri data presensi absensi harian yang sebelumnya dilakukan manual. Menggunakan algoritma pengolahan citra (image preprocessing, adaptive binarization, contour deskewing) OpenCV untuk membersihkan noise dokumen sebelum diekstrak oleh engine Tesseract OCR ke database Laravel.",
-    technologies: ["Python", "OpenCV", "Tesseract OCR", "Laravel", "MySQL"],
-    image: "/images/projects/attendance-ocr.jpg",
-    images: [
-      "/images/projects/attendance-ocr.jpg",
-      "/images/projects/attendance-ocr-2.jpg",
-      "/images/projects/attendance-ocr-3.jpg",
-    ],
-    slides: [
-      "Demo Sistem OCR",
-      "Hasil Ekstraksi Data",
-      "Output Rekap Digital",
     ],
     featured: true,
   },
@@ -165,6 +143,28 @@ export const projects: Project[] = [
       "User Flow & Wireframe",
     ],
     prototype:"https://www.figma.com/design/oBGlMWBGUvTNdKef9HTvoi/UI-UX?node-id=1669-162202&p=f&t=GhYL9q4HvnlnTzzo-0",
+    featured: true,
+  },
+  {
+    id: "attendance-ocr-system",
+    title: "(PROGRES) Sistem Rekapitulasi Presensi Berbasis OCR",
+    category: "AI & Computer Vision",
+    categories: ["AI & Computer Vision", "Web"],
+    role: "AI & Computer Vision Engineer",
+    longDescription:
+      "Mengotomatiskan entri data presensi absensi harian yang sebelumnya dilakukan manual. Menggunakan algoritma pengolahan citra (image preprocessing, adaptive binarization, contour deskewing) OpenCV untuk membersihkan noise dokumen sebelum diekstrak oleh engine Tesseract OCR ke database Laravel.",
+    technologies: ["Python", "OpenCV", "Tesseract OCR", "Laravel", "MySQL"],
+    image: "/images/projects/attendance-ocr.jpg",
+    images: [
+      "/images/projects/attendance-ocr.jpg",
+      "/images/projects/attendance-ocr-2.jpg",
+      "/images/projects/attendance-ocr-3.jpg",
+    ],
+    slides: [
+      "Demo Sistem OCR",
+      "Hasil Ekstraksi Data",
+      "Output Rekap Digital",
+    ],
     featured: true,
   },
 ];

@@ -511,6 +511,8 @@ export const specializations: Specialization[] = [
       "Mengembangkan sistem cerdas dengan kapabilitas pemrosesan citra digital, OCR, dan deteksi pola visual terotomasi.",
     icon: Brain,
     technologies: [
+      "AI",
+      "Roboflow",
       "Python",
       "Computer Vision",
       "Image Processing",
