@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, ExternalLink, FileText, FlaskConical } from "lucide-react";
 import SectionReveal from "./SectionReveal";

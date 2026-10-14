@@ -13,42 +13,42 @@ import {
 import SectionReveal from "./SectionReveal";
 import InteractiveTerminal from "./InteractiveTerminal";
 
-/** Binary code-rain — only 0 and 1, slow fall, lightweight */
+/** Binary code-rain — only 0 and 1, slow fall, lightweight & transparent */
 function CodeRainBg() {
   const columns = useMemo(() => {
     return Array.from({ length: 12 }, (_, i) => ({
       id: i,
       left: `${(i / 12) * 100 + 1}%`,
       delay: `${(i * 1.8).toFixed(1)}s`,
-      duration: `${(20 + i * 1.2).toFixed(1)}s`,
+      duration: `${(22 + i * 1.5).toFixed(1)}s`,
       bits: Array.from({ length: 12 }, () => (Math.random() > 0.5 ? "1" : "0")).join(""),
-      opacity: 0.05 + (i % 3) * 0.02,
+      opacity: 0.035 + (i % 3) * 0.025,
     }));
   }, []);
 
   return (
     <div
       aria-hidden="true"
-      className="absolute inset-0 overflow-hidden pointer-events-none"
+      className="absolute inset-0 overflow-hidden pointer-events-none select-none opacity-60 dark:opacity-50"
       style={{ zIndex: 0 }}
     >
       <style>{`
         @keyframes binRain {
           0%   { transform: translateY(-100%); opacity: 0; }
-          12%  { opacity: 1; }
-          88%  { opacity: 1; }
+          15%  { opacity: var(--bin-op, 0.05); }
+          85%  { opacity: var(--bin-op, 0.05); }
           100% { transform: translateY(105vh); opacity: 0; }
         }
       `}</style>
       {columns.map((col) => (
         <div
           key={col.id}
-          className="absolute top-0 font-mono text-emerald-400 whitespace-pre leading-7 text-[11px] select-none"
+          className="absolute top-0 font-mono text-emerald-400/90 whitespace-pre leading-7 text-[10px] select-none"
           style={{
             left: col.left,
-            opacity: col.opacity,
+            "--bin-op": col.opacity,
             animation: `binRain ${col.duration} ${col.delay} linear infinite`,
-          }}
+          } as React.CSSProperties}
         >
           {col.bits.split("").join("\n")}
         </div>
