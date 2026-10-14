@@ -7,7 +7,6 @@ import { projects } from "@/data/projects";
 import { FolderGit2, ExternalLink, LayoutGrid, ChevronDown, ChevronUp } from "lucide-react";
 import { GitHubIcon } from "./TechIcons";
 
-
 export default function Projects() {
   const [showAll, setShowAll] = useState(false);
   return (
