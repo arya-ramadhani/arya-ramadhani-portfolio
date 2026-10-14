@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -24,6 +24,62 @@ import type { Organization } from "@/data/education";
 
 /** Dot-grid SVG pattern for modal blueprint and fallback */
 const DOT_GRID = `url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23888' fill-opacity='0.22'/%3E%3C/svg%3E")`;
+
+/** Floating academic-orb background — gentle drifting circles like a constellation */
+function FloatingOrbsBg() {
+  const orbs = useMemo(() => {
+    return Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      cx: `${5 + Math.random() * 90}%`,
+      cy: `${5 + Math.random() * 90}%`,
+      r: 2 + Math.random() * 4,
+      delay: `${(Math.random() * 10).toFixed(2)}s`,
+      duration: `${(14 + Math.random() * 12).toFixed(2)}s`,
+      driftX: (Math.random() - 0.5) * 60,
+      driftY: (Math.random() - 0.5) * 60,
+      opacity: 0.12 + Math.random() * 0.18,
+    }));
+  }, []);
+
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+      style={{ zIndex: 0 }}
+    >
+      <style>{`
+        @keyframes orbDrift {
+          0%   { transform: translate(0, 0) scale(1); opacity: var(--orb-op); }
+          33%  { transform: translate(var(--dx), calc(var(--dy) * 0.5)) scale(1.15); }
+          66%  { transform: translate(calc(var(--dx) * -0.4), var(--dy)) scale(0.9); }
+          100% { transform: translate(0, 0) scale(1); opacity: var(--orb-op); }
+        }
+        @keyframes orbPulse {
+          0%, 100% { opacity: var(--orb-op); }
+          50%       { opacity: calc(var(--orb-op) * 1.8); }
+        }
+      `}</style>
+      {orbs.map((orb) => (
+        <div
+          key={orb.id}
+          className="absolute rounded-full bg-accent"
+          style={{
+            left: orb.cx,
+            top: orb.cy,
+            width: orb.r * 2,
+            height: orb.r * 2,
+            opacity: orb.opacity,
+            filter: `blur(${orb.r > 4 ? 3 : 1}px)`,
+            "--orb-op": orb.opacity,
+            "--dx": `${orb.driftX}px`,
+            "--dy": `${orb.driftY}px`,
+            animation: `orbDrift ${orb.duration} ${orb.delay} ease-in-out infinite, orbPulse ${(parseFloat(orb.duration) * 0.7).toFixed(2)}s ${orb.delay} ease-in-out infinite`,
+          } as React.CSSProperties}
+        />
+      ))}
+    </div>
+  );
+}
 
 const orgSlidePerspectives = [
   {
@@ -340,6 +396,7 @@ export default function Education() {
 
   return (
     <section id="education" className="py-14 sm:py-20 lg:py-28 relative overflow-hidden">
+      <FloatingOrbsBg />
       {/* Background ambient mesh */}
       <div className="absolute top-1/4 -right-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 -left-36 w-80 h-80 bg-accent/6 rounded-full blur-[140px] pointer-events-none" />

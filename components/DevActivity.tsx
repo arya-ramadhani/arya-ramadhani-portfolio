@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import {
   GitCommit,
   Terminal,
@@ -12,6 +12,50 @@ import {
 } from "lucide-react";
 import SectionReveal from "./SectionReveal";
 import InteractiveTerminal from "./InteractiveTerminal";
+
+/** Binary code-rain — only 0 and 1, slow fall, lightweight */
+function CodeRainBg() {
+  const columns = useMemo(() => {
+    return Array.from({ length: 12 }, (_, i) => ({
+      id: i,
+      left: `${(i / 12) * 100 + 1}%`,
+      delay: `${(i * 1.8).toFixed(1)}s`,
+      duration: `${(20 + i * 1.2).toFixed(1)}s`,
+      bits: Array.from({ length: 12 }, () => (Math.random() > 0.5 ? "1" : "0")).join(""),
+      opacity: 0.05 + (i % 3) * 0.02,
+    }));
+  }, []);
+
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+      style={{ zIndex: 0 }}
+    >
+      <style>{`
+        @keyframes binRain {
+          0%   { transform: translateY(-100%); opacity: 0; }
+          12%  { opacity: 1; }
+          88%  { opacity: 1; }
+          100% { transform: translateY(105vh); opacity: 0; }
+        }
+      `}</style>
+      {columns.map((col) => (
+        <div
+          key={col.id}
+          className="absolute top-0 font-mono text-emerald-400 whitespace-pre leading-7 text-[11px] select-none"
+          style={{
+            left: col.left,
+            opacity: col.opacity,
+            animation: `binRain ${col.duration} ${col.delay} linear infinite`,
+          }}
+        >
+          {col.bits.split("").join("\n")}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
@@ -153,6 +197,7 @@ export default function DevActivity() {
 
   return (
     <section id="dev-activity" className="py-14 sm:py-20 lg:py-28 relative overflow-hidden">
+      <CodeRainBg />
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <SectionReveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-10">
