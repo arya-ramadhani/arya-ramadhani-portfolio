@@ -49,6 +49,7 @@ export const education: Education = {
       period: "Jul 2024 – Jul 2025",
       description:
         "Menjabat sebagai Ketua Himpunan Mahasiswa Jurusan Teknik Elektro dan Informatika dengan tanggung jawab memimpin organisasi, mengoordinasikan program kerja, serta menjadi penghubung antara mahasiswa, dosen, dan pihak institusi. Mengarahkan pelaksanaan kegiatan akademik dan non-akademik, mendukung pengembangan anggota, serta terlibat dalam pengambilan keputusan dan koordinasi organisasi.",
+      image: "/images/organizations/ketua-himpunan.jpg",
     },
     {
       role: "Anggota",
