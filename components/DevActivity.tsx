@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   GitCommit,
   Terminal,
@@ -13,46 +13,105 @@ import {
 import SectionReveal from "./SectionReveal";
 import InteractiveTerminal from "./InteractiveTerminal";
 
-/** Binary code-rain — only 0 and 1, slow fall, lightweight & transparent */
-function CodeRainBg() {
-  const columns = useMemo(() => {
-    return Array.from({ length: 12 }, (_, i) => ({
-      id: i,
-      left: `${(i / 12) * 100 + 1}%`,
-      delay: `${(i * 1.8).toFixed(1)}s`,
-      duration: `${(22 + i * 1.5).toFixed(1)}s`,
-      bits: Array.from({ length: 12 }, () => (Math.random() > 0.5 ? "1" : "0")).join(""),
-      opacity: 0.035 + (i % 3) * 0.025,
-    }));
-  }, []);
-
+/** Circuit board trace animation — flowing PCB lines with pulsing nodes */
+function CircuitBoardBg() {
   return (
     <div
       aria-hidden="true"
-      className="absolute inset-0 overflow-hidden pointer-events-none select-none opacity-60 dark:opacity-50"
+      className="absolute inset-0 overflow-hidden pointer-events-none select-none"
       style={{ zIndex: 0 }}
     >
       <style>{`
-        @keyframes binRain {
-          0%   { transform: translateY(-100%); opacity: 0; }
-          15%  { opacity: var(--bin-op, 0.05); }
-          85%  { opacity: var(--bin-op, 0.05); }
-          100% { transform: translateY(105vh); opacity: 0; }
+        @keyframes trace-h {
+          0%   { transform: scaleX(0); opacity: 0; }
+          10%  { opacity: 1; }
+          80%  { opacity: 1; }
+          100% { transform: scaleX(1); opacity: 0; }
         }
+        @keyframes trace-v {
+          0%   { transform: scaleY(0); opacity: 0; }
+          10%  { opacity: 1; }
+          80%  { opacity: 1; }
+          100% { transform: scaleY(1); opacity: 0; }
+        }
+        .cct-h { transform-origin: left center;  animation: trace-h linear infinite; }
+        .cct-v { transform-origin: center top;   animation: trace-v linear infinite; }
       `}</style>
-      {columns.map((col) => (
-        <div
-          key={col.id}
-          className="absolute top-0 font-mono text-emerald-400/90 whitespace-pre leading-7 text-[10px] select-none"
-          style={{
-            left: col.left,
-            "--bin-op": col.opacity,
-            animation: `binRain ${col.duration} ${col.delay} linear infinite`,
-          } as React.CSSProperties}
-        >
-          {col.bits.split("").join("\n")}
-        </div>
-      ))}
+
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 1000 520"
+        preserveAspectRatio="xMidYMid slice"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* ── Horizontal traces ── */}
+        {[
+          { x: 60,  y: 80,  w: 220, dur: "6s",  del: "0s"   },
+          { x: 320, y: 80,  w: 160, dur: "7s",  del: "1.2s" },
+          { x: 120, y: 160, w: 300, dur: "8s",  del: "0.6s" },
+          { x: 500, y: 160, w: 180, dur: "5.5s",del: "3.1s" },
+          { x: 60,  y: 260, w: 140, dur: "7.5s",del: "1.8s" },
+          { x: 250, y: 260, w: 280, dur: "6.5s",del: "0.3s" },
+          { x: 620, y: 260, w: 200, dur: "9s",  del: "2.5s" },
+          { x: 150, y: 360, w: 220, dur: "6s",  del: "4s"   },
+          { x: 430, y: 360, w: 170, dur: "8.5s",del: "0.9s" },
+          { x: 680, y: 360, w: 240, dur: "7s",  del: "2.2s" },
+          { x: 60,  y: 450, w: 300, dur: "5s",  del: "1.5s" },
+          { x: 420, y: 450, w: 200, dur: "9.5s",del: "3.7s" },
+          { x: 700, y: 450, w: 160, dur: "6.5s",del: "0.4s" },
+        ].map((t, i) => (
+          <rect
+            key={`h-${i}`}
+            className="cct-h"
+            x={t.x} y={t.y - 1}
+            width={t.w} height={2}
+            fill="url(#traceGrad)"
+            style={{ animationDuration: t.dur, animationDelay: t.del }}
+          />
+        ))}
+
+        {/* ── Vertical traces ── */}
+        {[
+          { x: 280, y: 80,  h: 80,  dur: "7s",  del: "1.0s" },
+          { x: 480, y: 80,  h: 80,  dur: "5.5s",del: "2.8s" },
+          { x: 420, y: 160, h: 100, dur: "8s",  del: "0.2s" },
+          { x: 680, y: 160, h: 100, dur: "6s",  del: "3.5s" },
+          { x: 200, y: 260, h: 100, dur: "7.5s",del: "1.3s" },
+          { x: 530, y: 260, h: 100, dur: "9s",  del: "0.7s" },
+          { x: 820, y: 260, h: 90,  dur: "6.5s",del: "4.1s" },
+          { x: 370, y: 360, h: 90,  dur: "8.5s",del: "2.0s" },
+          { x: 600, y: 360, h: 90,  dur: "5s",  del: "0.5s" },
+          { x: 150, y: 360, h: 90,  dur: "7s",  del: "3.2s" },
+          { x: 870, y: 160, h: 200, dur: "9.5s",del: "1.6s" },
+        ].map((t, i) => (
+          <rect
+            key={`v-${i}`}
+            className="cct-v"
+            x={t.x - 1} y={t.y}
+            width={2} height={t.h}
+            fill="url(#traceGradV)"
+            style={{ animationDuration: t.dur, animationDelay: t.del }}
+          />
+        ))}
+
+
+        {/* ── Gradient defs ── */}
+        <defs>
+          <linearGradient id="traceGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stopColor="#991b1b" stopOpacity="0" />
+            <stop offset="30%"  stopColor="#b91c1c" stopOpacity="0.3" />
+            <stop offset="70%"  stopColor="#dc2626" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#991b1b" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="traceGradV" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stopColor="#991b1b" stopOpacity="0" />
+            <stop offset="30%"  stopColor="#b91c1c" stopOpacity="0.3" />
+            <stop offset="70%"  stopColor="#dc2626" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#991b1b" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   );
 }
@@ -197,7 +256,7 @@ export default function DevActivity() {
 
   return (
     <section id="dev-activity" className="py-14 sm:py-20 lg:py-28 relative overflow-hidden">
-      <CodeRainBg />
+      <CircuitBoardBg />
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <SectionReveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-10">
