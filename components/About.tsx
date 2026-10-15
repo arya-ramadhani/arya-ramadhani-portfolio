@@ -5,6 +5,7 @@ import SectionReveal from "./SectionReveal";
 import MagneticButton from "./MagneticButton";
 import { motion } from "framer-motion";
 
+
 const stats = [
   {
     icon: FolderGit2,
