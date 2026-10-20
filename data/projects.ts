@@ -24,7 +24,14 @@ export const projects: Project[] = [
     role: "Full-Stack Developer & UI/UX",
     longDescription:
       "Membangun Sistem Manajemen Aset dan Inventaris berbasis web selama program magang di Kantor Bupati Kabupaten Bangka. Sistem dirancang untuk membantu pengelolaan aset dan pemantauan inventaris secara lebih terstruktur dan efisien.",
-    technologies: ["Figma", "Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap"],
+    technologies: [
+      "Figma",
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "JavaScript",
+      "Bootstrap",
+    ],
     image: "/images/projects/asset-management.png",
     images: [
       "/images/projects/asset-management-1.png",
@@ -43,7 +50,8 @@ export const projects: Project[] = [
       "Halaman Laporan",
     ],
     github: "https://github.com/NessLM/sistem-informasi-stok-barang",
-    prototype: "https://www.figma.com/file/Gp66mrNXKzckp9EL8arT1q/Prototype-Stok-Kita",
+    prototype:
+      "https://www.figma.com/file/Gp66mrNXKzckp9EL8arT1q/Prototype-Stok-Kita",
     featured: true,
   },
   {
@@ -54,7 +62,18 @@ export const projects: Project[] = [
     role: "IoT & AI Engineer",
     longDescription:
       "Mengembangkan prototipe sistem pemilah sampah otomatis berbasis Internet of Things (IoT) yang terintegrasi dengan model klasifikasi berbasis AI untuk mengidentifikasi sampah organik, anorganik, dan B3 secara real-time.",
-    technologies: ["Next.js","AI","Roboflow","Computer Vision", "Image Processing", "Raspberry Pi", "ESP32", "Sensors", "Servo", "C/C++"],
+    technologies: [
+      "Next.js",
+      "AI",
+      "Roboflow",
+      "Computer Vision",
+      "Image Processing",
+      "Raspberry Pi",
+      "ESP32",
+      "Sensors",
+      "Servo",
+      "C/C++",
+    ],
     image: "/images/projects/pemilah-sampah.png",
     images: [
       "/images/projects/pemilah-sampah-1.png",
@@ -104,7 +123,12 @@ export const projects: Project[] = [
     role: "Game Research & 2D Asset Artist",
     longDescription:
       "Lom’s Ethnic Journey merupakan edu-game yang dikembangkan dalam penelitian dosen di Politeknik Manufaktur Negeri Bangka Belitung sebagai media pembelajaran interaktif yang mengintegrasikan budaya lokal Suku Lom dengan materi Matematika dan Fisika.",
-    technologies: ["Blender", "2D Asset Design", "Game Development", "Visual Design"],
+    technologies: [
+      "Blender",
+      "2D Asset Design",
+      "Game Development",
+      "Visual Design",
+    ],
     image: "/images/projects/loms-journey.png",
     images: [
       "/images/projects/loms-journey-1.png",
@@ -130,30 +154,33 @@ export const projects: Project[] = [
     role: "UI/UX Designer",
     longDescription:
       "Merancang konsep dan prototipe UI/UX EcoClean, aplikasi digital yang mendukung pengelolaan sampah melalui fitur jual beli barang, komunitas, investasi, dan layanan pendukung. Berfokus pada perancangan pengalaman pengguna yang intuitif, terstruktur, dan mudah digunakan.",
-    technologies: ["Figma", "UI Design", "UX Research", "Prototyping", "Design System"],
+    technologies: [
+      "Figma",
+      "UI Design",
+      "UX Research",
+      "Prototyping",
+      "Design System",
+    ],
     image: "/images/projects/uiux-ecoclean.png",
     images: [
       "/images/projects/uiux-ecoclean-1.png",
       "/images/projects/uiux-ecoclean-2.png",
       "/images/projects/uiux-ecoclean-3.png",
     ],
-    slides: [
-      "Video Demo Prototipe",
-      "Design System",
-      "User Flow & Wireframe",
-    ],
-    prototype:"https://www.figma.com/design/oBGlMWBGUvTNdKef9HTvoi/UI-UX?node-id=1669-162202&p=f&t=GhYL9q4HvnlnTzzo-0",
+    slides: ["Video Demo Prototipe", "Design System", "User Flow & Wireframe"],
+    prototype:
+      "https://www.figma.com/design/oBGlMWBGUvTNdKef9HTvoi/UI-UX?node-id=1669-162202&p=f&t=GhYL9q4HvnlnTzzo-0",
     featured: true,
   },
   {
     id: "agri-track-platform",
-    title: "AgriTrack",
+    title: "AgriTrack-Sistem Manajemen Pertanian",
     category: "Web",
     categories: ["Web"],
     role: "Full-Stack Developer",
     longDescription:
       "Membangun platform AgriTrack berbasis web untuk digitalisasi tata kelola pertanian. Menyediakan fitur manajemen data lahan, pelacakan proses penanaman hingga panen, serta informasi prakiraan cuaca berbasis API pihak ketiga untuk mendukung keputusan agrikultur yang presisi.",
-    technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap","CSS", "API"],
+    technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap", "CSS", "API"],
     image: "/images/projects/agri-track.png",
     images: [
       "/images/projects/agri-track-1.png",
@@ -173,6 +200,7 @@ export const projects: Project[] = [
       "Halaman Info Cuaca",
       "Halaman Tentang",
     ],
+    github: "https://github.com/arya-ramadhani/agritrack-platform",
     featured: true,
   },
   {
@@ -190,11 +218,7 @@ export const projects: Project[] = [
       "/images/projects/attendance-ocr-2.jpg",
       "/images/projects/attendance-ocr-3.jpg",
     ],
-    slides: [
-      "Demo Sistem OCR",
-      "Hasil Ekstraksi Data",
-      "Output Rekap Digital",
-    ],
+    slides: ["Demo Sistem OCR", "Hasil Ekstraksi Data", "Output Rekap Digital"],
     featured: true,
   },
 ];
