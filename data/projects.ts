@@ -152,7 +152,7 @@ export const projects: Project[] = [
     categories: ["Web"],
     role: "Full-Stack Developer",
     longDescription:
-      "Mengembangkan AgriTrack, platform manajemen pertanian berbasis web yang dirancang untuk mempermudah pemantauan siklus tanam, pengelolaan data lahan, serta pencatatan hasil panen secara terstruktur. Dilengkapi integrasi API cuaca real-time untuk membantu petani dan pengelola agrikultur dalam merencanakan aktivitas pertanian secara lebih efektif dan terukur.",
+      "Membangun platform AgriTrack berbasis web untuk digitalisasi tata kelola pertanian. Menyediakan fitur manajemen data lahan, pelacakan proses penanaman hingga panen, serta informasi prakiraan cuaca berbasis API pihak ketiga untuk mendukung keputusan agrikultur yang presisi.",
     technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap","CSS", "API"],
     image: "/images/projects/agri-track.png",
     images: [
