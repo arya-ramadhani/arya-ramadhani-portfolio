@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const stats = [
   {
     icon: FolderGit2,
-    value: "4+",
+    value: "5+",
     label: "Proyek Selesai",
     detail: "Web, IoT & Sistem AI",
     floatDuration: 4.6,
