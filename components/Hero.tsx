@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { ArrowRight, Download, MessageSquare, Sparkles, Circle, Code2, Terminal, Cpu } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Download, MessageSquare, Sparkles, Circle, Terminal } from "lucide-react";
 import TypingAnimation from "./TypingAnimation";
 import MagneticButton from "./MagneticButton";
 import ParticleField from "./ParticleField";
@@ -20,24 +20,22 @@ const decorativeCodeFragments = [
   { text: "01001001 01001111 01010100", top: "45%", right: "4%", delay: 2.5 },
 ];
 
-const containerVariants: Variants = {
+const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: { staggerChildren: 0.1, delayChildren: 0.15 },
   },
-};
+} as const;
 
-const itemVariants: Variants = {
+const itemVariants = {
   hidden: { opacity: 0, y: 25 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
-};
-
-
+} as const;
 
 export default function Hero() {
   const scrollToSection = (id: string) => {

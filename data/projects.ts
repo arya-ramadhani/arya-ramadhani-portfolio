@@ -205,20 +205,18 @@ export const projects: Project[] = [
   },
   {
     id: "attendance-ocr-system",
-    title: "(PROGRES) Sistem Rekapitulasi Presensi Berbasis OCR",
-    category: "AI & Computer Vision",
+    title: "Sistem Rekapitulasi Absensi Berbasis OCR",
+    category: "Web, AI & Computer Vision",
     categories: ["AI & Computer Vision", "Web"],
-    role: "AI & Computer Vision Engineer",
+    role: "Full-Stack Developer, AI & Computer Vision Engineer",
     longDescription:
-      "Mengotomatiskan entri data presensi absensi harian yang sebelumnya dilakukan manual. Menggunakan algoritma pengolahan citra (image preprocessing, adaptive binarization, contour deskewing) OpenCV untuk membersihkan noise dokumen sebelum diekstrak oleh engine Tesseract OCR ke database Laravel.",
+      "Membangun sistem rekapitulasi absensi otomatis berbasis OCR untuk mengekstrak data kehadiran dari dokumen menggunakan Python, OpenCV, dan Tesseract OCR. Sistem ini menerapkan preprocessing citra untuk meningkatkan akurasi ekstraksi, kemudian menyimpan hasilnya ke database MySQL melalui backend Laravel.",
     technologies: ["Python", "OpenCV", "Tesseract OCR", "Laravel", "MySQL"],
     image: "/images/projects/attendance-ocr.jpg",
     images: [
-      "/images/projects/attendance-ocr.jpg",
-      "/images/projects/attendance-ocr-2.jpg",
-      "/images/projects/attendance-ocr-3.jpg",
+      "/images/projects/sistem-rekapitulasi-absensi-1.png",
     ],
-    slides: ["Demo Sistem OCR", "Hasil Ekstraksi Data", "Output Rekap Digital"],
+    slides: ["Halaman Login"],
     featured: true,
   },
 ];
