@@ -235,9 +235,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               <ArrowUpRight className="w-3.5 h-3.5 text-text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-0.5" />
             </div>
 
-            <p className="text-[10px] font-mono text-accent/80 font-medium truncate">
-              {project.role}
-            </p>
 
 
           </div>
@@ -297,9 +294,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                         {project.category}
                       </span>
                       <span className="text-text-muted font-mono text-xs hidden sm:inline">•</span>
-                      <span className="text-xs font-mono text-text-secondary truncate hidden sm:inline">
-                        {project.role}
-                      </span>
                     </div>
 
                     <button
@@ -325,9 +319,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                             <h3 className="text-base sm:text-lg lg:text-xl font-bold text-text leading-snug">
                               {project.title}
                             </h3>
-                            <p className="text-xs font-mono text-accent font-medium mt-1">
-                              {project.role}
-                            </p>
                           </div>
                           <div className="space-y-1.5">
                             <h4 className="text-[11px] font-mono uppercase tracking-wider text-text-muted font-semibold">
