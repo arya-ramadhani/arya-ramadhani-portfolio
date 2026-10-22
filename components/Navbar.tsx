@@ -46,6 +46,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScrolled = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScrolled, { passive: true });
+    handleScrolled(); // cek posisi scroll saat ini (fix refresh bug)
 
     // IntersectionObserver: aktif ketika top section masuk zona 64–35% dari atas
     const observer = new IntersectionObserver(

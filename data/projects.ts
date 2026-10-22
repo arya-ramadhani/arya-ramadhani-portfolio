@@ -4,7 +4,6 @@ export interface Project {
   category: string;
   categories: string[];
   longDescription?: string;
-  role: string;
   technologies: string[];
   image: string;
   images?: string[];
@@ -21,7 +20,6 @@ export const projects: Project[] = [
     title: "Stokita – Sistem Manajemen Aset & Inventaris",
     category: "Web",
     categories: ["Web", "Enterprise"],
-    role: "Full-Stack Developer & UI/UX",
     longDescription:
       "Membangun Sistem Manajemen Aset dan Inventaris berbasis web selama program magang di Kantor Bupati Kabupaten Bangka. Sistem dirancang untuk membantu pengelolaan aset dan pemantauan inventaris secara lebih terstruktur dan efisien.",
     technologies: [
@@ -59,7 +57,6 @@ export const projects: Project[] = [
     title: "Sistem Pemilah Sampah Otomatis Berbasis IoT & AI",
     category: "IoT & AI",
     categories: ["IoT", "AI"],
-    role: "IoT & AI Engineer",
     longDescription:
       "Mengembangkan prototipe sistem pemilah sampah otomatis berbasis Internet of Things (IoT) yang terintegrasi dengan model klasifikasi berbasis AI untuk mengidentifikasi sampah organik, anorganik, dan B3 secara real-time.",
     technologies: [
@@ -98,7 +95,6 @@ export const projects: Project[] = [
     title: "Smart Clothesline Berbasis IoT & Blynk Cloud",
     category: "IoT",
     categories: ["IoT", "Embedded Systems"],
-    role: "IoT & Hardware Engineer",
     longDescription:
       "Mengembangkan sistem Smart Clothesline berbasis IoT menggunakan ESP32, servo motor, sensor hujan, buzzer, dan aplikasi Blynk. Sistem dirancang untuk membuka dan menutup jemuran secara otomatis berdasarkan jadwal yang ditentukan serta kondisi hujan secara real-time.",
     technologies: ["Blynk", "ESP32", "Sensors", "Servo", "C/C++"],
@@ -120,7 +116,6 @@ export const projects: Project[] = [
     title: "Lom's Ethnic Journey (Educational Game)",
     category: "Design Game",
     categories: ["Game", "Research"],
-    role: "Game Research & 2D Asset Artist",
     longDescription:
       "Lom’s Ethnic Journey merupakan edu-game yang dikembangkan dalam penelitian dosen di Politeknik Manufaktur Negeri Bangka Belitung sebagai media pembelajaran interaktif yang mengintegrasikan budaya lokal Suku Lom dengan materi Matematika dan Fisika.",
     technologies: [
@@ -151,7 +146,6 @@ export const projects: Project[] = [
     title: "EcoClean – UI/UX Mobile App Design",
     category: "UI/UX Design",
     categories: ["UI/UX Design"],
-    role: "UI/UX Designer",
     longDescription:
       "Merancang konsep dan prototipe UI/UX EcoClean, aplikasi digital yang mendukung pengelolaan sampah melalui fitur jual beli barang, komunitas, investasi, dan layanan pendukung. Berfokus pada perancangan pengalaman pengguna yang intuitif, terstruktur, dan mudah digunakan.",
     technologies: [
@@ -177,7 +171,6 @@ export const projects: Project[] = [
     title: "AgriTrack-Sistem Manajemen Pertanian",
     category: "Web",
     categories: ["Web"],
-    role: "Full-Stack Developer",
     longDescription:
       "Membangun platform AgriTrack berbasis web untuk digitalisasi tata kelola pertanian. Menyediakan fitur manajemen data lahan, pelacakan proses penanaman hingga panen, serta informasi prakiraan cuaca berbasis API pihak ketiga untuk mendukung keputusan agrikultur yang presisi.",
     technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap", "CSS", "API"],
@@ -208,7 +201,6 @@ export const projects: Project[] = [
     title: "Sistem Rekapitulasi Absensi Berbasis OCR",
     category: "Web, AI & Computer Vision",
     categories: ["AI & Computer Vision", "Web"],
-    role: "Full-Stack Developer, AI & Computer Vision Engineer",
     longDescription:
       "Membangun sistem rekapitulasi absensi otomatis berbasis OCR untuk mengekstrak data kehadiran dari dokumen menggunakan Python, OpenCV, dan Tesseract OCR. Sistem ini menerapkan preprocessing citra untuk meningkatkan akurasi ekstraksi, kemudian menyimpan hasilnya ke database MySQL melalui backend Laravel.",
     technologies: ["Laravel", "Tesseract OCR", "Python", "OpenCV", "MySQL"],
