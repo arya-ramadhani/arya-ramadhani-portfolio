@@ -118,7 +118,7 @@ export const projects: Project[] = [
   {
     id: "loms-ethnic-journey",
     title: "Lom's Ethnic Journey (Educational Game)",
-    category: "Game",
+    category: "Design Game",
     categories: ["Game", "Research"],
     role: "Game Research & 2D Asset Artist",
     longDescription:
@@ -211,12 +211,13 @@ export const projects: Project[] = [
     role: "Full-Stack Developer, AI & Computer Vision Engineer",
     longDescription:
       "Membangun sistem rekapitulasi absensi otomatis berbasis OCR untuk mengekstrak data kehadiran dari dokumen menggunakan Python, OpenCV, dan Tesseract OCR. Sistem ini menerapkan preprocessing citra untuk meningkatkan akurasi ekstraksi, kemudian menyimpan hasilnya ke database MySQL melalui backend Laravel.",
-    technologies: ["Python", "OpenCV", "Tesseract OCR", "Laravel", "MySQL"],
-    image: "/images/projects/attendance-ocr.jpg",
+    technologies: ["Laravel", "Tesseract OCR", "Python", "OpenCV", "MySQL"],
+    image: "/images/projects/sistem-rekapitulasi-absensi.png",
     images: [
       "/images/projects/sistem-rekapitulasi-absensi-1.png",
     ],
     slides: ["Halaman Login"],
+    github: "https://github.com/arya-ramadhani/sistem-rekapitulasi-absensi",
     featured: true,
   },
 ];
