@@ -168,7 +168,7 @@ export const projects: Project[] = [
   },
   {
     id: "agri-track-platform",
-    title: "AgriTrack-Sistem Manajemen Pertanian",
+    title: "AgriTrack – Sistem Manajemen Pertanian",
     category: "Web",
     categories: ["Web"],
     longDescription:
@@ -210,6 +210,22 @@ export const projects: Project[] = [
     ],
     slides: ["Halaman Login"],
     github: "https://github.com/arya-ramadhani/sistem-rekapitulasi-absensi",
+    featured: true,
+  },
+   {
+    id: "manajemen-wisata",
+    title: "WisataKite – Sistem Manajemen Wisata",
+    category: "Web",
+    categories: ["Web"],
+    longDescription:
+      "Membangun website WisataKite sebagai platform untuk menjelajahi berbagai destinasi wisata dan melakukan pemesanan wisata secara online. Website ini menyediakan informasi destinasi wisata untuk membantu pengguna menemukan tempat wisata yang menarik serta memudahkan proses pemesanan.",
+    technologies: ["PHP", "CSS", "JavaScript", "MySQL"],
+    image: "/images/projects/wisatakite.png",
+    images: [
+      "/images/projects/wisatakite-1.png",
+    ],
+    slides: ["Halaman Home"],
+    github: "https://github.com/arya-ramadhani/wisatakite-platform",
     featured: true,
   },
 ];

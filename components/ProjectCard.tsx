@@ -290,10 +290,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                   <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-border/70 bg-bg-alt/60">
                     <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pr-2">
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-semibold text-accent bg-accent/10 border border-accent/25 uppercase tracking-wider shrink-0">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                         {project.category}
                       </span>
-                      <span className="text-text-muted font-mono text-xs hidden sm:inline">•</span>
                     </div>
 
                     <button

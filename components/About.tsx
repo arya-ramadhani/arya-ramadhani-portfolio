@@ -8,14 +8,14 @@ import { motion } from "framer-motion";
 const stats = [
   {
     icon: FolderGit2,
-    value: "6+",
+    value: "7+",
     label: "Proyek Selesai",
     detail: "Web, IoT & Sistem AI",
     floatDuration: 4.6,
   },
   {
     icon: Cpu,
-    value: "20+",
+    value: "45+",
     label: "Technologies",
     detail: "Bahasa & Framework",
     floatDuration: 5.2,
