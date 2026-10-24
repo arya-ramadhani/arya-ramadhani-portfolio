@@ -222,10 +222,11 @@ export const projects: Project[] = [
     technologies: ["PHP", "CSS", "JavaScript", "MySQL"],
     image: "/images/projects/wisatakite.png",
     images: [
+      "/images/projects/wisatakite-1.png",
       "/images/projects/wisatakite-2.png",
       "/images/projects/wisatakite-3.png",
     ],
-    slides: ["Halaman Home, Halaman News"],
+    slides: ["Halaman Login", "Halaman Home", "Halaman News"],
     github: "https://github.com/arya-ramadhani/wisatakite-platform",
     featured: true,
   },
