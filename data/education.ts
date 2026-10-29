@@ -9,6 +9,7 @@ export interface Education {
   organizations: Organization[];
 }
 
+
 export interface Organization {
   role: string;
   name: string;
