@@ -13,7 +13,6 @@ export interface Experience {
   images?: string[];
 }
  
-
 export const experiences: Experience[] = [
   {
     id: "exp-bupati-bangka",
