@@ -205,14 +205,12 @@ export const projects: Project[] = [
       "Membangun sistem rekapitulasi absensi otomatis berbasis OCR untuk mengekstrak data kehadiran dari dokumen menggunakan Python, OpenCV, dan Tesseract OCR. Sistem ini menerapkan preprocessing citra untuk meningkatkan akurasi ekstraksi, kemudian menyimpan hasilnya ke database MySQL melalui backend Laravel.",
     technologies: ["Laravel", "Tesseract OCR", "Python", "OpenCV", "MySQL"],
     image: "/images/projects/sistem-rekapitulasi-absensi.png",
-    images: [
-      "/images/projects/sistem-rekapitulasi-absensi-1.png",
-    ],
+    images: ["/images/projects/sistem-rekapitulasi-absensi-1.png"],
     slides: ["Halaman Login"],
     github: "https://github.com/arya-ramadhani/sistem-rekapitulasi-absensi",
     featured: true,
   },
-   {
+  {
     id: "manajemen-wisata",
     title: "WisataKite – Sistem Manajemen Wisata",
     category: "Web",
@@ -225,8 +223,9 @@ export const projects: Project[] = [
       "/images/projects/wisatakite-1.png",
       "/images/projects/wisatakite-2.png",
       "/images/projects/wisatakite-3.png",
+      "/images/projects/wisatakite-4.png",
     ],
-    slides: ["Halaman Login", "Halaman Home", "Halaman News"],
+    slides: ["Halaman Login", "Halaman Home", "Halaman News", "Halaman Admin"],
     github: "https://github.com/arya-ramadhani/wisatakite-platform",
     featured: true,
   },
