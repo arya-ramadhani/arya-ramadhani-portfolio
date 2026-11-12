@@ -12,7 +12,6 @@ export interface Experience {
   image?: string;
   images?: string[];
 }
- 
 
 export const experiences: Experience[] = [
   {
