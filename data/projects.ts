@@ -210,6 +210,7 @@ export const projects: Project[] = [
     github: "https://github.com/arya-ramadhani/sistem-rekapitulasi-absensi",
     featured: true,
   },
+  
   {
     id: "manajemen-wisata",
     title: "WisataKite – Sistem Manajemen Wisata",
