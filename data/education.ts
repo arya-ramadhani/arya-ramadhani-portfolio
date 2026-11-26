@@ -9,7 +9,6 @@ export interface Education {
   organizations: Organization[];
 }
 
-
 export interface Organization {
   role: string;
   name: string;
@@ -17,15 +16,6 @@ export interface Organization {
   description?: string;
   image?: string;
   images?: string[];
-}
-
-export interface Publication {
-  title: string;
-  type: string;
-  description?: string;
-  year: string;
-  metadata?: string;
-  url?: string;
 }
 
 export const education: Education = {
@@ -61,29 +51,3 @@ export const education: Education = {
     },
   ],
 };
-
-export const publications: Publication[] = [
-  {
-    title: "Buku Klasifikasi Sampah Menggunakan YOLO dan IoT",
-    type: "Book",
-    year: "27 Juli 2026",
-    metadata: "ISBN · Idebuku.id",
-    url: "https://idebuku.id/store/product/klasifikasi-sampah-menggunakan-yolo-dan-iot/",
-  },
-  {
-    title:
-      "Development of the Edu-Game Media Lom's Ethnic Journey to Enhance Interest in Learning Mathematics and Physics Among Students",
-    type: "Journal Article",
-    year: "15 Januari 2025",
-    metadata: "SINTA 2 · JINOTEP",
-    url: "https://journal-fip.um.ac.id/index.php/jinotep/article/view/1325",
-  },
-  {
-    title:
-      "YOLOv12n and IoT-Based Smart Waste Bin on Raspberry Pi",
-    type: "Journal Article",
-    year: "03 September 2026",
-    metadata: "SINTA 4 · J-INTECH",
-    url: "/",
-  },
-];

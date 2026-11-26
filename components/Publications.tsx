@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { BookOpen, ExternalLink, FileText, FlaskConical } from "lucide-react";
 import SectionReveal from "./SectionReveal";
-import { publications } from "@/data/education";
+import { publications } from "@/data/publications";
 
 /** Scientific Waveform & Atomic Orbit background — research signal spectrum & discovery orbit */
 function ResearchSpectrumBg() {
