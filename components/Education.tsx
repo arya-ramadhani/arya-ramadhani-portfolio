@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import SectionReveal from "./SectionReveal";
 import { education } from "@/data/education";
-import type { Organization } from "@/data/education";
+import type { Organization } from "@/data/organization";
 
 /** Dot-grid SVG pattern for modal blueprint and fallback */
 const DOT_GRID = `url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23888' fill-opacity='0.22'/%3E%3C/svg%3E")`;
